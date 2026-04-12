@@ -5,13 +5,14 @@ import mongoose from 'mongoose'
 import jwt from 'jsonwebtoken'
 import { User } from './Schema/user'
 import cookieParser from "cookie-parser"
-import {JWT_PASSWORD} from './config/config'
 import { contentModel } from './Schema/content'
 import {userMiddleware} from './middleware/middleware'
+import {JWT_PASSWORD} from './config/config'
 
 const app = express();
 app.use(express.json());
 app.use(cookieParser());
+
 
 app.post("/api/v1/signup",async (req,res)=> {
     const username = req.body.username;

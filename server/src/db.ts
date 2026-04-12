@@ -1,6 +1,7 @@
 import mongoose  from "mongoose";
+import {DB_CONNECT} from './config/config'
 
 export const main = async ()=>{
-    await mongoose.connect("mongodb+srv://CoderPrithwi:Prithwi%40123@codingprithwi.suswp5x.mongodb.net/Brainly");
+    await mongoose.connect(DB_CONNECT);
     console.log("DB Connected Successfully"); 
 }
