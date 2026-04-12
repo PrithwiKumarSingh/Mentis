@@ -1,5 +1,6 @@
 
 import express from 'express'
+import {main} from './db'
 import mongoose from 'mongoose'
 import jwt from 'jsonwebtoken'
 
@@ -9,7 +10,7 @@ const app = express();
 
 app.post("/api/v1/signup",(req,res)=> {
     const data = req.body;
-    
+
     
 })
 app.post("/api/v1/signin",()=> {
@@ -32,6 +33,10 @@ app.get("/api/v1/brain/:shareLink",()=>{
 
 })
 
-app.listen(3000,()=>{
+main.then(()=>  {
+    app.listen(3000,()=>{
     console.log("Server Started On Port : 3000")
+    })
+}).catch((e:any)=>{
+    console.log("Error : "+e)
 })
