@@ -90,12 +90,52 @@ app.post("/api/v1/content",userMiddleware , async (req,res)=> {
 
 
 })
-app.get("/api/v1/content",()=> {
+app.get("/api/v1/content",userMiddleware, async ( req,res)=> {
+    try{
+        // @ts-ignore
+        const userId = req.userId;
+        const content = await contentModel.find({userId}).populate("userId","username");
+
+        if(content.length===0){
+            return res.status(200).json({
+                message : "No content found",
+                content :[]
+            });
+        }
+           
+
+        res.status(200).json({
+            content
+        })
+    }catch(e:any){
+        res.status(403).send("Error : " + e);
+    }
 
 })
-app.delete("/api/v1/content",()=> {
+app.delete("/api/v1/content",userMiddleware, async (req,res)=> {
+    try{
+        const contentId = req.body.contentId
+        
+
+        await contentModel.deleteOne({
+            _id :contentId,
+            // @ts-ignore
+            userId : req.userId
+        })
+        
+
+        res.status(200).json({
+            message : "Deleted Successfully"
+        })
+    }catch(e){
+        res.status(403).json({
+            message : e
+        })
+    }
 
 })
+
+
 app.post("/api/v1/brain/share",()=> {
 
 })
