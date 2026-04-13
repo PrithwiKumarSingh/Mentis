@@ -1,14 +1,21 @@
 import mongoose, {model, Schema} from "mongoose"
 
+const contentType =  ['image', 'video', 'article', 'audio']
 const contentSchema = new Schema({
     type : {
         type : String,
+        enum : contentType,
         required : true,
-        min : 5, 
-        max : 20
     },
-    title : String,
-    link : String,
+    title : {
+        type:String,
+        required : true,
+        
+    },
+    link : {
+        type : String,
+        required : true
+    },
     tags : [{type: mongoose.Types.ObjectId, ref:"Tag"}],
     userId : {type: mongoose.Types.ObjectId, ref:"user", required:true}
 })
