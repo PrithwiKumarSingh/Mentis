@@ -69,7 +69,7 @@ app.post("/api/v1/content",userMiddleware , async (req,res)=> {
         const type = req.body.type;
         const title = req.body.title;
         const link = req.body.link;
-        await contentModel.create({
+        const result = await contentModel.create({
             type,
             title,
             link,
@@ -78,13 +78,16 @@ app.post("/api/v1/content",userMiddleware , async (req,res)=> {
             tags:[]
         })
 
+        console.log(result);
+
         res.status(200).json({
             message : "Content Added Successfully"
         })
 
-    }catch(e){
-        res.send(403).json({
-            message : "Invalid Content"
+    }catch(e:any){
+        console.error(e);
+        return res.status(403).json({
+            message : e.message || "Invalid Content"
         })
     }
 
@@ -105,10 +108,15 @@ app.get("/api/v1/content",userMiddleware, async ( req,res)=> {
            
 
         res.status(200).json({
-            content
+            message : "Content fetched Successfully",
+            content : content
         })
-    }catch(e:any){
-        res.status(403).send("Error : " + e);
+    }catch(err:any){
+        console.log(err)
+        res.status(403).json({
+            message : "Error : ",
+            error : err.message
+        });
     }
 
 })
