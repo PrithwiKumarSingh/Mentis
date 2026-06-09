@@ -1,5 +1,6 @@
 
 import express from 'express'
+import {Request,Response} from 'express'
 import {main} from './db'
 import mongoose from 'mongoose'
 import jwt from 'jsonwebtoken'
@@ -8,6 +9,9 @@ import cookieParser from "cookie-parser"
 import { contentModel } from './Schema/content'
 import {userMiddleware} from './middleware/middleware'
 import {JWT_PASSWORD} from './config/config'
+import { LinkModel } from './Schema/link'
+import {random} from './utils/utils'
+
 
 const app = express();
 app.use(express.json());
@@ -126,8 +130,7 @@ app.delete("/api/v1/content",userMiddleware, async (req,res)=> {
         
 
         await contentModel.deleteOne({
-            _id :contentId,
-            // @ts-ignore
+            _id :contentId,  
             userId : req.userId
         })
         
@@ -144,13 +147,79 @@ app.delete("/api/v1/content",userMiddleware, async (req,res)=> {
 })
 
 
-app.post("/api/v1/brain/share",()=> {
+app.post("/api/v1/brain/share",userMiddleware, async (req,res)=> {
+    const share = req.body.share;
+    if(share){
+
+        const existingLink = await LinkModel.findOne({
+            userId : req.userId
+        })
+
+        if(existingLink){
+            res.json({
+                hash : existingLink.hash
+            })
+            return;
+        }
+
+        const hash = random(10);
+        await LinkModel.create({
+            userId : req.userId,
+            hash : hash
+        })
+        res.json({
+            hash : hash
+        })
+    }else{
+        await LinkModel.deleteOne({
+            userId : req.userId
+        })
+        res.json({
+            message : " Removed Link"
+        })
+    }
+})
+
+app.get("/api/v1/brain/:shareLink",async (req,res)=>{
+    const hash = req.params.shareLink;
+
+   
+        const link = await LinkModel.findOne({
+            hash
+        })
+
+    if(!link){
+        res.status(411).json({
+            message : "Sorry Incorrect input"
+        })
+        return;
+    }
+
+    // userID
+    const content = await contentModel.find({
+        userId : link.userId
+    })
+
+    const user = await User.findOne({
+        _id: link.userId
+    })
+
+    if(!user){
+        res.status(411).json({
+            message : "user not found, error should idelly not happen"
+        })
+
+        return;
+    }
+
+    res.status(200).json({
+        username : user.username, 
+        content : content
+    })
 
 })
 
-app.get("/api/v1/brain/:shareLink",()=>{
 
-})
 
 main().then(()=>  {
     app.listen(3000,()=>{
