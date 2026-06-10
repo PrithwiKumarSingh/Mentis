@@ -10,7 +10,7 @@ export function Card({type, link, title}){
         <div>
 
 
-        <div className="p-4 border border-gray-200 max-w-72 rounded-sm min-h-48 min-w-72">
+        <div className="p-4 border border-gray-200 bg-white max-w-72 rounded-sm min-h-48 min-w-72">
             <div className="flex justify-between">
                 <div className="flex items-center gap-2 text-xl font-medium text-[#0E1522]">
                     <div>
