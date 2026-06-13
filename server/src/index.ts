@@ -1,8 +1,6 @@
 
 import express from 'express'
-import {Request,Response} from 'express'
 import {main} from './db'
-import mongoose from 'mongoose'
 import jwt from 'jsonwebtoken'
 import { User } from './Schema/user'
 import cookieParser from "cookie-parser"
@@ -11,11 +9,13 @@ import {userMiddleware} from './middleware/middleware'
 import {JWT_PASSWORD} from './config/config'
 import { LinkModel } from './Schema/link'
 import {random} from './utils/utils'
+import cors from 'cors'
 
 
 const app = express();
 app.use(express.json());
 app.use(cookieParser());
+app.use(cors({ origin: "http://localhost:5173", credentials:true}));
 
 
 app.post("/api/v1/signup",async (req,res)=> {
@@ -73,10 +73,12 @@ app.post("/api/v1/content",userMiddleware , async (req,res)=> {
         const type = req.body.type;
         const title = req.body.title;
         const link = req.body.link;
+        const description = req.body.description;
         const result = await contentModel.create({
             type,
             title,
             link,
+            description,
             // @ts-ignore
             userId: req.userId,
             tags:[]
@@ -145,7 +147,6 @@ app.delete("/api/v1/content",userMiddleware, async (req,res)=> {
     }
 
 })
-
 
 app.post("/api/v1/brain/share",userMiddleware, async (req,res)=> {
     const share = req.body.share;

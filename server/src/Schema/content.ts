@@ -1,6 +1,6 @@
 import mongoose, {model, Schema} from "mongoose"
 
-const contentType =  ['image', 'video', 'article', 'audio']
+const contentType =  ['tweets', 'video', 'document', 'link', "tag", ]
 const contentSchema = new Schema({
     type : {
         type : String,
@@ -15,6 +15,9 @@ const contentSchema = new Schema({
     link : {
         type : String,
         required : true
+    },
+    description : {
+        type : String,
     },
     tags : [{type: mongoose.Types.ObjectId, ref:"Tag"}],
     userId : {type: mongoose.Types.ObjectId, ref:"user", required:true}
