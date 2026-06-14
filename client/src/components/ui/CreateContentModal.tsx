@@ -21,8 +21,6 @@ export function CreateContentModal({open, onClose,refresh}: {
 
 ){
 
-    
-
     const titleRef = useRef<HTMLInputElement> (null);
     const linkRef = useRef<HTMLInputElement> (null);
     const [type, setType] = useState(ContentType.Video);
@@ -77,12 +75,13 @@ export function CreateContentModal({open, onClose,refresh}: {
 interface InputProps{
     placeholder : string; 
     referance? : any;
+    value? : string;
 }
 
-export function Input({placeholder, referance}:InputProps){
+export function Input({placeholder, referance, value}:InputProps){
     return(
         <div>
-            <input ref={referance} placeholder={placeholder} type="text" className="px-4 w-full py-2 border rounded"/>
+            <input value={value} ref={referance} placeholder={placeholder} type="text" className="px-4 w-full py-2 border rounded"/>
         </div>
     )
 }
