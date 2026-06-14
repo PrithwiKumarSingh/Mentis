@@ -10,7 +10,8 @@ import {JWT_PASSWORD} from './config/config'
 import { LinkModel } from './Schema/link'
 import {random} from './utils/utils'
 import cors from 'cors'
-
+import { scraper } from './scraper'
+import ogs from 'open-graph-scraper'
 
 const app = express();
 app.use(express.json());
@@ -73,18 +74,23 @@ app.post("/api/v1/content",userMiddleware , async (req,res)=> {
         const type = req.body.type;
         const title = req.body.title;
         const link = req.body.link;
-        const description = req.body.description;
-        const result = await contentModel.create({
+        const {result} = await ogs({
+            url : link
+        })
+        const data = await contentModel.create({
             type,
             title,
             link,
-            description,
+            metadata : {
+                title : result.ogTitle || "",
+                description : result.ogDescription || "",
+                image : result.ogImage?.[0]?.url || ""
+            },
             // @ts-ignore
             userId: req.userId,
             tags:[]
         })
-
-        console.log(result);
+        console.log(data);
 
         res.status(200).json({
             message : "Content Added Successfully"

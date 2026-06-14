@@ -16,8 +16,10 @@ const contentSchema = new Schema({
         type : String,
         required : true
     },
-    description : {
-        type : String,
+    metadata : {
+        title : String,
+        description : String, 
+        image : String
     },
     tags : [{type: mongoose.Types.ObjectId, ref:"Tag"}],
     userId : {type: mongoose.Types.ObjectId, ref:"user", required:true}
