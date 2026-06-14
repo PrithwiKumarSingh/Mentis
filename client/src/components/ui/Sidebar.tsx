@@ -1,22 +1,21 @@
 import { Logo } from "../icons/Logo";
 import { SidebarItem } from "../icons/SidebarItem";
 import { FiTwitter, FiYoutube } from "react-icons/fi";
-import { HashTag } from "../icons/HashTag";
-import { LinkIcon } from "../icons/LinkIcon";
 import { GrDocumentText } from "react-icons/gr";
 import { IoLink } from "react-icons/io5";
 import { FiHash } from "react-icons/fi";
+import { LuBrainCircuit } from "react-icons/lu";
 
 
 export function Sidebar(){
     return(
         <div className="p-4 w-64">
-            <div className="flex items-center gap-4 pb-4">
+            <div className="flex items-center gap-2 pb-4 mt-8 ml-4">
                 <div className="text-[#5147E3]">
-                    <Logo/>
+                    <LuBrainCircuit size={36}/>
                 </div>
                 <div className="text-4xl font-bold text-slate-700">
-                    Brainly
+                    Mentis
                 </div>
             </div>
 

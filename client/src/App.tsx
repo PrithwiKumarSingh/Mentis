@@ -1,12 +1,19 @@
+import { BrowserRouter, Routes, Route } from "react-router-dom"
 import { Dashboard } from "./pages/Dashboard"
+import { Signin } from "./pages/Signin"
+import { Signup } from "./pages/Signup"
 
 
 
 const App = () => {
-  return (
-    <div>
-      <Dashboard/>
-    </div>
+  return(
+    <BrowserRouter>
+      <Routes>
+          <Route path="/signin" element={<Signin/>}></Route>
+          <Route path="/signup" element={<Signup/>}></Route>
+          <Route path="/dashboard" element={<Dashboard/>}></Route>
+      </Routes>
+    </BrowserRouter>
   )
 }
 

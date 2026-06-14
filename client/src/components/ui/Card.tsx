@@ -1,3 +1,7 @@
+import axios from "axios";
+import { BACKEND_URL } from "../../config";
+import { Twiiter } from "../Embed/Twitter";
+import { Youtube } from "../Embed/Youtube";
 import { DeleteIcon } from "../icons/DeleteIcon";
 import { DocumentIcon } from "../icons/DocumentIcon";
 import { ShareIcon } from "../icons/ShareIcon";
@@ -5,47 +9,85 @@ import { ShareIcon } from "../icons/ShareIcon";
 
 
 
-export function Card({type, link, title}){
+
+export function Card({type, link, title, metadata, _id}){
+    
+
+    async function DeleteItems(_id:string){
+        await axios.delete(`${BACKEND_URL}/api/v1/content`, 
+            {
+            data : {
+            contentId : _id
+            },withCredentials:true
+        } 
+        ); 
+        console.log("delete Succesfully " + _id);
+        console.log(metadata);
+    }
+    
     return(
         <div>
 
 
-        <div className="p-4 border border-gray-200 bg-white max-w-72 rounded-sm min-h-48 min-w-72">
+        <div className="p-4 border border-gray-200 bg-white h-[500px] rounded-sm min-h-48 min-w-9 ">
             <div className="flex justify-between">
                 <div className="flex items-center gap-2 text-xl font-medium text-[#0E1522]">
                     <div>
                         <DocumentIcon size="md"/>
                     </div>
-                    {title}
+                    {title ? title : metadata.title}
                 </div>
                 <div className="flex items-center gap-2">
-                    <div>
+                    <div className="cursor-pointer hover:text-[#5046E4] hover:scale-105 transition-all duration-200">
                         <ShareIcon size="md"/>
                      </div>
-                     <div className="hover:text-red-600 transition ease-in-out duration-200">
-                        <DeleteIcon size="md"/> 
+                     <div onClick={()=>DeleteItems(_id)} className="hover:text-red-600 hover:scale-105 transition-all duration-200">
+                        <DeleteIcon  size="md"/> 
                     </div>
                     
                 </div>
             </div>
 
-            {type === "youtube" && <iframe 
-                className="w-full pt-4"
-                width="560" 
-                height="315" 
-                src={link.replace("watch","embed")} 
-                title="YouTube video player" 
-                frameBorder="0" 
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-                referrerPolicy="strict-origin-when-cross-origin" 
-                allowFullScreen></iframe>
+            
+
+            <div>
+                {
+                    type=="video" ?
+                         <Youtube link={link}/> :
+                    type == "tweets" ?   
+                        <Twiiter link={link}/> :   (
+                            <div 
+                            className=" overflow-hidden mt-4 p-2">
+                                <a className=" max-w-full cursor-pointer " target="_blank" href={link}>
+                                    <img className="max-w-full rounded-2xl hover:scale-105 transition-all duration-200 " src={metadata.image} alt="" />
+                                </a>
+                            </div>
+
+                    )
+                    
+            }   
+            </div>
+            <div>
+                {
+                    metadata && <div className="mt-2 max-h-24">
+                        
+                        <div className="bg-[#E0E7FF] text-[#4138B8] p-4 rounded-xl max-h-38 overflow-y-scroll [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+                            <div className="font-semibold">
+                            Description
+                        </div>
+                        <div className="italic">
+                            {
+                                `"${metadata.description}"`
+                            }
+                        </div>
+                            
+                        </div>
+                    </div>
                 }
+            </div>
 
-            {type === "tweets" && <blockquote className="twitter-tweet">
-            <a href={link}></a> 
-            </blockquote>}
 
-        </div>
+            </div>
         
         
         </div>
