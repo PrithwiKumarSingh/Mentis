@@ -6,24 +6,27 @@ import { SocalMediaIcon } from "../icons/SocialMediaIcon";
 import { TbMailFilled } from "react-icons/tb";
 import { Input } from "./CreateContentModal";
 import { useState } from "react";
+import { FRONTEND_URL } from "../../config";
 
 
 interface metadata {
-    title : string;
-    description : string;
+    title? : string;
+    description? : string;
 }
-export function ShareContentModel({open, onClose, metadata, link}: {
+export function ShareContentModel({open, onClose, metadata, hash, link}: {
     open : boolean;
     onClose : ()=>void;
-    metadata? : metadata;
-    link? : string
+    metadata? : metadata; 
+    link? : string;
+    hash? : string;
 }
 
 ){  
     const [copy,setCopy] = useState("Copy");
-    const linkUrl = link || " "
+    const linkUrl = link || `${FRONTEND_URL}/share/${hash}`
+
     async function copyLink() {
-  await navigator.clipboard.writeText(linkUrl);
+    await navigator.clipboard.writeText(linkUrl);
   setCopy("Copied!");
 }
     
@@ -57,13 +60,13 @@ export function ShareContentModel({open, onClose, metadata, link}: {
                         <CloseIcon />
                     </div>
                     <div className="flex items-center my-4 gap-4 justify-center">
-                        <SocalMediaIcon Icon={<IoLogoWhatsapp size={42}/>} url={whatsappUrl} />
-                        <SocalMediaIcon Icon={<FaSquareXTwitter size={42}/>} url={twitterUrl} />
-                        <SocalMediaIcon Icon={<FaLinkedin size={42}/>} url={linkedinUrl} />
-                        <SocalMediaIcon Icon={<TbMailFilled size={48}/>} url={emailUrl} />
+                        <SocalMediaIcon Icon={<IoLogoWhatsapp size={42}/>} url={ hash ? (`https://wa.me/?text=${encodeURIComponent(linkUrl)}`) : whatsappUrl} color={"text-[#25D366]"} />
+                        <SocalMediaIcon Icon={<FaSquareXTwitter size={42}/>} url={hash ? (`https://twitter.com/intent/tweet?url=${encodeURIComponent(linkUrl)}`) : twitterUrl} color={"text-black"} />
+                        <SocalMediaIcon Icon={<FaLinkedin size={42}/>} url={ hash ? (`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(linkUrl)}`) : linkedinUrl} color={"text-[#0077B5]"} />
+                        <SocalMediaIcon Icon={<TbMailFilled size={48}/>} url={ hash ? (`mailto:?subject=${encodeURIComponent(linkUrl)}`) :  emailUrl} color={"text-gray-400"} />
                     </div>
                     <div className="flex justify-center mt-4 gap-2 items-center">
-                        <Input placeholder="" value={link}  />
+                        <Input placeholder="" value={linkUrl}  />
                         <button
                          onClick={()=>{copyLink()}}
                          className="bg-slate-800 text-white px-4 py-2 rounded cursor-pointer">{copy}</button>

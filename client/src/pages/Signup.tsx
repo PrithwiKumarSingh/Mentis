@@ -15,8 +15,8 @@ export function Signup(){
     const navigate = useNavigate();
 
     async function singup(){
-        const username = usernameRef.current?.value;
-        const password = passwordRef.current?.value;
+        const username = usernameRef.current?.value.trim();
+        const password = passwordRef.current?.value.trim();
         
         await axios.post(BACKEND_URL + "/api/v1/signup", {username, password})
 

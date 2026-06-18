@@ -13,13 +13,13 @@ export function Signin(){
         const navigate = useNavigate();
     
         async function signin(){
-            const username = usernameRef.current?.value;
-            const password = passwordRef.current?.value;
+            const username = usernameRef.current?.value.trim();
+            const password = passwordRef.current?.value.trim();
             
             const response = await axios.post(BACKEND_URL + "/api/v1/signin", {username, password}, {withCredentials:true})
 
-            const jwt = response.data.message;
-            console.log(jwt)
+            localStorage.setItem("token", response.data.token);
+            localStorage.setItem("username", response.data.username);
     
             navigate('/dashboard');
             
@@ -48,7 +48,7 @@ export function Signin(){
             </div>
             <div className="mt-4">
                 Don't have an account? 
-                <a href="/" className="pl-1 font-medium hover:text-blue-900 transition-all duration-200 underline">
+                <a href="/signup" className="pl-1 font-medium hover:text-blue-900 transition-all duration-200 underline">
                       Sign up now!
                 </a>
             </div>

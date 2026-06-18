@@ -81,7 +81,7 @@ interface InputProps{
 export function Input({placeholder, referance, value}:InputProps){
     return(
         <div>
-            <input value={value} ref={referance} placeholder={placeholder} type="text" className="px-4 w-full py-2 border rounded"/>
+            <input defaultValue={value} ref={referance} placeholder={placeholder} type="text" className="px-4 w-full py-2 border rounded"/>
         </div>
     )
 }

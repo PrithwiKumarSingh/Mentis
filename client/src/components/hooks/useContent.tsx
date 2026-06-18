@@ -5,22 +5,22 @@ import { BACKEND_URL } from "../../config";
 
 export function useContent(){
     const [contents, setContents] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     function refresh(){
-        console.log("prithwi get request.........")
         axios.get(`${BACKEND_URL}/api/v1/content`, 
                     { withCredentials:true})
                     .then((response)=>{
                     setContents(response.data.content)
+                    setLoading(false)
                 })
     }
 
     useEffect( ()=>{
             refresh();
-            console.log("run get request .....")
     },[])
 
-    return {contents, refresh}
+    return {contents, loading, refresh}
 
 }
 

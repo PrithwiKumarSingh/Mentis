@@ -1,7 +1,7 @@
 import type { ReactElement } from "react";
 
 interface ButtonProps  {
-    variant : "primary" | "secondary";
+    variant : "primary" | "secondary" | "danger";
     size : "sm" | "md" | "lg";
     text : String | ReactElement; 
     startIcon? : ReactElement;
@@ -11,7 +11,8 @@ interface ButtonProps  {
 }
 const VariantClasses = {
     "primary" : "bg-[#5046E4] text-white",
-    "secondary" : "bg-[#E0E7FF] text-[#4138B8] "
+    "secondary" : "bg-[#E0E7FF] text-[#4138B8] ",
+    "danger": "bg-red-500 text-white hover:bg-red-600",
 }
 const sizeStyles = {
     "lg" : "px-8 py-4 text-xl",
