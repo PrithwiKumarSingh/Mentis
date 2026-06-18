@@ -10,13 +10,13 @@ import {JWT_PASSWORD} from './config/config'
 import { LinkModel } from './Schema/link'
 import {random} from './utils/utils'
 import cors from 'cors'
-import { scraper } from './scraper'
+import {FRONTEND_URL} from './config/config'
 import ogs from 'open-graph-scraper'
 
 const app = express();
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors({ origin: "http://localhost:5173", credentials:true}));
+app.use(cors({ origin: FRONTEND_URL, credentials:true}));
 
 
 app.post("/api/v1/signup",async (req,res)=> {
