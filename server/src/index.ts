@@ -90,6 +90,7 @@ app.post("/api/v1/content",userMiddleware , async (req,res)=> {
         const {result} = await ogs({
             url : link
         })
+        console.log(result);
         const data = await contentModel.create({
             type,
             title,
