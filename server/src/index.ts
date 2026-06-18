@@ -55,7 +55,11 @@ app.post("/api/v1/signin",async (req,res)=> {
                 id : existingUser._id
             },JWT_PASSWORD)
 
-            res.cookie("token", token);
+            res.cookie("token", token, {
+                httpOnly:true, 
+                secure: true,
+                sameSite: "none"
+            });
 
             res.status(200).json({
                 username,
