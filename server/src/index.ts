@@ -58,6 +58,8 @@ app.post("/api/v1/signin",async (req,res)=> {
             res.cookie("token", token);
 
             res.status(200).json({
+                username,
+                token,
                 message:"Signin Successfully"
             })
 
@@ -67,6 +69,13 @@ app.post("/api/v1/signin",async (req,res)=> {
         })
     } 
 
+})
+app.post("/api/v1/logout", (req,res)=>{
+    res.clearCookie("token");
+    
+    res.status(200).send({
+        messsage : "Logged out Successfully"
+    })
 })
 app.post("/api/v1/content",userMiddleware , async (req,res)=> {
 
@@ -225,6 +234,12 @@ app.get("/api/v1/brain/:shareLink",async (req,res)=>{
     })
 
 })
+
+// app.get("/api/v1/brain/:shareContent", (req,res)=>{
+//     const hash = req.params.shareContent;
+
+//     const link = await 
+// })
 
 
 
