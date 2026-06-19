@@ -10,11 +10,14 @@ import { IoLogOutOutline } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { BACKEND_URL } from "../../config";
+import { MdOutlineDensitySmall } from "react-icons/md"
 
 
-export function Sidebar({username, loggedout} : { 
+export function Sidebar({username, loggedout,filter, setFilter} : { 
     username? : string ;
     loggedout? : boolean;
+    setFilter : (type:string)=>void;
+    filter : string;
 }){
 
     const navigate = useNavigate()
@@ -40,11 +43,12 @@ export function Sidebar({username, loggedout} : {
             </div>
 
             <div className="pt-6 flex flex-col gap-2">
-                <SidebarItem text="Tweets" icon={<FiTwitter size={24}/>}  />
-                <SidebarItem text="Videos" icon={<FiYoutube size={24}/>}  />
-                <SidebarItem text="Documents" icon={<GrDocumentText size={22}/>}  />
-                <SidebarItem text="Links" icon={<IoLink size={24} />}  />
-                <SidebarItem text="Tags" icon={<FiHash size={24}/>}  />
+                <SidebarItem active={filter==="all"} onClick={()=>setFilter("all")} text="All" icon={<MdOutlineDensitySmall size={24}/>}  />
+                <SidebarItem active={filter==="tweets"} onClick={()=>setFilter("tweets")} text="Tweets" icon={<FiTwitter size={24}/>}  />
+                <SidebarItem active={filter==="video"} onClick={()=>setFilter("video")} text="Videos" icon={<FiYoutube size={24}/>}  />
+                <SidebarItem active={filter==="document"} onClick={()=>setFilter("document")} text="Documents" icon={<GrDocumentText size={22}/>}  />
+                <SidebarItem active={filter==="link"} onClick={()=>setFilter("link")} text="Links" icon={<IoLink size={24} />}  />
+                <SidebarItem active={filter==="tag"} onClick={()=>setFilter("tag")} text="Tags" icon={<FiHash size={24}/>}  />
             </div>
 
             {

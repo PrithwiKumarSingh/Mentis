@@ -20,6 +20,7 @@ export const Dashboard = () => {
   const [shareModel, setShareModel] = useState(false);
   const {contents,refresh, loading} = useContent();
   const [hash, setHash] = useState("");
+  const [filter, setFilter] = useState("all");
 
   const token = localStorage.getItem("token");
   if(!token){
@@ -31,9 +32,12 @@ export const Dashboard = () => {
         Loading....
     </div>
   }
+
+
+  const filteredContent = filter == "all" ? contents : contents.filter((item:any)=>item.type === filter);
+
 // @ts-ignore
   const username = localStorage.getItem("username") || "U";
-  console.log(username)
 
   async function shareBrain(){
         const response = await axios.post(`${BACKEND_URL}/api/v1/brain/share`, {"share" : true}, {withCredentials : true})
@@ -47,11 +51,11 @@ export const Dashboard = () => {
 
     <div>
         <div className='h-screen w-72 bg-white border border-gray-200 flex top-0 left-0 fixed'>
-            <Sidebar username={username} loggedout={true}/>
+            <Sidebar filter={filter} setFilter={setFilter} username={username} loggedout={true}/>
 
         </div>
 
-   <div className='p-4 ml-72 pl-10 bg-[#F9FBFC] h-screen'>
+   <div className='p-4 ml-72 pl-10 bg-[#F9FBFC] h-content'>
     <CreateContentModal open={openModal} onClose={()=>{setOpneModal(false)}} refresh={refresh}/>
     <ShareContentModel hash={hash} open={shareModel} onClose={()=>{setShareModel(false)}} />
    <div className='flex justify-end  gap-2 mt-4 mr-8'>
@@ -77,7 +81,7 @@ export const Dashboard = () => {
   </div>
 
     <div className='grid grid-cols-4 gap-8 p-8'> {
-      contents.map(({title,type,link, _id, metadata})=><Card 
+      filteredContent.map(({title,type,link, _id, metadata})=><Card 
                 key={_id} 
                 title={title} 
                 type={type}
