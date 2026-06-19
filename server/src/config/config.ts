@@ -17,4 +17,4 @@ if(!process.env.FRONTEND_URL){
   throw new Error("Frontend Url missing");
 }
 
-export const FRONTEND_URL = process.env.FRONTEND_URL;
+export const FRONTEND_URL = process.env.FRONTEND_URL ;
