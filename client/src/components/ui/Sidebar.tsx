@@ -19,7 +19,7 @@ export function Sidebar({username, loggedout,filter, setFilter} : {
     username? : string ;
     loggedout? : boolean;
     setFilter : (type:string)=>void;
-    filter : string;
+    filter? : string;
 }){
 
     const navigate = useNavigate()

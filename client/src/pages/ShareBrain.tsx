@@ -5,6 +5,7 @@ import { BACKEND_URL } from "../config"
 import axios from "axios";
 import { useEffect, useState } from "react";
 import {Card} from "../components/ui/Card"
+import { DashboardShimmer } from "../components/Shimmer/DashboardShimmer";
 
 interface Content {
     _id: string;
@@ -25,9 +26,10 @@ interface BrainData {
 
 export function ShareBrain(){
 
-
+const [filter, setFilter] = useState("all");
     function getFirstName(name) {
   const firstName = name.split(" ")[0];
+  
 
   return (
     firstName.charAt(0).toUpperCase() +
@@ -52,17 +54,16 @@ export function ShareBrain(){
     },[])
 
     if(!brainData){
-        return <div className="font-bold text-3xl flex items-center justify-center bg-red-400">
-            Loding.........
-        </div>
+        return <DashboardShimmer/>
     }
-    console.log(brainData);
+
+    const filteredContent = filter == "all" ? brainData.content : brainData.content.filter((item:any)=>item.type === filter);
        
     
     return(
         <div>
             <div className='h-screen w-72 bg-white border border-gray-200 flex top-0 left-0 fixed'>
-            <Sidebar loggedout={false} />
+            <Sidebar filter={filter} setFilter={setFilter} loggedout={false} />
         </div>
         <div className='p-4 ml-72 pl-10 bg-[#F9FBFC] h-screen'>
             <div className="flex justify-between px-8 mt-4 ">
@@ -80,7 +81,7 @@ export function ShareBrain(){
                 </div>
             </div>
         <div className='grid grid-cols-4 gap-8 p-8'> {
-        brainData.content?.map(({title,type,link, _id, metadata})=><Card
+        filteredContent.map(({title,type,link, _id, metadata})=><Card
                     key={_id} 
                     title={title} 
                     type={type}
