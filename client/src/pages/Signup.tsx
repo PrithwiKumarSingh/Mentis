@@ -1,10 +1,10 @@
 
 import { Button } from "../components/ui/Button";
 import { Input } from "../components/ui/CreateContentModal";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import axios from 'axios'
 import { BACKEND_URL } from "../config";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 
 
@@ -13,8 +13,11 @@ export function Signup(){
     const usernameRef = useRef <HTMLInputElement>(null);
     const passwordRef = useRef <HTMLInputElement>(null);
     const navigate = useNavigate();
+    const [loading, setLoading] = useState(false);
 
     async function singup(){
+        try{
+            setLoading(true);
         const username = usernameRef.current?.value.trim();
         const password = passwordRef.current?.value.trim();
         
@@ -22,6 +25,11 @@ export function Signup(){
 
         navigate('/signin');
         alert("You have signed up");
+        }catch(err){
+            alert(err);
+        }finally{
+            setLoading(false)
+        }
     }
 
 
@@ -42,13 +50,13 @@ export function Signup(){
                 <a href="/">Forgot password ?</a>
             </div>
             <div className="mt-6">
-                <Button onClick={()=>singup()} variant="primary" text={"Submit"} size="md" fullWidth={true} /> 
+                <Button loading={loading} onClick={()=>singup()} variant="primary" text={loading ? "Creating account..." : "Sign up"} size="md" fullWidth={true} /> 
             </div>
             <div className="mt-4">
                 Already have an account?
-                <a href="/" className="pl-1 font-medium hover:text-blue-900 transition-all duration-200 underline">
+                <Link to={"/signin"} className="pl-1 font-medium hover:text-blue-900 transition-all duration-200 underline">
                       Sign in now!
-                </a>
+                </Link>
             </div>
             </div>
         </div>

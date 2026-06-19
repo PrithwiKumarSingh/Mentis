@@ -24,9 +24,12 @@ export function CreateContentModal({open, onClose,refresh}: {
     const titleRef = useRef<HTMLInputElement> (null);
     const linkRef = useRef<HTMLInputElement> (null);
     const [type, setType] = useState(ContentType.Video);
+    const [loading, setLoading] = useState(false)
 
 
      async function addContent(){
+        try{
+            setLoading(true)
         const title  = titleRef.current?.value;
         const link = linkRef.current?.value;
 
@@ -38,9 +41,13 @@ export function CreateContentModal({open, onClose,refresh}: {
             link
             
         }, {withCredentials:true})
-
         onClose();
          refresh();
+    }catch(err){
+        alert(err)
+    }finally{
+        setLoading(false);
+    }
 
     }
 
@@ -63,7 +70,13 @@ export function CreateContentModal({open, onClose,refresh}: {
                         <Button onClick={()=>setType(ContentType.Links)} text={"Links"} size="sm" variant={type==ContentType.Links ? "primary" : "secondary"} />
                     </div>
                     <div className="flex justify-center mt-4">
-                        <Button onClick={addContent} fullWidth variant="primary" size="md" text={"Submit"} />
+                        <Button 
+                            loading={loading} 
+                            onClick={addContent} 
+                            fullWidth 
+                            variant="primary" 
+                            size="md" 
+                            text={loading ? "Saving content..." :"Create Content"} />
                     </div>
                 </div>
             </div>}

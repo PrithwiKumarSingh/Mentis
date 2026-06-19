@@ -26,8 +26,11 @@ interface CardProps{
 }
 
 export function Card({type, link, title, metadata, _id, refresh}: CardProps){
-    
+    const [shareModel, setShareModel] = useState(false);
+    const [loading, setLoading] = useState(false)
     async function DeleteItems(_id:string){
+        try{
+            setLoading(true);
         await axios.delete(`${BACKEND_URL}/api/v1/content`, 
             {
             data : {
@@ -36,11 +39,13 @@ export function Card({type, link, title, metadata, _id, refresh}: CardProps){
         } 
         ); 
         refresh?.();
+    }catch(err){
+        alert(err)
+    }finally{
+        setLoading(false);
+    }
     }
 
-
-
-   const [shareModel, setShareModel] = useState(false);
 
     
     return(
@@ -60,7 +65,10 @@ export function Card({type, link, title, metadata, _id, refresh}: CardProps){
                         <ShareIcon size="md"/>
                      </div>
                      <div onClick={()=>DeleteItems(_id)} className="hover:text-red-600 hover:scale-105 transition-all duration-100">
-                        <DeleteIcon  size="md"/> 
+                        {
+                            loading ? <div className="h-4 w-4 border-2 border-red-600 border-t-transparent rounded-full animate-spin"></div> :  <DeleteIcon  size="md"/> 
+                        }
+                        
                     </div>
                     
                 </div>

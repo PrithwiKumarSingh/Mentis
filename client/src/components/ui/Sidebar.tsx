@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { BACKEND_URL } from "../../config";
 import { MdOutlineDensitySmall } from "react-icons/md"
+import { useState } from "react";
 
 
 export function Sidebar({username, loggedout,filter, setFilter} : { 
@@ -21,12 +22,20 @@ export function Sidebar({username, loggedout,filter, setFilter} : {
 }){
 
     const navigate = useNavigate()
+    const [loading, setLoading] = useState(false);
 
     async function logout(){
+        try{
+            setLoading(true);
         const res = await axios.post(`${BACKEND_URL}/api/v1/logout`,{}, {withCredentials:true});
         localStorage.removeItem("token")
         console.log(res);
         navigate("/signin")
+        }catch(err){
+            alert(err)
+        }finally{
+            setLoading(false);
+        }
     }
     return(
         <div className="p-4 w-64 relative">
@@ -62,7 +71,7 @@ export function Sidebar({username, loggedout,filter, setFilter} : {
                 </div>)
                 }
                 
-                <Button onClick={logout} variant="danger" size="sm" text={"Logout"} endIcon={<IoLogOutOutline size={24}/>} />
+                <Button loading={loading} onClick={logout} variant="danger" size="sm" text={"Logout"} endIcon={<IoLogOutOutline size={24}/>} />
             </div> : "")
             }
 

@@ -21,7 +21,7 @@ export function Twitter({ link }: TwitterProps) {
 
   return (
     <blockquote className="twitter-tweet">
-      <a href={link}>Tweet</a>
+      <a href={link}></a>
     </blockquote>
   );
 }

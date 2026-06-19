@@ -7,11 +7,14 @@ import { Card } from '../components/ui/Card';
 import { CreateContentModal } from '../components/ui/CreateContentModal';
 import { useState } from 'react';
 import { Sidebar } from '../components/ui/Sidebar';
+import { SidebarShimmer } from '../components/Shimmer/SidebarShimmer';
 import { useContent } from '../components/hooks/useContent';
 import { ShareContentModel } from '../components/ui/ShareContentModel';
 import { Navigate, } from 'react-router-dom';
 import axios from 'axios';
 import { BACKEND_URL } from '../config';
+import { DashboardShimmer } from '../components/Shimmer/DashboardShimmer';
+
 
 
 
@@ -28,9 +31,7 @@ export const Dashboard = () => {
   }
 
   if(loading){
-    return <div className='flex items-center justify-center font-bold text-3xl '>
-        Loading....
-    </div>
+    return  <DashboardShimmer/> 
   }
 
 
@@ -48,14 +49,17 @@ export const Dashboard = () => {
 
 
   return (
-
-    <div>
-        <div className='h-screen w-72 bg-white border border-gray-200 flex top-0 left-0 fixed'>
-            <Sidebar filter={filter} setFilter={setFilter} username={username} loggedout={true}/>
+  
+    <div className='bg-[#F9FBFC] h-screen'>
+        <div className='h-screen w-72 bg-white border border-gray-200 flex top-0 left-0 fixed'>{
+          loading ? <SidebarShimmer/> :
+           <Sidebar filter={filter} setFilter={setFilter} username={username} loggedout={true}/>
+          }
+            
 
         </div>
 
-   <div className='p-4 ml-72 pl-10 bg-[#F9FBFC] h-content'>
+   <div className='p-4 ml-72 pl-10 bg-[#F9FBFC] h-1vh'>
     <CreateContentModal open={openModal} onClose={()=>{setOpneModal(false)}} refresh={refresh}/>
     <ShareContentModel hash={hash} open={shareModel} onClose={()=>{setShareModel(false)}} />
    <div className='flex justify-end  gap-2 mt-4 mr-8'>
@@ -79,8 +83,8 @@ export const Dashboard = () => {
         }
      </div>
   </div>
-
-    <div className='grid grid-cols-4 gap-8 p-8'> {
+        {
+          filteredContent.length > 0 ?  <div className='grid grid-cols-4 gap-8 p-8'> {
       filteredContent.map(({title,type,link, _id, metadata})=><Card 
                 key={_id} 
                 title={title} 
@@ -91,7 +95,12 @@ export const Dashboard = () => {
                 refresh={refresh} />
               )
       }
-    </div>
+    </div> 
+    : <div className='bg-[#F9FBFC] h-[89vh] flex items-center justify-center text-xl font-medium'>
+          Not {filter} content available.
+      </div>
+        }
+    
    </div>
    </div>
   )

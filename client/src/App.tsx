@@ -6,6 +6,7 @@ import CheckAuth from "./pages/CheckAuth"
 import {ShareBrain} from "./pages/ShareBrain"
 
 
+
 const App = () => {
   return(
     <BrowserRouter>

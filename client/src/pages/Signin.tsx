@@ -1,7 +1,7 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { Button } from "../components/ui/Button";
 import { Input } from "../components/ui/CreateContentModal";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from 'axios'
 import { BACKEND_URL } from "../config";
 
@@ -11,8 +11,11 @@ export function Signin(){
     const usernameRef = useRef <HTMLInputElement>(null);
         const passwordRef = useRef <HTMLInputElement>(null);
         const navigate = useNavigate();
+        const [loading, setLoading] = useState(false);
     
         async function signin(){
+            try{
+                setLoading(true)
             const username = usernameRef.current?.value.trim();
             const password = passwordRef.current?.value.trim();
             
@@ -22,6 +25,11 @@ export function Signin(){
             localStorage.setItem("username", response.data.username);
     
             navigate('/dashboard');
+            } catch(err){
+                alert("Invalid username or password")
+            }finally{
+                setLoading(false)
+            }
             
         }
 
@@ -44,13 +52,19 @@ export function Signin(){
                 <a href="/">Forgot password ?</a>
             </div>
             <div className="mt-6">
-                <Button onClick={()=> signin()} variant="primary" text={"Submit"} size="md" fullWidth={true} /> 
+                <Button  
+                    loading={loading}
+                    onClick={()=> signin()} 
+                    variant="primary" 
+                    text={loading ? "Authenticating..." : "Sign In"} 
+                    size="md" 
+                    fullWidth={true} /> 
             </div>
             <div className="mt-4">
                 Don't have an account? 
-                <a href="/signup" className="pl-1 font-medium hover:text-blue-900 transition-all duration-200 underline">
+                <Link to={"/signup"} className="pl-1 font-medium hover:text-blue-900 transition-all duration-200 underline">
                       Sign up now!
-                </a>
+                </Link>
             </div>
             </div>
         </div>
