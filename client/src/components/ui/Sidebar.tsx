@@ -12,6 +12,7 @@ import axios from "axios";
 import { BACKEND_URL } from "../../config";
 import { MdOutlineDensitySmall } from "react-icons/md"
 import { useState } from "react";
+import { Slide, toast } from "react-toastify";
 
 
 export function Sidebar({username, loggedout,filter, setFilter} : { 
@@ -31,8 +32,21 @@ export function Sidebar({username, loggedout,filter, setFilter} : {
         localStorage.removeItem("token")
         console.log(res);
         navigate("/signin")
-        }catch(err){
-            alert(err)
+        toast("Logout Successfully", {
+                position : "bottom-right",
+                theme : "colored",
+                type : "warning", 
+                transition: Slide,
+                autoClose : 3000
+            })
+        }catch(err:any){
+            toast(err, {
+                position : "bottom-right",
+                theme : "colored",
+                type : "error", 
+                transition: Slide,
+                autoClose : 3000
+            })
         }finally{
             setLoading(false);
         }
@@ -71,7 +85,13 @@ export function Sidebar({username, loggedout,filter, setFilter} : {
                 </div>)
                 }
                 
-                <Button loading={loading} onClick={logout} variant="danger" size="sm" text={"Logout"} endIcon={<IoLogOutOutline size={24}/>} />
+                <Button 
+                    loading={loading} 
+                    onClick={logout} 
+                    variant="danger" 
+                    size="sm" 
+                    text={"Logout"} 
+                    endIcon={<IoLogOutOutline size={24}/>} />
             </div> : "")
             }
 

@@ -5,6 +5,7 @@ import { useRef, useState } from "react";
 import axios from 'axios'
 import { BACKEND_URL } from "../config";
 import { Link, useNavigate } from "react-router-dom";
+import { Slide, toast } from "react-toastify";
 
 
 
@@ -24,9 +25,21 @@ export function Signup(){
         await axios.post(BACKEND_URL + "/api/v1/signup", {username, password})
 
         navigate('/signin');
-        alert("You have signed up");
-        }catch(err){
-            alert(err);
+        toast("Sign up Successfully", {
+                position : "bottom-right",
+                theme : "colored",
+                type : "success", 
+                transition: Slide,
+                autoClose : 3000
+            })
+        }catch(err:any){
+            toast(err, {
+                position : "bottom-right",
+                theme : "colored",
+                type : "error", 
+                transition: Slide,
+                autoClose : 3000
+            })
         }finally{
             setLoading(false)
         }

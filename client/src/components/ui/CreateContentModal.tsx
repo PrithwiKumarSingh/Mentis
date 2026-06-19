@@ -3,6 +3,7 @@ import { CloseIcon } from "../icons/CloseIcon"
 import { Button } from "./Button"
 import axios from "axios";
 import { BACKEND_URL } from "../../config";
+import { Slide, toast } from "react-toastify";
 
 
 
@@ -43,8 +44,21 @@ export function CreateContentModal({open, onClose,refresh}: {
         }, {withCredentials:true})
         onClose();
          refresh();
-    }catch(err){
-        alert(err)
+         toast("Create content successfully", {
+                position : "bottom-right",
+                theme : "colored",
+                type : "success", 
+                transition: Slide,
+                autoClose : 3000
+            })
+    }catch(err:any){
+        toast("Input Missing...", {
+                position : "bottom-right",
+                theme : "colored",
+                type : "error", 
+                transition: Slide,
+                autoClose : 3000
+            })
     }finally{
         setLoading(false);
     }

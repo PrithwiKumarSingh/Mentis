@@ -7,6 +7,7 @@ import { DocumentIcon } from "../icons/DocumentIcon";
 import { ShareIcon } from "../icons/ShareIcon";
 import { useState } from "react";
 import { ShareContentModel } from "./ShareContentModel";
+import { Slide, toast } from "react-toastify";
 
 
 interface metadata{
@@ -39,8 +40,21 @@ export function Card({type, link, title, metadata, _id, refresh}: CardProps){
         } 
         ); 
         refresh?.();
-    }catch(err){
-        alert(err)
+        toast("Delete Successfully", {
+                position : "bottom-right",
+                theme : "colored",
+                type : "warning", 
+                transition: Slide,
+                autoClose : 3000
+            })
+    }catch(err:any){
+        toast(err, {
+                position : "bottom-right",
+                theme : "colored",
+                type : "error", 
+                transition: Slide,
+                autoClose : 3000
+            })
     }finally{
         setLoading(false);
     }

@@ -4,6 +4,7 @@ import { Input } from "../components/ui/CreateContentModal";
 import { Link, useNavigate } from "react-router-dom";
 import axios from 'axios'
 import { BACKEND_URL } from "../config";
+import {Slide, toast } from "react-toastify";
 
 
 export function Signin(){
@@ -25,10 +26,24 @@ export function Signin(){
             localStorage.setItem("username", response.data.username);
     
             navigate('/dashboard');
+            toast("Login Successfully", {
+                position : "bottom-right",
+                theme : "colored",
+                type : "success", 
+                transition: Slide,
+                autoClose : 3000
+            })
             } catch(err){
-                alert("Invalid username or password")
+                toast("Invalid username or password",{
+                    position : "bottom-right",
+                    theme : "colored", 
+                    type : "error",
+                    transition: Slide, 
+                    autoClose : 3000
+                })
             }finally{
                 setLoading(false)
+                
             }
             
         }

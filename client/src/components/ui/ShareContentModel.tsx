@@ -7,6 +7,7 @@ import { TbMailFilled } from "react-icons/tb";
 import { Input } from "./CreateContentModal";
 import { useState } from "react";
 import { FRONTEND_URL } from "../../config";
+import { Slide, toast } from "react-toastify";
 
 
 interface metadata {
@@ -27,7 +28,18 @@ export function ShareContentModel({open, onClose, metadata, hash, link}: {
 
     async function copyLink() {
     await navigator.clipboard.writeText(linkUrl);
-  setCopy("Copied!");
+    setCopy("Copied!");
+  toast("Link copied Successfully", {
+                position : "bottom-right",
+                theme : "colored",
+                type : "info", 
+                transition: Slide,
+                autoClose : 3000
+            })
+
+    setTimeout(()=>{
+        setCopy("Copy")
+    },5000)
 }
     
     const shareText = `${metadata?.title ?? ""}\n\n${metadata?.description ?? ""}`;

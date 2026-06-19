@@ -1,7 +1,7 @@
 
 import {Button} from '../components/ui/Button';
 import { PlusIcon } from '../components/icons/PlusIcon';
-import "../index.css"
+import "../index.css"; 
 import { ShareIcon } from '../components/icons/ShareIcon';
 import { Card } from '../components/ui/Card';
 import { CreateContentModal } from '../components/ui/CreateContentModal';
@@ -14,6 +14,7 @@ import { Navigate, } from 'react-router-dom';
 import axios from 'axios';
 import { BACKEND_URL } from '../config';
 import { DashboardShimmer } from '../components/Shimmer/DashboardShimmer';
+import { Slide, toast } from 'react-toastify';
 
 
 
@@ -41,10 +42,28 @@ export const Dashboard = () => {
   const username = localStorage.getItem("username") || "U";
 
   async function shareBrain(){
+      try{
+
         const response = await axios.post(`${BACKEND_URL}/api/v1/brain/share`, {"share" : true}, {withCredentials : true})
         console.log(response.data);
         setHash(response.data.hash)
         setShareModel(true);
+        toast("Link create successfully", {
+                position : "bottom-right",
+                theme : "colored",
+                type : "success", 
+                transition: Slide,
+                autoClose : 3000
+            })
+      }catch(err){
+        toast("Internal Server Error", {
+                position : "bottom-right",
+                theme : "colored",
+                type : "success", 
+                transition: Slide,
+                autoClose : 3000
+            })
+      }
     }
 
 
