@@ -5,9 +5,8 @@ import "../index.css";
 import { ShareIcon } from '../components/icons/ShareIcon';
 import { Card } from '../components/ui/Card';
 import { CreateContentModal } from '../components/ui/CreateContentModal';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Sidebar } from '../components/ui/Sidebar';
-import { SidebarShimmer } from '../components/Shimmer/SidebarShimmer';
 import { useContent } from '../components/hooks/useContent';
 import { ShareContentModel } from '../components/ui/ShareContentModel';
 import { Navigate, } from 'react-router-dom';
@@ -22,24 +21,44 @@ import { Slide, toast } from 'react-toastify';
 export const Dashboard = () => {
   const [openModal, setOpneModal] = useState(false);
   const [shareModel, setShareModel] = useState(false);
-  const {contents,refresh, loading} = useContent();
+  const {contents,refresh,loading} = useContent();
   const [hash, setHash] = useState("");
   const [filter, setFilter] = useState("all");
+  const [ authenticated, setAuthenticated] = useState<boolean | null>(null);
+  const [userName, setUserName] = useState("U")
 
-  const token = localStorage.getItem("token");
-  if(!token){
-    return <Navigate to={"/signin"} replace/>
-  }
+  
+  useEffect(()=>{
+     async function verifyUser(){
+      try{
+      const response = await axios.get(`${BACKEND_URL}/api/v1/me`,
+        {
+          withCredentials : true
+        }
+      );
+      setAuthenticated(true);
+      setUserName(response.data.username)
+      }catch(err){
+        localStorage.removeItem("token")
+        localStorage.removeItem("username")
+        setAuthenticated(false)
+      }
+     }
 
-  if(loading){
+     verifyUser();
+  },[])
+
+  if(authenticated == null || loading){
     return  <DashboardShimmer/> 
   }
-
+  
+if(authenticated == false){
+    return <Navigate to={"/signin"} replace/>
+  }
 
   const filteredContent = filter == "all" ? contents : contents.filter((item:any)=>item.type === filter);
 
 // @ts-ignore
-  const username = localStorage.getItem("username") || "U";
 
   async function shareBrain(){
       try{
@@ -59,7 +78,7 @@ export const Dashboard = () => {
         toast("Internal Server Error", {
                 position : "bottom-right",
                 theme : "colored",
-                type : "success", 
+                type : "error", 
                 transition: Slide,
                 autoClose : 3000
             })
@@ -71,8 +90,11 @@ export const Dashboard = () => {
   
     <div className='bg-[#F9FBFC] h-screen'>
         <div className='h-screen w-72 bg-white border border-gray-200 flex top-0 left-0 fixed'>{
-          loading ? <SidebarShimmer/> :
-           <Sidebar filter={filter} setFilter={setFilter} username={username} loggedout={true}/>
+           <Sidebar 
+                filter={filter} 
+                setFilter={setFilter} 
+                username={userName} 
+                loggedout={true}/>
           }
             
 
@@ -98,7 +120,7 @@ export const Dashboard = () => {
     ></Button>
      <div className='px-5 py-2 flex items-center justify-center text-2xl font-medium cursor-pointer bg-[#5046E4] text-[#fafafa] rounded-full'>
         {
-          username?.charAt(0)?.toUpperCase() || "U"
+          userName?.charAt(0)?.toUpperCase() || "U"
         }
      </div>
   </div>
@@ -116,7 +138,9 @@ export const Dashboard = () => {
       }
     </div> 
     : <div className='bg-[#F9FBFC] h-[89vh] flex items-center justify-center text-xl font-medium'>
-          Not {filter} content available.
+          {
+            filter == "all" ? "No content available yet." : `No ${filter} content found`
+        }
       </div>
         }
     
