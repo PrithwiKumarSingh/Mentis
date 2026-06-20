@@ -28,9 +28,8 @@ export function Sidebar({username, loggedout,filter, setFilter} : {
     async function logout(){
         try{
             setLoading(true);
-        const res = await axios.post(`${BACKEND_URL}/api/v1/logout`,{}, {withCredentials:true});
+        await axios.post(`${BACKEND_URL}/api/v1/logout`,{}, {withCredentials:true});
         localStorage.removeItem("token")
-        console.log(res);
         navigate("/signin")
         toast("Logout Successfully", {
                 position : "bottom-right",

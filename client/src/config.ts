@@ -5,5 +5,5 @@
 // export const FRONTEND_URL = "https://mentis-digital.vercel.app";
 
 // localhost 
-export const BACKEND_URL = "https://localhost:300";
-export const FRONTEND_URL = "https://localhost:5173";
+export const BACKEND_URL = "http://localhost:3000";
+export const FRONTEND_URL = "http://localhost:5173";

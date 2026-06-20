@@ -25,19 +25,17 @@ export const Dashboard = () => {
   const [hash, setHash] = useState("");
   const [filter, setFilter] = useState("all");
   const [ authenticated, setAuthenticated] = useState<boolean | null>(null);
-  const [userName, setUserName] = useState("U")
 
   
   useEffect(()=>{
      async function verifyUser(){
       try{
-      const response = await axios.get(`${BACKEND_URL}/api/v1/me`,
+        await axios.get(`${BACKEND_URL}/api/v1/me`,
         {
           withCredentials : true
         }
       );
       setAuthenticated(true);
-      setUserName(response.data.username)
       }catch(err){
         localStorage.removeItem("token")
         localStorage.removeItem("username")
@@ -47,6 +45,9 @@ export const Dashboard = () => {
 
      verifyUser();
   },[])
+
+  const username = localStorage.getItem("username") || "U"
+
 
   if(authenticated == null || loading){
     return  <DashboardShimmer/> 
@@ -64,7 +65,6 @@ if(authenticated == false){
       try{
 
         const response = await axios.post(`${BACKEND_URL}/api/v1/brain/share`, {"share" : true}, {withCredentials : true})
-        console.log(response.data);
         setHash(response.data.hash)
         setShareModel(true);
         toast("Link create successfully", {
@@ -93,7 +93,7 @@ if(authenticated == false){
            <Sidebar 
                 filter={filter} 
                 setFilter={setFilter} 
-                username={userName} 
+                username={username} 
                 loggedout={true}/>
           }
             
@@ -120,7 +120,7 @@ if(authenticated == false){
     ></Button>
      <div className='px-5 py-2 flex items-center justify-center text-2xl font-medium cursor-pointer bg-[#5046E4] text-[#fafafa] rounded-full'>
         {
-          userName?.charAt(0)?.toUpperCase() || "U"
+          username?.charAt(0)?.toUpperCase() || "U"
         }
      </div>
   </div>
