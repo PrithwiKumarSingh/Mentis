@@ -81,10 +81,11 @@ app.post("/api/v1/logout", (req,res)=>{
         messsage : "Logged out Successfully"
     })
 })
-app.post("/api/v1/me",userMiddleware, (req,res)=>{
+app.get("/api/v1/me",userMiddleware, (req,res)=>{
     res.status(200).json({
         authenticated:true,
         userId : req.userId,
+        
     })
 })
 app.post("/api/v1/content",userMiddleware , async (req,res)=> {
