@@ -49,15 +49,15 @@ export const Dashboard = () => {
   const username = localStorage.getItem("username") || "U"
   console.log(username);
 
-
+if(authenticated == false){
+    return <Navigate to={"/signin"} replace/>
+  }
 
   if(authenticated == null || loading){
     return  <DashboardShimmer/> 
   }
   
-if(authenticated == false){
-    return <Navigate to={"/signin"} replace/>
-  }
+
 
   const filteredContent = filter == "all" ? contents : contents.filter((item:any)=>item.type === filter);
 
