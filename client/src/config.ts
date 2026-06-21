@@ -1,7 +1,7 @@
 
 //production
 
-export const BACKEND_URL = "https:mentis-production-e0b5.up.railway.app";
+export const BACKEND_URL = "https://mentis-production-e0b5.up.railway.app";
 export const FRONTEND_URL = "https://mentis-digital.vercel.app";
 
 // localhost 
