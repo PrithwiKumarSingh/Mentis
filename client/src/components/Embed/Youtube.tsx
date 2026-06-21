@@ -6,7 +6,7 @@ interface YoutubeProps{
 export function Youtube({link}:YoutubeProps){
     return(
         <iframe 
-                className="w-full mt-4 h-[230px] rounded-2xl max-w-78"
+                className="w-full mt-4 h-[230px] rounded-2xl max-w-full"
                 width="560" 
                 height="315" 
                 src={link.replace("watch?v=","embed/")} 

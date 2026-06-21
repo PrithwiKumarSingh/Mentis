@@ -22,8 +22,8 @@ export function Signin(){
             
             const response = await axios.post(BACKEND_URL + "/api/v1/signin", {username, password}, {withCredentials:true})
 
-            localStorage.setItem("token", response.data.token);
             localStorage.setItem("username", response.data.username);
+            localStorage.setItem("token", response.data.token )
     
             navigate('/dashboard');
             toast("Login Successfully", {

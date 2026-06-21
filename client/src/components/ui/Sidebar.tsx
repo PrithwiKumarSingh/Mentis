@@ -1,4 +1,3 @@
-
 import { SidebarItem } from "../icons/SidebarItem";
 import { FiTwitter, FiYoutube } from "react-icons/fi";
 import { GrDocumentText } from "react-icons/gr";
@@ -13,13 +12,15 @@ import { BACKEND_URL } from "../../config";
 import { MdOutlineDensitySmall } from "react-icons/md"
 import { useState } from "react";
 import { Slide, toast } from "react-toastify";
+import { MdOutlineClose } from "react-icons/md";
 
 
-export function Sidebar({username, loggedout,filter, setFilter} : { 
+export function Sidebar({username, loggedout,filter, setFilter, onClose} : { 
     username? : string ;
     loggedout? : boolean;
     setFilter : (type:string)=>void;
     filter? : string;
+    onClose? : ()=>void;
 }){
 
     const navigate = useNavigate()
@@ -28,9 +29,8 @@ export function Sidebar({username, loggedout,filter, setFilter} : {
     async function logout(){
         try{
             setLoading(true);
-        const res = await axios.post(`${BACKEND_URL}/api/v1/logout`,{}, {withCredentials:true});
+        await axios.post(`${BACKEND_URL}/api/v1/logout`,{}, {withCredentials:true});
         localStorage.removeItem("token")
-        console.log(res);
         navigate("/signin")
         toast("Logout Successfully", {
                 position : "bottom-right",
@@ -52,7 +52,7 @@ export function Sidebar({username, loggedout,filter, setFilter} : {
         }
     }
     return(
-        <div className="p-4 w-64 relative">
+        <div className="p-4 max-w-64 relative">
             <div className="flex items-center gap-2 pb-4 mt-8 ml-4">
                 <div className="text-[#5147E3]">
                     <LuBrainCircuit size={36}/>
@@ -63,24 +63,28 @@ export function Sidebar({username, loggedout,filter, setFilter} : {
                     </a>
                     
                 </div>
+                <div onClick={onClose} className="md:hidden ml-8">
+                    <MdOutlineClose size={32}/>
+                </div>
             </div>
 
             <div className="pt-6 flex flex-col gap-2">
-                <SidebarItem active={filter==="all"} onClick={()=>setFilter("all")} text="All" icon={<MdOutlineDensitySmall size={24}/>}  />
-                <SidebarItem active={filter==="tweets"} onClick={()=>setFilter("tweets")} text="Tweets" icon={<FiTwitter size={24}/>}  />
-                <SidebarItem active={filter==="video"} onClick={()=>setFilter("video")} text="Videos" icon={<FiYoutube size={24}/>}  />
-                <SidebarItem active={filter==="document"} onClick={()=>setFilter("document")} text="Documents" icon={<GrDocumentText size={22}/>}  />
-                <SidebarItem active={filter==="link"} onClick={()=>setFilter("link")} text="Links" icon={<IoLink size={24} />}  />
-                <SidebarItem active={filter==="tag"} onClick={()=>setFilter("tag")} text="Tags" icon={<FiHash size={24}/>}  />
+                <SidebarItem active={filter==="all"} onClick={()=> {onClose?.(); setFilter("all")}} text="All" icon={<MdOutlineDensitySmall size={24}/>}  />
+                <SidebarItem active={filter==="tweets"} onClick={()=>{setFilter("tweets"); onClose?.()}} text="Tweets" icon={<FiTwitter size={24}/>}  />
+                <SidebarItem active={filter==="video"} onClick={()=>{setFilter("video"); onClose?.()}} text="Videos" icon={<FiYoutube size={24}/>}  />
+                <SidebarItem active={filter==="document"} onClick={()=>{setFilter("document"); onClose?.()}} text="Documents" icon={<GrDocumentText size={22}/>}  />
+                <SidebarItem active={filter==="link"} onClick={()=>{setFilter("link"); onClose?.()}} text="Links" icon={<IoLink size={24} />}  />
+                <SidebarItem active={filter==="tag"} onClick={()=>{setFilter("tag"); onClose?.()}} text="Tags" icon={<FiHash size={24}/>}  />
             </div>
 
             {
-                (loggedout ? <div className="absolute bottom-10 flex gap-3 items-center justify-between mt-100 bg-gray-200 w-full px-4 py-2 rounded-xl">
+                (loggedout ? <div className="absolute mt-70 md:mt-90 flex  items-center justify-between  bg-slate-300 w-full px-4 py-2 rounded-xl">
 
                 {
                     (username && <div className="text-md font-medium">
                     {
                         username?.toUpperCase()
+                        
                     }
                 </div>)
                 }
