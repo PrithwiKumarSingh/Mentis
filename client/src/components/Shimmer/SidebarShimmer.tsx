@@ -3,7 +3,7 @@
 
 export function SidebarShimmer(){
     return(
-        <div className="p-4 w-64 relative">
+        <div className="p-4 w-64 relative hidden md:block">
             <div className="flex items-center gap-2 pb-4 mt-8 ">
                 <div className="w-full px-4 py-8 bg-gray-100 rounded-lg  hover:shadow-black/50 transition-all duration-300 animate-pulse">
 

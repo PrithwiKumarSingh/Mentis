@@ -66,7 +66,7 @@ export function Card({type, link, title, metadata, _id, refresh}: CardProps){
         <div>
 
         <ShareContentModel open={shareModel} onClose={()=>{setShareModel(false)}} metadata={metadata} link={link}/>
-        <div className="p-4 border border-gray-200 bg-white h-125 rounded-sm min-h-48 min-w-9 overflow-y-scroll [&::-webkit-scrollbar]:hidden">
+        <div className="p-4 border border-gray-200 bg-white h-125 rounded-sm min-h-fit md:min-h-48  min-w-9 md:overflow-y-scroll [&::-webkit-scrollbar]:hidden">
             <div className="flex justify-between">
                 <div className="flex items-center gap-2 text-xl font-medium text-[#0E1522]">
                     <div>
@@ -111,7 +111,7 @@ export function Card({type, link, title, metadata, _id, refresh}: CardProps){
                 {
                     !(type == "tweets") && (metadata && <div className="mt-2 max-h-24">
                         
-                        <div className="bg-[#E0E7FF] text-[#4138B8] p-4 rounded-xl max-h-38 overflow-y-scroll scrollbar-none [&::-webkit-scrollbar]:hidden">
+                        <div className="bg-[#E0E7FF] text-[#4138B8] p-4 rounded-xl max-h-38 md:overflow-y-scroll scrollbar-none [&::-webkit-scrollbar]:hidden">
                             <div className="font-semibold">
                             Description
                         </div>

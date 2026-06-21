@@ -14,8 +14,8 @@ import axios from 'axios';
 import { BACKEND_URL } from '../config';
 import { DashboardShimmer } from '../components/Shimmer/DashboardShimmer';
 import { Slide, toast } from 'react-toastify';
-
-
+import { LuBrainCircuit } from "react-icons/lu";
+import { MdMenu } from "react-icons/md";
 
 
 export const Dashboard = () => {
@@ -25,7 +25,7 @@ export const Dashboard = () => {
   const [hash, setHash] = useState("");
   const [filter, setFilter] = useState("all");
   const [ authenticated, setAuthenticated] = useState<boolean | null>(null);
-
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   
   useEffect(()=>{
      async function verifyUser(){
@@ -47,6 +47,8 @@ export const Dashboard = () => {
   },[])
 
   const username = localStorage.getItem("username") || "U"
+  console.log(username);
+
 
 
   if(authenticated == null || loading){
@@ -88,8 +90,8 @@ if(authenticated == false){
 
   return (
   
-    <div className='bg-[#F9FBFC] h-screen'>
-        <div className='h-screen w-72 bg-white border border-gray-200 flex top-0 left-0 fixed'>{
+    <div className='bg-[#F9FBFC] h-screen p-4'>
+        <div className='h-screen hidden md:block w-72 bg-white border border-gray-200  top-0 left-0 fixed'>{
            <Sidebar 
                 filter={filter} 
                 setFilter={setFilter} 
@@ -100,10 +102,61 @@ if(authenticated == false){
 
         </div>
 
-   <div className='p-4 ml-72 pl-10 bg-[#F9FBFC] h-1vh'>
+   <div className='p-4 md:ml-72 sm:pl-10 bg-[#F9FBFC] h-1vh'>
     <CreateContentModal open={openModal} onClose={()=>{setOpneModal(false)}} refresh={refresh}/>
     <ShareContentModel hash={hash} open={shareModel} onClose={()=>{setShareModel(false)}} />
-   <div className='flex justify-end  gap-2 mt-4 mr-8'>
+      <div className='md:hidden mb-4 flex justify-between'>
+        <div onClick={()=>setSidebarOpen(true)}>
+          {
+            <MdMenu size={32} />
+          }
+        </div>
+        <div className='flex items-center gap-1'>
+          <div className='text-blue-700'>
+          {
+            <LuBrainCircuit size={30}/>
+          }
+        </div>
+        <div className='text-3xl font-semibold'>
+          Mentis
+        </div>
+        </div>
+        <div className='flex items-center gap-2'>
+          <Button 
+          onClick={()=>{setOpneModal(true)}}
+          variant='primary'
+          size="sm" 
+          text="" 
+          startIcon={<PlusIcon size='md'/>}
+    ></Button>
+   <Button 
+          onClick={shareBrain}
+          variant='secondary'
+          size="sm" 
+          text=" " 
+          startIcon={<ShareIcon size='md'/>}
+    ></Button>
+        </div>
+
+        <div
+            className={`
+              fixed top-0 left-0 h-screen w-72 bg-white z-50
+              transform transition-transform duration-300
+              ${sidebarOpen ? "translate-x-0" : "-translate-x-full"}
+            `}
+          >
+            <Sidebar 
+                filter={filter} 
+                setFilter={setFilter} 
+                username={username} 
+                loggedout={true}
+                onClose={()=>setSidebarOpen(false)}
+                />
+                
+          </div>
+                  
+      </div>
+   <div className='md:flex justify-end hidden   gap-2 mt-4 mr-8'>
    <Button 
           onClick={()=>{setOpneModal(true)}}
           variant='primary'
@@ -125,7 +178,7 @@ if(authenticated == false){
      </div>
   </div>
         {
-          filteredContent.length > 0 ?  <div className='grid grid-cols-4 gap-8 p-8'> {
+          filteredContent.length > 0 ?  <div className='grid grid-cols-1 md:grid-cols-1 xl:grid-cols-3 2xl:grid-cols-4 gap-8 mt-8'> {
       filteredContent.map(({title,type,link, _id, metadata})=><Card 
                 key={_id} 
                 title={title} 
