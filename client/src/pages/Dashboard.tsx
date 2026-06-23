@@ -179,14 +179,17 @@ if(authenticated == false){
   </div>
         {
           filteredContent.length > 0 ?  <div className='grid grid-cols-1 md:grid-cols-1 xl:grid-cols-3 2xl:grid-cols-4 gap-8 mt-8'> {
-      filteredContent.map(({title,type,link, _id, metadata})=><Card 
+      filteredContent.map(({title,type,link, _id, metadata, createdAt})=><Card 
                 key={_id} 
                 title={title} 
                 type={type}
                 _id={_id}
                 metadata={metadata} 
                 link={link}
-                refresh={refresh} />
+                refresh={refresh} 
+                createdAt={createdAt}
+                />
+                
               )
       }
     </div> 
