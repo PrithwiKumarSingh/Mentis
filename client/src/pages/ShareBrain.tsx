@@ -21,6 +21,7 @@ interface Content {
         description?: string;
         image?: string;
     };
+    createdAt:string;
 }
 
 interface BrainData {
@@ -125,13 +126,15 @@ const [filter, setFilter] = useState("all");
                 
             </div>
         <div className='grid grid-cols-1 md:grid-cols-1 xl:grid-cols-3 2xl:grid-cols-4 gap-8 mt-6 md:mt-10'> {
-        filteredContent.map(({title,type,link, _id, metadata})=><Card
+        filteredContent.map(({title,type,link, _id, metadata, createdAt})=><Card
                     key={_id} 
                     title={title} 
                     type={type}
                     _id={_id}
                     metadata={metadata} 
-                    link={link} />
+                    link={link}
+                    createdAt={createdAt}
+                     />
                 )
         }
         </div>
