@@ -21,14 +21,14 @@ import { MdMenu } from "react-icons/md";
 export const Dashboard = () => {
   const [openModal, setOpneModal] = useState(false);
   const [shareModel, setShareModel] = useState(false);
-  const {contents,refresh,loading} = useContent();
+  const {contents,refresh, trashRefresh, trashContent,loading} = useContent();
   const [hash, setHash] = useState("");
   const [filter, setFilter] = useState("all");
   const [ authenticated, setAuthenticated] = useState<boolean | null>(null);
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  
-  useEffect(()=>{
-     async function verifyUser(){
+
+
+async function verifyUser(){
       try{
         await axios.get(`${BACKEND_URL}/api/v1/me`,
         {
@@ -42,12 +42,13 @@ export const Dashboard = () => {
         setAuthenticated(false)
       }
      }
+  
+  useEffect(()=>{
 
      verifyUser();
   },[])
 
   const username = localStorage.getItem("username") || "U"
-  console.log(username);
 
 if(authenticated == false){
     return <Navigate to={"/signin"} replace/>
@@ -58,8 +59,15 @@ if(authenticated == false){
   }
   
 
+  
 
-  const filteredContent = filter == "all" ? contents : contents.filter((item:any)=>item.type === filter);
+
+
+  const filteredContent = filter == "trash" 
+                          ? trashContent 
+                          : filter == "all" 
+                          ? contents
+                          : contents.filter((item:any)=>item.type === filter);
 
 // @ts-ignore
 
@@ -187,7 +195,9 @@ if(authenticated == false){
                 metadata={metadata} 
                 link={link}
                 refresh={refresh} 
+                trashRefresh={trashRefresh}
                 createdAt={createdAt}
+                isTrash={filter=="trash"? true : false}
                 />
                 
               )
@@ -195,8 +205,12 @@ if(authenticated == false){
     </div> 
     : <div className='bg-[#F9FBFC] h-[89vh] flex items-center justify-center text-xl font-medium'>
           {
-            filter == "all" ? "No content available yet." : `No ${filter} content found`
-        }
+            filter === "trash"
+                  ? "Trash is empty"
+                  : filter === "all"
+                  ? "No content available yet."
+                  : `No ${filter} content found`
+                        }
       </div>
         }
     

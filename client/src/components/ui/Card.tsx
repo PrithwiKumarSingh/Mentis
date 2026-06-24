@@ -8,6 +8,7 @@ import { ShareIcon } from "../icons/ShareIcon";
 import { useState } from "react";
 import { ShareContentModel } from "./ShareContentModel";
 import { Slide, toast } from "react-toastify";
+import { RiLoopLeftFill } from "react-icons/ri";
 
 
 interface metadata{
@@ -25,11 +26,16 @@ interface CardProps{
     _id : string; 
     refresh? : ()=>void;
     createdAt: string;
+    isTrash? : boolean;
+    trashRefresh? : ()=>void
 }
 
-export function Card({type, link, title, metadata, _id, createdAt, refresh}: CardProps){
+export function Card({type, link, title, metadata, _id, createdAt, isTrash, trashRefresh, refresh}: CardProps){
     const [shareModel, setShareModel] = useState(false);
     const [loading, setLoading] = useState(false)
+    const [recover, setRecover] = useState(false)
+
+
     async function DeleteItems(_id:string){
         try{
             setLoading(true);
@@ -41,6 +47,7 @@ export function Card({type, link, title, metadata, _id, createdAt, refresh}: Car
         } 
         ); 
         refresh?.();
+        await trashRefresh?.();
         toast("Delete Successfully", {
                 position : "bottom-right",
                 theme : "colored",
@@ -48,6 +55,8 @@ export function Card({type, link, title, metadata, _id, createdAt, refresh}: Car
                 transition: Slide,
                 autoClose : 3000
             })
+
+
     }catch(err:any){
         toast(err, {
                 position : "bottom-right",
@@ -61,6 +70,75 @@ export function Card({type, link, title, metadata, _id, createdAt, refresh}: Car
     }
     }
 
+    async function trashContentDelete(_id:string){
+            await axios.delete(`${BACKEND_URL}/api/v1/trash`, 
+            {
+            data : {
+            contentId : _id
+            },withCredentials:true
+        } 
+        ); 
+        
+    }
+
+     async function PermanentDelete(_id:string){
+        try{
+            setLoading(true);
+            await trashContentDelete(_id);
+        await trashRefresh?.();
+        toast("Permanent Deleted Successfully", {
+                position : "bottom-right",
+                theme : "colored",
+                type : "warning", 
+                transition: Slide,
+                autoClose : 3000
+            })
+
+
+    }catch(err:any){
+        toast.error(
+            err?.response?.data?.message || "Something went wrong"
+        )
+    }finally{
+        setLoading(false);
+    }
+    }
+
+    async function recovery(_id : string){
+        try{
+            setRecover(true)
+        await axios.post(`${BACKEND_URL}/api/v1/content`,{
+            type,
+            title,
+            link,
+            metadata
+            
+        }, {withCredentials:true})
+         
+         toast(" content recoverd successfully", {
+                position : "bottom-right",
+                theme : "colored",
+                type : "success", 
+                transition: Slide,
+                autoClose : 3000
+            })
+            await trashContentDelete(_id);
+            await refresh?.();
+            await trashRefresh?.();
+    }catch(err:any){
+        toast(err, {
+                position : "bottom-right",
+                theme : "colored",
+                type : "error", 
+                transition: Slide,
+                autoClose : 3000
+            })
+    }finally{
+        setRecover(false);
+    }
+    }
+
+    
 
     
     return(
@@ -75,7 +153,29 @@ export function Card({type, link, title, metadata, _id, createdAt, refresh}: Car
                     </div>
                     {title ? title : metadata?.title}
                 </div>
-                <div className="flex items-center gap-2">
+                <div>
+                    {
+                        isTrash ? <div className="flex items-center gap-2">
+                    <div onClick={()=>{recovery(_id)}} className="cursor-pointer  hover:text-[#5046E4] hover:scale-105 transition ease-in-out duration-100">
+                        {
+                         recover ? (
+                                    <div className="h-4 w-4 border-2 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
+                                ) : (
+                                    <RiLoopLeftFill size={24}/>
+                                )
+                            }
+                     </div>
+                     <div onClick={()=>PermanentDelete(_id)} className="hover:text-red-600 hover:scale-105 transition-all duration-100">
+                        {
+                            loading ? <div className="h-4 w-4 border-2 border-red-600 border-t-transparent rounded-full animate-spin"></div> :  <DeleteIcon  size="md"/> 
+                        }
+                        
+                    </div>
+                    
+                </div>
+
+
+                        : <div className="flex items-center gap-2">
                     <div onClick={()=>{setShareModel(true)}} className="cursor-pointer hover:text-[#5046E4] hover:scale-105 transition ease-in-out duration-100">
                         <ShareIcon size="md"/>
                      </div>
@@ -87,19 +187,21 @@ export function Card({type, link, title, metadata, _id, createdAt, refresh}: Car
                     </div>
                     
                 </div>
+                    }
+                </div>
             </div>
 
             
 
             <div>
                 {
-                    type=="video" ?
+                    type==="video" ?
                          <Youtube link={link}/> :
-                    type == "tweets" ?   
+                    type === "tweets" ?   
                         <Twitter link={link}/> :   (
                             <div 
                             className=" overflow-hidden mt-4 p-2">
-                                <a className=" max-w-full cursor-pointer " target="_blank" href={link}>
+                                <a rel="noopener noreferrer" className=" max-w-full cursor-pointer " target="_blank" href={link}>
                                     <img className="max-w-full border border-gray-400 rounded-2xl hover:scale-105 transition-all duration-200 " src={metadata?.image} alt="" />
                                 </a>
                             </div>
