@@ -8,6 +8,7 @@ import { contentModel } from './Schema/content'
 import {userMiddleware} from './middleware/middleware'
 import {JWT_PASSWORD} from './config/config'
 import { LinkModel } from './Schema/link'
+import { trashModel } from './Schema/trash'
 import {random} from './utils/utils'
 import cors from 'cors'
 import {FRONTEND_URL} from './config/config'
@@ -97,7 +98,6 @@ app.post("/api/v1/content",userMiddleware , async (req,res)=> {
         const {result} = await ogs({
             url : link
         })
-        console.log(result);
         const data = await contentModel.create({
             type,
             title,
@@ -111,7 +111,6 @@ app.post("/api/v1/content",userMiddleware , async (req,res)=> {
             userId: req.userId,
             tags:[]
         })
-        console.log(data);
 
         res.status(200).json({
             message : "Content Added Successfully"
@@ -155,7 +154,22 @@ app.get("/api/v1/content",userMiddleware, async ( req,res)=> {
 })
 app.delete("/api/v1/content",userMiddleware, async (req,res)=> {
     try{
-        const contentId = req.body.contentId
+        const {contentId} = req.body;
+
+        const data = await contentModel.findOne({
+                    _id : contentId,
+                    userId : req.userId
+                })
+
+            if(!data){
+                return res.status(404).json({
+                    message : "content not found"
+                })
+            }
+        await trashModel.create({
+            ...data.toObject(),
+            deletedAt : new Date()
+        });
         
 
         await contentModel.deleteOne({
@@ -246,6 +260,55 @@ app.get("/api/v1/brain/:shareLink",async (req,res)=>{
     })
 
 })
+
+
+app.get("/api/v1/trash",userMiddleware, async(req,res)=>{
+    try{
+        // @ts-ignore
+        const userId = req.userId;
+        const content = await trashModel.find({userId}).populate("userId","username");
+
+        if(content.length===0){
+            return res.status(200).json({
+                message : "No content found",
+                content :[]
+            });
+        }
+           
+
+        res.status(200).json({
+            message : "trash fetched Successfully",
+            content : content
+        })
+    }catch(err:any){
+        console.log(err)
+        res.status(403).json({
+            message : "Error : ",
+            error : err.message
+        });
+    }
+})
+
+app.delete("/api/v1/trash", userMiddleware, async(req,res)=>{
+    try{
+        const {contentId} = req.body;
+
+        await trashModel.deleteOne({
+            _id :contentId,  
+            userId : req.userId
+        })
+        
+
+        res.status(200).json({
+            message : "Permanent Deleted Successfully"
+        })
+    }catch(e){
+        res.status(403).json({
+            message : e
+        })
+    }
+})
+
 
 // app.get("/api/v1/brain/:shareContent", (req,res)=>{
 //     const hash = req.params.shareContent;
