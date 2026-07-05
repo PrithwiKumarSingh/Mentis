@@ -4,6 +4,7 @@ import { Button } from "./Button"
 import axios from "axios";
 import { BACKEND_URL } from "../../config";
 import { Slide, toast } from "react-toastify";
+import {motion} from "motion/react"
 
 
 
@@ -68,8 +69,13 @@ export function CreateContentModal({open, onClose,refresh}: {
 
     return (
         <div>
-            {open && <div className=" bg-black/60 flex items-center justify-center h-screen w-screen fixed top-0 left-0">
-                <div className=" bg-white p-4 rounded">
+            {open && <div
+             className=" bg-black/60 flex items-center justify-center h-screen w-screen fixed top-0 left-0">
+                < motion.div
+                initial={{scale:0.8, opacity:0, y:30}}
+                animate={{scale:1.2, opacity:1, y:0}}
+                transition={{duration:0.35, ease:"easeOut"}}
+                 className=" bg-white p-4 rounded">
                     <div onClick={onClose} className=" flex justify-end cursor-pointer">
                         <CloseIcon />
                     </div>
@@ -92,7 +98,7 @@ export function CreateContentModal({open, onClose,refresh}: {
                             size="md" 
                             text={loading ? "Saving content..." :"Create Content"} />
                     </div>
-                </div>
+                </motion.div>
             </div>}
 
         </div>

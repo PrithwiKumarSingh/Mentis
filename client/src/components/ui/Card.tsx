@@ -202,7 +202,7 @@ export function Card({type, link, title, metadata, _id, createdAt, isTrash, tras
                             <div 
                             className=" overflow-hidden mt-4 p-2">
                                 <a rel="noopener noreferrer" className=" max-w-full cursor-pointer " target="_blank" href={link}>
-                                    <img className="max-w-full border border-gray-400 rounded-2xl hover:scale-105 transition-all duration-200 " src={metadata?.image} alt="" />
+                                    <img loading="lazy" className="max-w-full border border-gray-400 rounded-2xl hover:scale-105 transition-all duration-200 " src={metadata?.image} alt="" />
                                 </a>
                             </div>
 

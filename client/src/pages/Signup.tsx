@@ -6,10 +6,10 @@ import axios from 'axios'
 import { BACKEND_URL } from "../config";
 import { Link, useNavigate } from "react-router-dom";
 import { Slide, toast } from "react-toastify";
+import {motion} from "motion/react"
 
 
-
-export function Signup(){
+export default function Signup(){
 
     const usernameRef = useRef <HTMLInputElement>(null);
     const passwordRef = useRef <HTMLInputElement>(null);
@@ -48,7 +48,11 @@ export function Signup(){
 
     return (
         <div className="h-screen w-screen flex items-center justify-center bg-[#dbd8d8]">
-            <div className="flex flex-col bg-white p-8 rounded-xl">
+            <motion.div 
+                initial={{ opacity: 0, y: 40 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+             className="flex flex-col bg-white p-8 rounded-xl">
                 <div className="text-3xl font-bold text-blue-400">
                     Sign up
                 </div>
@@ -71,7 +75,7 @@ export function Signup(){
                       Sign in now!
                 </Link>
             </div>
-            </div>
+            </motion.div>
         </div>
     )
 }
