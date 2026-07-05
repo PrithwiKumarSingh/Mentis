@@ -14,6 +14,7 @@ import { useState } from "react";
 import { Slide, toast } from "react-toastify";
 import { MdOutlineClose } from "react-icons/md";
 import { FaRegTrashCan } from "react-icons/fa6";
+import {motion} from "motion/react"
 
 
 export function Sidebar({username, loggedout,filter, setFilter, onClose} : { 
@@ -53,7 +54,11 @@ export function Sidebar({username, loggedout,filter, setFilter, onClose} : {
         }
     }
     return(
-        <div className="p-4 max-w-64 relative">
+        <motion.div
+            initial={{x:-40}}
+            animate={{x:0}}
+            transition={{duration:0.35}}
+             className="p-4 max-w-64 relative">
             <div className="flex items-center gap-2 pb-4 mt-8 ml-4">
                 <div className="text-[#5147E3]">
                     <LuBrainCircuit size={36}/>
@@ -64,7 +69,7 @@ export function Sidebar({username, loggedout,filter, setFilter, onClose} : {
                     </a>
                     
                 </div>
-                <div onClick={onClose} className="md:hidden ml-8">
+                <div onClick={onClose} className="md:hidden ml-8 bg-[#f2f5fc] border border-gray-300 rounded-full p-2">
                     <MdOutlineClose size={32}/>
                 </div>
             </div>
@@ -102,6 +107,6 @@ export function Sidebar({username, loggedout,filter, setFilter, onClose} : {
             }
 
             
-        </div>
+        </motion.div>
     )
 }

@@ -8,6 +8,7 @@ import { ShareIcon } from "../icons/ShareIcon";
 import { useState } from "react";
 import { ShareContentModel } from "./ShareContentModel";
 import { Slide, toast } from "react-toastify";
+import {motion} from "motion/react"
 import { RiLoopLeftFill } from "react-icons/ri";
 
 
@@ -145,7 +146,11 @@ export function Card({type, link, title, metadata, _id, createdAt, isTrash, tras
         <div>
 
         <ShareContentModel open={shareModel} onClose={()=>{setShareModel(false)}} metadata={metadata} link={link}/>
-        <div className="  p-4 border border-gray-200 bg-white h-125 rounded-sm min-h-fit md:min-h-48  min-w-9 md:overflow-y-scroll [&::-webkit-scrollbar]:hidden">
+        < motion.div
+        initial={{opacity:0, y:-20}}
+        animate={{opacity:2, y:0}}
+        transition={{duration:0.35}}
+         className=" hover:shadow-xl hover:border-purple-400 transition-all duration-100  p-4 border border-gray-200 bg-white h-125 rounded-2xl min-h-fit md:min-h-48  min-w-9 md:overflow-y-scroll [&::-webkit-scrollbar]:hidden">
             <div className="flex justify-between">
                 <div className="flex items-center gap-2 text-xl font-medium text-[#0E1522]">
                     <div>
@@ -214,7 +219,7 @@ export function Card({type, link, title, metadata, _id, createdAt, isTrash, tras
                 {
                     !(type == "tweets") && (metadata && <div className="mt-2 max-h-24">
                         
-                        <div className="bg-[#E0E7FF] text-[#4138B8] p-4 rounded-xl max-h-38 md:overflow-y-scroll scrollbar-none [&::-webkit-scrollbar]:hidden">
+                        <div className=" p-4 rounded-xl max-h-38 md:overflow-y-scroll scrollbar-none [&::-webkit-scrollbar]:hidden">
                             <div className=" flex justify-between">
                                 <div className="font-semibold italic">
                                     Description
@@ -245,7 +250,7 @@ export function Card({type, link, title, metadata, _id, createdAt, isTrash, tras
             
             
 
-            </div>
+            </motion.div>
         
         
         </div>

@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import {lazy, Suspense} from "react";
 import { DashboardShimmer } from "./components/Shimmer/DashboardShimmer";
+import { Trash } from "./pages/Trash";
 
 const Dashboard = lazy(() =>
   import("./pages/Dashboard").then((module) => ({
@@ -22,6 +23,7 @@ const App = () => {
           <Route path="/" element={<CheckAuth/>} />
           <Route path="/signin" element={<Signin/>}></Route>
           <Route path="/signup" element={<Signup/>}></Route>
+          <Route path="/trash" element={<Trash/>}></Route>
           <Route path="/dashboard" element={<Dashboard/>}></Route>
           <Route path="/share/:hash" element={<ShareBrain/>} />
       </Routes>

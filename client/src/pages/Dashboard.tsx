@@ -16,6 +16,7 @@ import { DashboardShimmer } from '../components/Shimmer/DashboardShimmer';
 import { Slide, toast } from 'react-toastify';
 import { LuBrainCircuit } from "react-icons/lu";
 import { MdMenu } from "react-icons/md";
+import { div } from 'motion/react-client';
 
 
 export const Dashboard = () => {
@@ -98,7 +99,7 @@ if(authenticated == false){
 
   return (
   
-    <div className='bg-[#F9FBFC] h-screen p-4'>
+    <div className='bg-[#F9FBFC] h-screen p-4 relative'>
         <div className='h-screen hidden md:block w-72 bg-white border border-gray-200  top-0 left-0 fixed'>{
            <Sidebar 
                 filter={filter} 
@@ -164,8 +165,13 @@ if(authenticated == false){
           </div>
                   
       </div>
-   <div className='md:flex justify-end hidden   gap-2 mt-4 mr-8'>
-   <Button 
+   <div className=' mt-4 mr-8'>
+    {
+      filter=="trash" ? <div 
+                className='bg-red-100 p-4 w-full rounded-4xl text-center text-sm'>
+         <span className='text-xl font-medium'>Caution:</span> Items moved to Trash will be permanently deleted after 30 days. You can restore them anytime before then.</div>
+      : <div className='md:flex justify-end hidden gap-2'>
+        <Button 
           onClick={()=>{setOpneModal(true)}}
           variant='primary'
           size="md" 
@@ -184,6 +190,9 @@ if(authenticated == false){
           username?.charAt(0)?.toUpperCase() || "U"
         }
      </div>
+      </div>
+    }
+   
   </div>
         {
           filteredContent.length > 0 ?  <div className='grid grid-cols-1 md:grid-cols-1 xl:grid-cols-3 2xl:grid-cols-4 gap-8 mt-8'> {

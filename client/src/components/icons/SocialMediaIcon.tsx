@@ -7,7 +7,7 @@ interface SocalMediaIconProps{
 
 }
 
-const SocalMedia = "cursor-pointer hover:scale-105 transition-all duration-150"
+const SocalMedia = "cursor-pointer hover:scale-105 transition-all duration-150 "
 
 export function SocalMediaIcon({Icon, url, color}:SocalMediaIconProps){
     return (
