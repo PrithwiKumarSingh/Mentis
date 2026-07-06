@@ -219,7 +219,7 @@ export function Card({type, link, title, metadata, _id, createdAt, isTrash, tras
                 {
                     !(type == "tweets") && (metadata && <div className="mt-2 max-h-24">
                         
-                        <div className=" p-4 rounded-xl max-h-38 md:overflow-y-scroll scrollbar-none [&::-webkit-scrollbar]:hidden">
+                        <div className=" p-4 rounded-xl bg-slate-100 max-h-38 md:overflow-y-scroll scrollbar-none [&::-webkit-scrollbar]:hidden">
                             <div className=" flex justify-between">
                                 <div className="font-semibold italic">
                                     Description
