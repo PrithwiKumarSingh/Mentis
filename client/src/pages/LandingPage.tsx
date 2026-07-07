@@ -1,6 +1,5 @@
 import { Button } from "../components/ui/Button";
 import { TbBrain } from "react-icons/tb";
-import { IoIosPeople } from "react-icons/io";
 import { IoIosArrowRoundForward } from "react-icons/io";
 import { FaRegPlayCircle, FaStar } from "react-icons/fa";
 import { ContentIcons, FeaturesIcons, MentisWorkingIcons } from "../components/ui/ContentIcons";
@@ -16,15 +15,17 @@ import { IoSearch } from "react-icons/io5";
 import { MdWatchLater } from "react-icons/md";
 import { FaBolt } from "react-icons/fa6";
 import { FaBookmark } from "react-icons/fa6";
-
+import { ReviewCard } from "../components/ui/ReviewCard";
+import { MdPeopleAlt } from "react-icons/md";
+import {Link} from "react-router-dom"
 
 
 export function LandingPage(){
     return (
-        <div className="p-10 w-full ">
+        <div className="p-10 min-w-200 lg:w-full h-full ">
 
             {/* Navbar  */}
-            <div className="flex justify-between items-center">
+            <div className="flex justify-between items-center w-full gap-12 max-w-full ">
                     <div className="flex items-center gap-2">
                         <div className="text-[#614DEE] font-extrabold">
                             {
@@ -43,13 +44,17 @@ export function LandingPage(){
                         <div>Contact</div>
                     </div>
                     <div className="flex gap-4">
-                        <Button text={"Login"} size="md" variant="secondary" />
-                        <Button text={"Get Started Free"} size="md" variant="primary" />
+                        <Link to={"/signin"}>
+                        <Button style="text-[#614DEE]"  text={"Login"} size="md" variant="secondary" />
+                        </Link>
+                        <Link to={"/signup"}>
+                        <Button style="text-white" text={"Get Started Free"} size="md" variant="primary" />
+                        </Link>
                     </div>
             </div>
 
             {/* Hero Section */}
-                <div className="mt-14 lg:flex gap-18 w-fit ml-12">
+                <div className="mt-14 lg:flex gap-18 w-fit lg:ml-12">
                     <div>
                         <div className="flex items-center gap-2 bg-[#F5F1FD] py-2 px-4 w-fit text-[#614DEE] rounded-lg mt-8">
                             <span className="text-yellow-400 ">{<FaStar/>}</span>Your second brain for everything
@@ -69,8 +74,12 @@ export function LandingPage(){
                         </div>
 
                         <div className="flex gap-4 mt-12">
-                            <Button size="md" variant="primary" text={"Get Started Free"} endIcon={<IoIosArrowRoundForward size={32}/>} />
+                            <Link to={"/signin"}>
+                            <Button style="text-white" size="md" variant="primary" text={"Get Started Free"} endIcon={<IoIosArrowRoundForward size={32}/>} />
+                            </Link>
+                            <Link to={"/signup"}>
                             <Button size="md" variant="ternary" text={"view Demo"} startIcon={<FaRegPlayCircle/>} />
+                            </Link>
                         </div>
 
                         <div className="">
@@ -103,11 +112,11 @@ export function LandingPage(){
 
                 {/* Your Content  */}
 
-            <div className="p-10 bg-slate-50 flex flex-col items-center gap-6 my-18 rounded-2xl">
+            <div className="p-10 bg-slate-50 flex flex-col items-center gap-6 my-18 rounded-2xl w-full">
                 <div className="text-3xl font-semibold ">
                     All your content. One place.
                 </div>
-                <div className="flex gap-24 ">
+                <div className="grid grid-cols-3 md:grid-cols-6 lg:grid-cols-6 gap-24 ">
                     <ContentIcons color="text-[#6556F0]" Icon={<FiLink size={38}/>} text={"Links"} /> 
                     <ContentIcons color="text-[#15A8F3]" Icon={<FaTwitter size={38}/>} text={"Tweets"} /> 
                     <ContentIcons color="text-[#15A8F3]" Icon={<FaYoutube size={38}/>} text={"Videos"} /> 
@@ -122,22 +131,71 @@ export function LandingPage(){
                 <div className="text-4xl font-bold mb-10">
                             How Mentis Works
                 </div>
-                <div className="grid grid-cols-4 gap-22 ">
+                <div className="grid grid-cols-2 lg:grid-cols-4 gap-22 ">
                     <MentisWorkingIcons Icon={<LuDownload size={62}/>} title="1.Save" desc="Save links, videos, tweets, articles and docs." />
-                    <MentisWorkingIcons Icon={<FaRegFolderOpen size={62}/>} title="1.Save" desc="Use tags to keep everything organized." />
-                    <MentisWorkingIcons Icon={<IoSearch size={62}/>} title="1.Save" desc="Search instantly and find what you need." />
-                    <MentisWorkingIcons Icon={<IoShareSocialOutline size={62}/>} title="1.Save" desc="Share your collections with one simple link." />
+                    <MentisWorkingIcons Icon={<FaRegFolderOpen size={62}/>} title="2.Organize" desc="Use tags to keep everything organized." />
+                    <MentisWorkingIcons Icon={<IoSearch size={62}/>} title="3.Find" desc="Search instantly and find what you need." />
+                    <MentisWorkingIcons Icon={<IoShareSocialOutline size={62}/>} title="4.Share" desc="Share your collections with one simple link." />
                 </div>
             </div>
 
             {/* features */}
 
             <div className="bg-slate-50 rounded-3xl p-16 my-16">
-                    <div className="grid grid-cols-4">
-                        <FeaturesIcons Icon={<FaBookmark size={52}/>} title="100+" desc="Resources Saved" />
-                        <FeaturesIcons Icon={<FaBolt size={52}/>} title="99%" desc="Uptime" />
-                        <FeaturesIcons Icon={<MdWatchLater size={52}/>} title="< 1s" desc="Search Speed" />
-                        <FeaturesIcons Icon={<IoIosPeople size={52}/>} title="10+" desc="Happy Users" />
+                    <div className="grid grid-cols-2 lg:grid-cols-4 gap-12">
+                        <FeaturesIcons Icon={<FaBookmark size={42}/>} title="100+" desc="Resources Saved" />
+                        <FeaturesIcons Icon={<FaBolt size={42}/>} title="99%" desc="Uptime" />
+                        <FeaturesIcons Icon={<MdWatchLater size={42}/>} title="< 1s" desc="Search Speed" />
+                        <FeaturesIcons Icon={<MdPeopleAlt size={52}/>} title="10+" desc="Happy Users" />
+                    </div>
+            </div>
+
+            <div className="px-26 text-center">
+                <div className="text-3xl font-semibold my-10">
+                    Loved by learners and builders
+                </div>
+                <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4 items-center">
+                    <ReviewCard desc="Mentis helps me keep all my learning resources organized and easy to find." name="Anurag Sing" profession="Full Stack Develper" image="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRO5dL-EVliC2pRNxVr-ZVXLoc6iLUCM07DoQ4mJZQwiw&s" />
+                    <ReviewCard desc="Mentis helps me keep all my learning resources organized and easy to find." name="Anurag Sing" profession="Full Stack Develper" image="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRO5dL-EVliC2pRNxVr-ZVXLoc6iLUCM07DoQ4mJZQwiw&s" />
+                    <ReviewCard desc="Mentis helps me keep all my learning resources organized and easy to find." name="Anurag Sing" profession="Full Stack Develper" image="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRO5dL-EVliC2pRNxVr-ZVXLoc6iLUCM07DoQ4mJZQwiw&s" />
+                    <ReviewCard desc="Mentis helps me keep all my learning resources organized and easy to find." name="Anurag Sing" profession="Full Stack Develper" image="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRO5dL-EVliC2pRNxVr-ZVXLoc6iLUCM07DoQ4mJZQwiw&s" />
+                </div>
+            </div>
+
+            <div className="bg-[#4C38E3] py-12 px-42 text-white rounded-3xl lg:mx-22 my-12 grid grid-cols-1 lg:grid-cols-2  gap-12 ">
+                <div className="max-w-md text-start">
+                    <div className="text-4xl font-bold ">Ready to build your second brain? </div>
+                    <div>
+                        Join More than ten people who already organizing their knowladge with Mentis.
+                    </div>
+                </div>
+                <div className="flex gap-12 my-8">
+                            <Button style="bg-white text-[#4C38E3]" size="md" variant="primary" text={"Get Started Free"} endIcon={<IoIosArrowRoundForward size={32}/>} />
+                            <Button style="text-white" size="md" variant="ternary" text={"view Demo"} startIcon={<FaRegPlayCircle/>} />
+                </div>
+            </div>
+
+            <div className="flex justify-between items-center mx-22 my-2">
+                    <div className="flex items-center gap-2">
+                        <div className="text-[#614DEE] font-extrabold">
+                            {
+                                <TbBrain size={32}/>
+                            }
+                        </div>
+                        <div className="text-2xl font-bold">
+                            Mentis
+                        </div>
+                    </div>
+                    <div className=" hidden  lg:flex gap-12 font-medium text-xl text-gray-600">
+                        <div>Features</div>
+                        <div>Pricing</div>
+                        <div>About</div>
+                        <div>Blog</div>
+                        <div>Contact</div>
+                    </div>
+                    
+                    <div>
+                        ©2026 Mentis. All rights reserved.
                     </div>
             </div>
 

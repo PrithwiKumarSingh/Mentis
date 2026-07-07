@@ -6,6 +6,8 @@ import axios from 'axios'
 import { BACKEND_URL } from "../config";
 import {Slide, toast } from "react-toastify";
 import {motion} from "motion/react"
+import { FcGoogle } from "react-icons/fc";
+
 
 export default function Signin(){
 
@@ -48,6 +50,11 @@ export default function Signin(){
             
         }
 
+        async function conWithGoogle(){
+            console.log("continue with google clicked !")
+            window.location.href = "http://localhost:3000/api/auth/google";
+        }
+
 
 
     return (
@@ -72,10 +79,22 @@ export default function Signin(){
             </div>
             <div className="mt-6">
                 <Button  
+                    style="text-white"
                     loading={loading}
-                    onClick={()=> signin()} 
+                    onClick={signin} 
                     variant="primary" 
                     text={loading ? "Authenticating..." : "Sign In"} 
+                    size="md" 
+                    fullWidth={true} /> 
+            </div>
+            <div className="mt-6">
+                <Button
+                    style="text-black"  
+                    loading={loading}
+                    onClick={conWithGoogle} 
+                    variant="secondary" 
+                    startIcon={<FcGoogle size={32}/>}
+                    text={loading ? "Authenticating..." : "Continue with Google"} 
                     size="md" 
                     fullWidth={true} /> 
             </div>

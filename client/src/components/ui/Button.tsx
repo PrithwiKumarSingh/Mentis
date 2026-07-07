@@ -9,10 +9,11 @@ interface ButtonProps  {
     onClick? : ()=>void;
     fullWidth? : boolean;
     loading? : boolean;
+    style? : string;
 }
 const VariantClasses = {
-    "primary" : "bg-[#5046E4] text-white",
-    "secondary" : "bg-[#E0E7FF] text-[#4138B8] ",
+    "primary" : "bg-[#5046E4] ",
+    "secondary" : "bg-[#E0E7FF] ",
     "ternary" : "text-[#4138B8] border border-gray-400 ",
     "danger": "bg-red-500 text-white hover:bg-red-600",
 }
@@ -32,6 +33,7 @@ export function Button(props:ButtonProps){
                     ${VariantClasses[props.variant]}
                     ${props.loading ? "opacity-70 cursor-not-allowed" : "cursor-pointer"}
                     ${props.fullWidth ? "w-full justify-center" : ""}
+                    ${props.style ? props.style : ""}
                 `}>
         {props.startIcon}
         {props.text}

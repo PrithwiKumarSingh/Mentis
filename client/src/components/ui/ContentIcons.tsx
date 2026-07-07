@@ -61,7 +61,7 @@ export function FeaturesIcons(props:MentisWorkingProps){
                     props.Icon
                 }
             </div>
-            <div className="text-[#4C38E3] text-5xl font-bold ">
+            <div className="text-[#4C38E3] text-4xl font-bold ">
                 {
                     props.title
                 }
