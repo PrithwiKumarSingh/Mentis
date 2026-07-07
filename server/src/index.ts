@@ -1,4 +1,4 @@
-
+import passport from "./config/passport";
 import express from 'express'
 import {main} from './db'
 import jwt from 'jsonwebtoken'
@@ -13,68 +13,72 @@ import {random} from './utils/utils'
 import cors from 'cors'
 import {FRONTEND_URL} from './config/config'
 import ogs from 'open-graph-scraper'
+import googleAuthRouter from "./routes/googleAuth";
 
 const app = express();
 app.use(express.json());
+app.use(passport.initialize());
 app.use(cookieParser());
 app.use(cors({ origin: FRONTEND_URL, credentials:true}));
 
+app.use("/api/auth", googleAuthRouter)
 
-app.post("/api/v1/signup",async (req,res)=> {
-    const username = req.body.username;
-    const password = req.body.password;
+// app.post("/api/v1/signup",async (req,res)=> {
+//     const username = req.body.username;
+//     const password = req.body.password;
 
-    try{
-        await User.create({
-            username : username,
-            password : password
-        })
+//     try{
+//         await User.create({
+//             username : username,
+//             password : password
+//         })
 
-        res.status(200).json({
-            message : "user signup successfully"
-        })
-    }catch(e){
-        res.status(411).json({
-            message:"user already exits !"
-        })
-    }
-})
-app.post("/api/v1/signin",async (req,res)=> {
-    const username = req.body.username;
-    const password = req.body.password;
+//         res.status(200).json({
+//             message : "user signup successfully"
+//         })
+//     }catch(e){
+//         res.status(411).json({
+//             message:"user already exits !"
+//         })
+//     }
+// })
+// app.post("/api/v1/signin",async (req,res)=> {
+//     const username = req.body.username;
+//     const password = req.body.password;
 
-    try{
-        const existingUser = await User.findOne({username, password});
+//     try{
+//         const existingUser = await User.findOne({username, password});
 
-        if(!existingUser){
-            return res.status(403).json({
-                message:"Invalid Credentials"
-            })
-        }
+//         if(!existingUser){
+//             return res.status(403).json({
+//                 message:"Invalid Credentials"
+//             })
+//         }
 
-        const token = jwt.sign({
-                id : existingUser._id
-            },JWT_PASSWORD)
+//         const token = jwt.sign({
+//                 id : existingUser._id
+//             },JWT_PASSWORD)
 
-            res.cookie("token", token, {
-                httpOnly:true, 
-                secure: true,
-                sameSite: "none"
-            });
+//             res.cookie("token", token, {
+//                 httpOnly:true, 
+//                 secure: true,
+//                 sameSite: "none"
+//             });
 
-            res.status(200).json({
-                username,
-                token,
-                message:"Signin Successfully"
-            })
+//             res.status(200).json({
+//                 username,
+//                 token,
+//                 message:"Signin Successfully"
+//             })
 
-    }catch(e){
-        res.status(500).json({
-            message: "Unknown error occurred"
-        })
-    } 
+//     }catch(e){
+//         res.status(500).json({
+//             message: "Unknown error occurred"
+//         })
+//     } 
 
-})
+// })
+
 app.post("/api/v1/logout", (req,res)=>{
     res.clearCookie("token");
     
@@ -129,8 +133,7 @@ app.get("/api/v1/content",userMiddleware, async ( req,res)=> {
     try{
         // @ts-ignore
         const userId = req.userId;
-        const content = await contentModel.find({userId}).populate("userId","username").sort({createdAt:-1});
-
+        const content = await contentModel.find({userId}).populate("userId","name").sort({createdAt:-1});
         if(content.length===0){
             return res.status(200).json({
                 message : "No content found",
@@ -255,7 +258,7 @@ app.get("/api/v1/brain/:shareLink",async (req,res)=>{
     }
 
     res.status(200).json({
-        username : user.username, 
+        username : user.name, 
         content : content
     })
 
@@ -308,6 +311,7 @@ app.delete("/api/v1/trash", userMiddleware, async(req,res)=>{
         })
     }
 })
+
 
 
 // app.get("/api/v1/brain/:shareContent", (req,res)=>{

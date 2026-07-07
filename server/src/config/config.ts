@@ -18,3 +18,13 @@ if(!process.env.FRONTEND_URL){
 }
 
 export const FRONTEND_URL = process.env.FRONTEND_URL ;
+
+if(!process.env.GOOGLE_CLIENT_ID){
+  throw new Error("Client_id missing");
+}
+export const GOOGLE_CLIENT_ID = process.env.GOOGLE_CLIENT_ID;
+
+if(!process.env.GOOGLE_CLIENT_SECRET){
+  throw new Error("Client_Secret missing");
+}
+export const GOOGLE_CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET

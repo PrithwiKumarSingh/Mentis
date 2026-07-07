@@ -7,6 +7,7 @@ import {JWT_PASSWORD} from '../config/config'
 export const userMiddleware = (req:Request,res:Response,next:NextFunction)=>{
     
     const {token} = req.cookies;
+    console.log(token);
 
     if(!token){
         return res.status(401).json({
