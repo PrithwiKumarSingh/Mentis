@@ -86,10 +86,10 @@ app.post("/api/v1/logout", (req,res)=>{
         messsage : "Logged out Successfully"
     })
 })
-app.get("/api/v1/me",userMiddleware, (req,res)=>{
+app.get("/api/v1/me",userMiddleware, async (req,res)=>{
+    const user = await User.findById(req.userId).select("name email avatar");
     res.status(200).json({
-        authenticated:true,
-        userId : req.userId,
+        user
         
     })
 })
