@@ -25,6 +25,8 @@ export function Sidebar({username, loggedout,filter, setFilter, onClose} : {
     onClose? : ()=>void;
 }){
 
+    console.log(username)
+
     const navigate = useNavigate()
     const [loading, setLoading] = useState(false);
 
@@ -33,7 +35,7 @@ export function Sidebar({username, loggedout,filter, setFilter, onClose} : {
             setLoading(true);
         await axios.post(`${BACKEND_URL}/api/v1/logout`,{}, {withCredentials:true});
         localStorage.removeItem("token")
-        navigate("/signin")
+        navigate("/auth/google")
         toast("Logout Successfully", {
                 position : "bottom-right",
                 theme : "colored",
@@ -58,12 +60,12 @@ export function Sidebar({username, loggedout,filter, setFilter, onClose} : {
             initial={{x:-40}}
             animate={{x:0}}
             transition={{duration:0.35}}
-             className="p-4 max-w-64 relative">
+             className="p-4 max-w-64 relative ">
             <div className="flex items-center gap-2 pb-4 mt-8 ml-4">
                 <div className="text-[#5147E3]">
                     <LuBrainCircuit size={36}/>
                 </div>
-                <div className="text-4xl font-bold text-slate-700 hover:cursor-pointer">
+                <div className="text-4xl font-bold text-slate-700 hover:cursor-pointer dark:text-white">
                     <a href="/dashboard">
                         Mentis
                     </a>
@@ -74,7 +76,7 @@ export function Sidebar({username, loggedout,filter, setFilter, onClose} : {
                 </div>
             </div>
 
-            <div className="pt-6 flex flex-col gap-2">
+            <div className="pt-6 flex flex-col gap-2 dark:text-white">
                 <SidebarItem active={filter==="all"} onClick={()=> {onClose?.(); setFilter("all")}} text="All" icon={<MdOutlineDensitySmall size={24}/>}  />
                 <SidebarItem active={filter==="tweets"} onClick={()=>{setFilter("tweets"); onClose?.()}} text="Tweets" icon={<FiTwitter size={24}/>}  />
                 <SidebarItem active={filter==="video"} onClick={()=>{setFilter("video"); onClose?.()}} text="Videos" icon={<FiYoutube size={24}/>}  />
@@ -90,7 +92,7 @@ export function Sidebar({username, loggedout,filter, setFilter, onClose} : {
                 {
                     (username && <div className="text-md font-medium">
                     {
-                        username?.toUpperCase()
+                        username
                         
                     }
                 </div>)

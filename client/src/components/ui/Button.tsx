@@ -12,7 +12,7 @@ interface ButtonProps  {
     style? : string;
 }
 const VariantClasses = {
-    "primary" : "bg-[#5046E4] ",
+    "primary" : "bg-[#5046E4] dark:text-white",
     "secondary" : "bg-[#E0E7FF] ",
     "ternary" : "text-[#4138B8] border border-gray-400 ",
     "danger": "bg-red-500 text-white hover:bg-red-600",

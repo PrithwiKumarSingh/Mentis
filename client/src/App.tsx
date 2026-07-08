@@ -21,8 +21,8 @@ const App = () => {
     <Suspense fallback={<DashboardShimmer/>}>
       <Routes>
           <Route path="/" element={<LandingPage/>} />
-          <Route path="/signin" element={<Signin/>}></Route>
-          <Route path="/signup" element={<Signup/>}></Route>
+          <Route path="/auth/google" element={<Signin/>}></Route>
+          {/* <Route path="/signup" element={<Signup/>}></Route> */}
           <Route path="/dashboard" element={<Dashboard/>}></Route>
           <Route path="/share/:hash" element={<ShareBrain/>} />
       </Routes>

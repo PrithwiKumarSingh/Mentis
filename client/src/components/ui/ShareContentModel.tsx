@@ -68,23 +68,23 @@ export function ShareContentModel({open, onClose, metadata, hash, link}: {
 
     return (
         <div>
-            {open && <div className=" bg-black/60 flex items-center justify-center h-screen w-screen fixed top-0 left-0">
+            {open && <div className=" bg-black/60 flex items-center justify-center h-screen w-screen fixed top-0 left-0 z-40">
                 <motion.div
                     initial={{ opacity: 0, y: -40 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.35 }}
-                        className=" bg-white p-4 md:min-w-sm rounded-3xl">
+                        className=" bg-white p-4 md:min-w-sm rounded-3xl dark:bg-white/5 dark:border-white/10 dark:backdrop-blur-xl dark:shadow-[0_8px_32px_rgba(0,0,0,0.35)] dark:text-white">
                     <div onClick={onClose} className=" flex justify-end cursor-pointer ">
-                        <div className="bg-[#f2f5fc] border border-gray-300 rounded-full p-2">
+                        <div className="bg-[#f2f5fc] border border-gray-300 rounded-full p-2 text-black">
                              <CloseIcon />
                         </div>
                        
                     </div>
                     <div className="text-center flex flex-col items-center">
-                        <h2 className="text-4xl font-bold text-gray-900">
+                        <h2 className="text-4xl font-bold text-gray-900 dark:text-[#dadada]">
                             Share with Friends
                         </h2>
-                        <p className="w-68 text-gray-800 mt-3 ">Share your digital Brain They also seen what inside of your Brain!</p>
+                        <p className="w-68 text-gray-800 mt-3 dark:text-white">Share your digital Brain They also seen what inside of your Brain!</p>
                     </div>
 
                      
@@ -92,7 +92,7 @@ export function ShareContentModel({open, onClose, metadata, hash, link}: {
                         <div className="text-lg font-medium my-2">
                         Share you link
                         </div>
-                        <div className="min-w-sm ">
+                        <div className="min-w-sm dark:text-black">
                             <input defaultValue={linkUrl}  type="text" className="px-4 w-full py-2 bg-slate-100 rounded-2xl"/>
                         </div>
                         <div 

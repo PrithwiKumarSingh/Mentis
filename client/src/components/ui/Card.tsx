@@ -150,9 +150,11 @@ export function Card({type, link, title, metadata, _id, createdAt, isTrash, tras
         initial={{opacity:0, y:-20}}
         animate={{opacity:2, y:0}}
         transition={{duration:0.35}}
-         className=" hover:shadow-xl hover:border-purple-400 transition-all duration-100  p-4 border border-gray-200 bg-white h-125 rounded-2xl min-h-fit md:min-h-48  min-w-9 md:overflow-y-scroll [&::-webkit-scrollbar]:hidden">
+         className=" hover:shadow-xl  hover:border-purple-400 transition-all duration-100  p-4 border 
+                    border-gray-200 bg-white h-125 rounded-2xl min-h-fit md:min-h-48  min-w-9 md:overflow-y-scroll [&::-webkit-scrollbar]:hidden
+                     dark:bg-white/5 dark:border-white/10 dark:backdrop-blur-xl dark:shadow-[0_8px_32px_rgba(0,0,0,0.35)] dark:text-white">
             <div className="flex justify-between">
-                <div className="flex items-center gap-2 text-xl font-medium text-[#0E1522]">
+                <div className="flex items-center gap-2 text-xl font-medium text-[#0E1522] dark:text-white">
                     <div>
                         <DocumentIcon size="md"/>
                     </div>
@@ -219,20 +221,12 @@ export function Card({type, link, title, metadata, _id, createdAt, isTrash, tras
                 {
                     !(type == "tweets") && (metadata && <div className="mt-2 max-h-24">
                         
-                        <div className=" p-4 rounded-xl bg-slate-100 max-h-38 md:overflow-y-scroll scrollbar-none [&::-webkit-scrollbar]:hidden">
+                        <div className=" p-4 rounded-xl bg-slate-100 dark:bg-slate-800 max-h-fit md:overflow-y-scroll scrollbar-none [&::-webkit-scrollbar]:hidden ">
                             <div className=" flex justify-between">
                                 <div className="font-semibold italic">
                                     Description
                                 </div>
-                                    <p className=" text-sm text-[#4138B8] font-normal italic uppercase">
-                                        {new Date(createdAt).toLocaleString("en-IN", {
-                                            day: "2-digit",
-                                            month: "short",
-                                            year: "numeric",
-                                            hour: "2-digit",
-                                            minute: "2-digit",
-                                        })}
-                                    </p>
+                                    
                             </div>
 
                             
@@ -248,6 +242,17 @@ export function Card({type, link, title, metadata, _id, createdAt, isTrash, tras
                 }
             </div>
             
+            <div className="absolute bottom-2 right-4 text-black">
+                <p className=" text-sm text-[#4138B8] dark:text-white font-normal italic uppercase">
+                                        {new Date(createdAt).toLocaleString("en-IN", {
+                                            day: "2-digit",
+                                            month: "short",
+                                            year: "numeric",
+                                            hour: "2-digit",
+                                            minute: "2-digit",
+                                        })}
+                                    </p>
+            </div>
             
 
             </motion.div>

@@ -70,12 +70,12 @@ export function CreateContentModal({open, onClose,refresh}: {
     return (
         <div>
             {open && <div
-             className=" bg-black/60 flex items-center justify-center h-screen w-screen fixed top-0 left-0">
+             className=" bg-black/60 flex items-center justify-center h-screen w-screen fixed top-0 left-0 z-40 ">
                 < motion.div
                 initial={{ opacity: 0, y: -40 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.35 }}
-                 className=" bg-white p-4 rounded">
+                 className=" bg-white p-4 rounded dark:bg-white/5 dark:border-white/10 dark:backdrop-blur-xl dark:shadow-[0_8px_32px_rgba(0,0,0,0.35)] dark:text-white">
                     <div onClick={onClose} className=" flex justify-end cursor-pointer">
                         <CloseIcon />
                     </div>
@@ -84,10 +84,10 @@ export function CreateContentModal({open, onClose,refresh}: {
                         <Input referance={linkRef} placeholder={"Link"} />
                     </div>
                     <div className="flex items-center my-4 gap-2">
-                        <Button onClick={()=>setType(ContentType.Video)} text={"Video"} size="sm" variant={type==ContentType.Video ? "primary" : "secondary"} />
-                        <Button onClick={()=>setType(ContentType.Twitter)} text={"Tweets"} size="sm" variant={type==ContentType.Twitter ? "primary" : "secondary"} />
-                        <Button onClick={()=>setType(ContentType.Documents)} text={"Docs"} size="sm" variant={type==ContentType.Documents ? "primary" : "secondary"} />
-                        <Button onClick={()=>setType(ContentType.Links)} text={"Links"} size="sm" variant={type==ContentType.Links ? "primary" : "secondary"} />
+                        <Button style="dark:text-black" onClick={()=>setType(ContentType.Video)} text={"Video"} size="sm" variant={type==ContentType.Video ? "primary" : "secondary"} />
+                        <Button style="dark:text-black" onClick={()=>setType(ContentType.Twitter)} text={"Tweets"} size="sm" variant={type==ContentType.Twitter ? "primary" : "secondary"} />
+                        <Button style="dark:text-black" onClick={()=>setType(ContentType.Documents)} text={"Docs"} size="sm" variant={type==ContentType.Documents ? "primary" : "secondary"} />
+                        <Button style="dark:text-black" onClick={()=>setType(ContentType.Links)} text={"Links"} size="sm" variant={type==ContentType.Links ? "primary" : "secondary"} />
                     </div>
                     <div className="flex justify-center mt-4">
                         <Button 

@@ -44,10 +44,10 @@ export function LandingPage(){
                         <div>Contact</div>
                     </div>
                     <div className="flex gap-4">
-                        <Link to={"/signin"}>
+                        <Link to={"/dashboard"}>
                         <Button style="text-[#614DEE]"  text={"Login"} size="md" variant="secondary" />
                         </Link>
-                        <Link to={"/signup"}>
+                        <Link to={"/dashboard"}>
                         <Button style="text-white" text={"Get Started Free"} size="md" variant="primary" />
                         </Link>
                     </div>

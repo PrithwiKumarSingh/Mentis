@@ -16,6 +16,7 @@ import { DashboardShimmer } from '../components/Shimmer/DashboardShimmer';
 import { Slide, toast } from 'react-toastify';
 import { LuBrainCircuit } from "react-icons/lu";
 import { MdMenu } from "react-icons/md";
+import { ThemeToggle } from '../components/ui/ThemeToggle';
 
 
 
@@ -28,14 +29,22 @@ export const Dashboard = () => {
   const [ authenticated, setAuthenticated] = useState<boolean | null>(null);
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
+  type User = {
+  name: string;
+  email: string;
+  avatar: string;
+};
+  const [user, setUser] = useState<User >()
+
 
 async function verifyUser(){
       try{
-        await axios.get(`${BACKEND_URL}/api/v1/me`,
+        const res = await axios.get(`${BACKEND_URL}/api/v1/me`,
         {
           withCredentials : true
         }
       );
+      setUser(res.data.user)
       setAuthenticated(true);
       }catch(err){
         localStorage.removeItem("token")
@@ -49,10 +58,10 @@ async function verifyUser(){
      verifyUser();
   },[])
 
-  const username = localStorage.getItem("username") || "U"
+
 
 if(authenticated == false){
-    return <Navigate to={"/signin"} replace/>
+    return <Navigate to={"/auth/google"} replace/>
   }
 
   if(authenticated == null || loading){
@@ -96,24 +105,28 @@ if(authenticated == false){
       }
     }
 
+    
+
 
   return (
   
-    <div className='bg-[#F9FBFC] h-screen p-4 relative'>
-        <div className='h-screen hidden md:block w-72 bg-white border border-gray-200  top-0 left-0 fixed'>{
+    <div className='bg-[#F9FBFC] dark:bg-linear-to-bl from-slate-900 to-blue-900 w-full h-auto p-4  '>
+        <div className='h-screen hidden md:block w-72 bg-white border border-gray-200 dark:border-none  top-0 left-0 fixed dark:bg-linear-to-bl from-slate-800 to-blue-900'>{
            <Sidebar 
                 filter={filter} 
                 setFilter={setFilter} 
-                username={username} 
+                username={user?.name ?? "User"} 
                 loggedout={true}/>
           }
             
 
         </div>
 
-   <div className='p-4 md:ml-72 sm:pl-10 bg-[#F9FBFC] h-1vh'>
+   <div className='p-4 md:ml-72 sm:pl-10 h-1vh '>
     <CreateContentModal open={openModal} onClose={()=>{setOpneModal(false)}} refresh={refresh}/>
     <ShareContentModel hash={hash} open={shareModel} onClose={()=>{setShareModel(false)}} />
+
+      {/* Navbar  */}
       <div className='md:hidden mb-4 flex justify-between'>
         <div onClick={()=>setSidebarOpen(true)}>
           {
@@ -157,7 +170,7 @@ if(authenticated == false){
             <Sidebar 
                 filter={filter} 
                 setFilter={setFilter} 
-                username={username} 
+                username={user.name ?? 'User'} 
                 loggedout={true}
                 onClose={()=>setSidebarOpen(false)}
                 />
@@ -165,13 +178,16 @@ if(authenticated == false){
           </div>
                   
       </div>
-   <div className=' mt-4 mr-8'>
+
+
+   <div className=' mr-8'>
     {
       filter=="trash" ? <div 
                 className='bg-red-100 p-4 w-full rounded-4xl text-center text-sm'>
          <span className='text-xl font-medium'>Caution:</span> Items moved to Trash will be permanently deleted after 30 days. You can restore them anytime before then.</div>
-      : <div className='md:flex justify-end hidden gap-2'>
+      : <div className='md:flex justify-end hidden gap-4 py-4 px-4'>
         <Button 
+          style='text-white'
           onClick={()=>{setOpneModal(true)}}
           variant='primary'
           size="md" 
@@ -185,10 +201,11 @@ if(authenticated == false){
           text="Share Brain" 
           startIcon={<ShareIcon size='md'/>}
     ></Button>
-     <div className='px-5 py-2 flex items-center justify-center text-2xl font-medium cursor-pointer bg-[#5046E4] text-[#fafafa] rounded-full'>
-        {
-          username?.charAt(0)?.toUpperCase() || "U"
-        }
+    <div>
+      <ThemeToggle/>
+    </div>
+     <div className='h-14 w-14  text-[#fafafa] rounded-full overflow-hidden'>
+        <img className='cursor-pointer' src={"https://lh3.googleusercontent.com/a/ACg8ocK1k-JYXNg29MDFm1bfosYBY9WQxpXESbeMg05qoIzeE4HgFc8=s96-c"} alt="" />
      </div>
       </div>
     }
@@ -212,7 +229,7 @@ if(authenticated == false){
               )
       }
     </div> 
-    : <div className='bg-[#F9FBFC] h-[89vh] flex items-center justify-center text-xl font-medium'>
+    : <div className='dark:text-white h-[84vh] flex items-center justify-center text-xl font-medium'>
           {
             filter === "trash"
                   ? "Trash is empty"

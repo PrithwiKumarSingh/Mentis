@@ -1,7 +1,7 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Button } from "../components/ui/Button";
-import { Input } from "../components/ui/CreateContentModal";
-import { Link, useNavigate } from "react-router-dom";
+// import { Input } from "../components/ui/CreateContentModal";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import axios from 'axios'
 import { BACKEND_URL } from "../config";
 import {Slide, toast } from "react-toastify";
@@ -15,6 +15,7 @@ export default function Signin(){
         const passwordRef = useRef <HTMLInputElement>(null);
         const navigate = useNavigate();
         const [loading, setLoading] = useState(false);
+        const [ authenticated, setAuthenticated] = useState<boolean | null>(null);
     
         async function signin(){
             try{
@@ -50,6 +51,30 @@ export default function Signin(){
             
         }
 
+        async function verifyUser(){
+      try{
+        await axios.get(`${BACKEND_URL}/api/v1/me`,
+        {
+          withCredentials : true
+        }
+      );
+      setAuthenticated(true);
+      }catch(err){
+        localStorage.removeItem("token")
+        localStorage.removeItem("username")
+        setAuthenticated(false)
+      }
+     }
+  
+  useEffect(()=>{
+
+     verifyUser();
+  },[])
+
+  if(authenticated == true){
+    return <Navigate to={"/dashboard"} replace/>
+  }
+
         async function conWithGoogle(){
             console.log("continue with google clicked !")
             window.location.href = "http://localhost:3000/api/auth/google";
@@ -63,21 +88,21 @@ export default function Signin(){
                 initial={{ opacity: 0, y: 40 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
-                 className="flex flex-col bg-white p-8 rounded-xl">
+                 className="flex flex-col bg-gradient-to-br from-slate-50 to-indigo-50 p-8 rounded-xl">
                 <div className="text-3xl font-bold text-blue-400">
-                    Sign in 
+                    Welcome back.
                 </div>
                 <div className="text-md font-semibold text-slate-500">
                     Capture ideas before they disappear.
                 </div>
-            <div className="flex flex-col gap-2 mt-4  ">
+            {/* <div className="flex flex-col gap-2 mt-4  ">
                 <Input referance={usernameRef} placeholder={"username"} />
                 <Input referance={passwordRef} placeholder={"password"} />
-            </div>
-            <div className="text-md text-slate-600 mt-2 hover:text-red-600">
+            </div> */}
+            {/* <div className="text-md text-slate-600 mt-2 hover:text-red-600">
                 <a href="/">Forgot password ?</a>
-            </div>
-            <div className="mt-6">
+            </div> */}
+            {/* <div className="mt-6">
                 <Button  
                     style="text-white"
                     loading={loading}
@@ -86,7 +111,7 @@ export default function Signin(){
                     text={loading ? "Authenticating..." : "Sign In"} 
                     size="md" 
                     fullWidth={true} /> 
-            </div>
+            </div> */}
             <div className="mt-6">
                 <Button
                     style="text-black"  
@@ -98,12 +123,12 @@ export default function Signin(){
                     size="md" 
                     fullWidth={true} /> 
             </div>
-            <div className="mt-4">
+            {/* <div className="mt-4">
                 Don't have an account? 
                 <Link to={"/signup"} className="pl-1 font-medium hover:text-blue-900 transition-all duration-200 underline">
                       Sign up now!
                 </Link>
-            </div>
+            </div> */}
             </motion.div>
         </div>
     )
