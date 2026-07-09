@@ -150,7 +150,7 @@ export function Card({type, link, title, metadata, _id, createdAt, isTrash, tras
         initial={{opacity:0, y:-20}}
         animate={{opacity:2, y:0}}
         transition={{duration:0.35}}
-         className=" hover:shadow-xl  hover:border-purple-400 transition-all duration-100  p-4 border 
+         className=" hover:shadow-xl relative hover:border-purple-400 transition-all duration-100  p-4 border 
                     border-gray-200 bg-white h-125 rounded-2xl min-h-fit md:min-h-48  min-w-9 md:overflow-y-scroll [&::-webkit-scrollbar]:hidden
                      dark:bg-white/5 dark:border-white/10 dark:backdrop-blur-xl dark:shadow-[0_8px_32px_rgba(0,0,0,0.35)] dark:text-white">
             <div className="flex justify-between">

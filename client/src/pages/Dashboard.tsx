@@ -17,7 +17,7 @@ import { Slide, toast } from 'react-toastify';
 import { LuBrainCircuit } from "react-icons/lu";
 import { MdMenu } from "react-icons/md";
 import { ThemeToggle } from '../components/ui/ThemeToggle';
-
+import ProfileDropdown from "./ProfileDropDown";
 
 
 export const Dashboard = () => {
@@ -28,6 +28,7 @@ export const Dashboard = () => {
   const [filter, setFilter] = useState("all");
   const [ authenticated, setAuthenticated] = useState<boolean | null>(null);
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [dropDown, setDropDown] = useState(false);
 
   type User = {
   name: string;
@@ -79,8 +80,9 @@ if(authenticated == false){
                           ? contents
                           : contents.filter((item:any)=>item.type === filter);
 
-// @ts-ignore
-
+                        
+  const avtar = user?.avatar || "https://media.istockphoto.com/id/2151669184/vector/vector-flat-illustration-in-grayscale-avatar-user-profile-person-icon-gender-neutral.jpg?s=612x612&w=0&k=20&c=UEa7oHoOL30ynvmJzSCIPrwwopJdfqzBs0q69ezQoM8="
+  console.log(avtar);
   async function shareBrain(){
       try{
 
@@ -110,8 +112,8 @@ if(authenticated == false){
 
   return (
   
-    <div className='bg-[#F9FBFC] dark:bg-linear-to-bl from-slate-900 to-blue-900 w-full h-auto p-4  '>
-        <div className='h-screen hidden md:block w-72 bg-white border border-gray-200 dark:border-none  top-0 left-0 fixed dark:bg-linear-to-bl from-slate-800 to-blue-900'>{
+    <div className='min-h-screen bg-[#F9FBFC] dark:bg-linear-to-bl from-slate-900 to-[#06071B] w-full p-4  '>
+        <div className='h-screen hidden md:block w-72 bg-white border border-gray-200 dark:border-none  top-0 left-0 fixed dark:bg-linear-to-bl from-[#06071B] to-[#06071B]'>{
            <Sidebar 
                 filter={filter} 
                 setFilter={setFilter} 
@@ -125,6 +127,19 @@ if(authenticated == false){
    <div className='p-4 md:ml-72 sm:pl-10 h-1vh '>
     <CreateContentModal open={openModal} onClose={()=>{setOpneModal(false)}} refresh={refresh}/>
     <ShareContentModel hash={hash} open={shareModel} onClose={()=>{setShareModel(false)}} />
+      <div className='z-150'>
+<ProfileDropdown
+  user={{
+    name: user.name,
+    email: user.email,
+    avatar: avtar,
+    open : dropDown
+  }}
+/>;
+      </div>
+
+
+
 
       {/* Navbar  */}
       <div className='md:hidden mb-4 flex justify-between'>
@@ -170,7 +185,7 @@ if(authenticated == false){
             <Sidebar 
                 filter={filter} 
                 setFilter={setFilter} 
-                username={user.name ?? 'User'} 
+                username={user?.name ?? 'User'} 
                 loggedout={true}
                 onClose={()=>setSidebarOpen(false)}
                 />
@@ -204,8 +219,9 @@ if(authenticated == false){
     <div>
       <ThemeToggle/>
     </div>
-     <div className='h-14 w-14  text-[#fafafa] rounded-full overflow-hidden'>
-        <img className='cursor-pointer' src={"https://lh3.googleusercontent.com/a/ACg8ocK1k-JYXNg29MDFm1bfosYBY9WQxpXESbeMg05qoIzeE4HgFc8=s96-c"} alt="" />
+     <div onClick={()=>setDropDown(dropDown ? false : true)} className='h-14 w-14 relative  text-[#fafafa]  '>
+        <img className='cursor-pointer rounded-full' loading='lazy' src={avtar} alt="loading" />
+        <span className="absolute -bottom-0.5 right-1 h-4 w-4 rounded-full border-2 border-[#222022] bg-green-500" />
      </div>
       </div>
     }
