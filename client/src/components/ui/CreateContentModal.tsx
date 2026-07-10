@@ -75,7 +75,7 @@ export function CreateContentModal({open, onClose,refresh}: {
                 initial={{ opacity: 0, y: -40 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.35 }}
-                 className=" bg-white p-4 rounded dark:bg-white/5 dark:border-white/10 dark:backdrop-blur-xl dark:shadow-[0_8px_32px_rgba(0,0,0,0.35)] dark:text-white">
+                 className=" bg-white p-4  dark:text-white dark:bg-white/5 rounded-3xl backdrop-blur-md border border-white/20 shadow-lg transition-all">
                     <div onClick={onClose} className=" flex justify-end cursor-pointer">
                         <CloseIcon />
                     </div>

@@ -5,9 +5,9 @@ export const ContentShimmer = () => {
 
   return (
   
-    <div className='bg-[#F9FBFC] h-screen'>
+    <div className=' dark:bg-linear-to-bl from-slate-900 to-[#06071B]  h-screen'>
 
-   <div className='p-4 md:ml-72 md:pl-10 bg-[#F9FBFC] h-1vh'>
+   <div className='p-4 md:ml-72 md:pl-10 bg-[#F9FBFC] h-1vh dark:bg-linear-to-bl from-slate-900 to-[#06071B]'>
 
     
    <div className='flex justify-between md:justify-end gap-2 mt-4 mr-8'>
@@ -20,7 +20,7 @@ export const ContentShimmer = () => {
 
   <div className="h-[88vh] mt-2">
 
-      <div className='grid grid-cols-1 md:grid-cols-1 xl:grid-cols-3 2xl:grid-cols-4 gap-2 md:gap-4 mt-8 md:mt-2 md:p-4 md:pr-12' >
+      <div className='grid grid-cols-1 md:grid-cols-1 xl:grid-cols-3 2xl:grid-cols-4 gap-2 md:gap-4 mt-8 md:mt-2 md:p-4 md:pr-12dark:bg-linear-to-bl from-slate-900 to-[#06071B] ' >
         <CardShimmer/>
         <CardShimmer/>
         <CardShimmer/>

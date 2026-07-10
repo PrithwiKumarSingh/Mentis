@@ -10,7 +10,7 @@ import { ShareContentModel } from "./ShareContentModel";
 import { Slide, toast } from "react-toastify";
 import {motion} from "motion/react"
 import { RiLoopLeftFill } from "react-icons/ri";
-
+import { formatDistanceToNow } from "date-fns";
 
 interface metadata{
     title? : string; 
@@ -27,11 +27,12 @@ interface CardProps{
     _id : string; 
     refresh? : ()=>void;
     createdAt: string;
+    deletedAt: string;
     isTrash? : boolean;
     trashRefresh? : ()=>void
 }
 
-export function Card({type, link, title, metadata, _id, createdAt, isTrash, trashRefresh, refresh}: CardProps){
+export function Card({type, link, title, metadata, _id, createdAt, isTrash,deletedAt, trashRefresh, refresh}: CardProps){
     const [shareModel, setShareModel] = useState(false);
     const [loading, setLoading] = useState(false)
     const [recover, setRecover] = useState(false)
@@ -243,7 +244,13 @@ export function Card({type, link, title, metadata, _id, createdAt, isTrash, tras
             </div>
             
             <div className="absolute bottom-2 right-4 text-black">
-                <p className=" text-sm text-[#4138B8] dark:text-white font-normal italic uppercase">
+                {
+                    isTrash ?
+                    <p className=" text-sm text-[#4138B8] dark:text-white font-normal">
+                        {formatDistanceToNow(new Date(deletedAt), { addSuffix: true })}
+                    </p>
+                    
+                    : <p className=" text-sm text-[#4138B8] dark:text-white font-normal italic uppercase">
                                         {new Date(createdAt).toLocaleString("en-IN", {
                                             day: "2-digit",
                                             month: "short",
@@ -252,6 +259,7 @@ export function Card({type, link, title, metadata, _id, createdAt, isTrash, tras
                                             minute: "2-digit",
                                         })}
                                     </p>
+                }
             </div>
             
 

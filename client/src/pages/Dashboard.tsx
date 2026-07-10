@@ -16,7 +16,6 @@ import { DashboardShimmer } from '../components/Shimmer/DashboardShimmer';
 import { Slide, toast } from 'react-toastify';
 import { LuBrainCircuit } from "react-icons/lu";
 import { MdMenu } from "react-icons/md";
-import { ThemeToggle } from '../components/ui/ThemeToggle';
 import ProfileDropdown from "./ProfileDropDown";
 
 
@@ -28,7 +27,6 @@ export const Dashboard = () => {
   const [filter, setFilter] = useState("all");
   const [ authenticated, setAuthenticated] = useState<boolean | null>(null);
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [dropDown, setDropDown] = useState(false);
 
   type User = {
   name: string;
@@ -82,7 +80,6 @@ if(authenticated == false){
 
                         
   const avtar = user?.avatar || "https://media.istockphoto.com/id/2151669184/vector/vector-flat-illustration-in-grayscale-avatar-user-profile-person-icon-gender-neutral.jpg?s=612x612&w=0&k=20&c=UEa7oHoOL30ynvmJzSCIPrwwopJdfqzBs0q69ezQoM8="
-  console.log(avtar);
   async function shareBrain(){
       try{
 
@@ -127,16 +124,7 @@ if(authenticated == false){
    <div className='p-4 md:ml-72 sm:pl-10 h-1vh '>
     <CreateContentModal open={openModal} onClose={()=>{setOpneModal(false)}} refresh={refresh}/>
     <ShareContentModel hash={hash} open={shareModel} onClose={()=>{setShareModel(false)}} />
-      <div className='z-150'>
-<ProfileDropdown
-  user={{
-    name: user.name,
-    email: user.email,
-    avatar: avtar,
-    open : dropDown
-  }}
-/>;
-      </div>
+      
 
 
 
@@ -198,11 +186,11 @@ if(authenticated == false){
    <div className=' mr-8'>
     {
       filter=="trash" ? <div 
-                className='bg-red-100 p-4 w-full rounded-4xl text-center text-sm'>
+                className='bg-red-100 dark:bg-white/10 text-red-500 border border-white/20 p-4 w-full rounded-4xl text-center text-sm'>
          <span className='text-xl font-medium'>Caution:</span> Items moved to Trash will be permanently deleted after 30 days. You can restore them anytime before then.</div>
       : <div className='md:flex justify-end hidden gap-4 py-4 px-4'>
         <Button 
-          style='text-white'
+          style='dark:bg-white/10 text-white backdrop-blur-md border border-white/20 shadow-lg transition-all'
           onClick={()=>{setOpneModal(true)}}
           variant='primary'
           size="md" 
@@ -210,18 +198,25 @@ if(authenticated == false){
           startIcon={<PlusIcon size='md'/>}
     ></Button>
    <Button 
+        style='dark:bg-white/10 dark:text-white backdrop-blur-md border border-white/20 shadow-lg transition-all' 
           onClick={shareBrain}
           variant='secondary'
           size="md" 
           text="Share Brain" 
           startIcon={<ShareIcon size='md'/>}
     ></Button>
-    <div>
-      <ThemeToggle/>
-    </div>
-     <div onClick={()=>setDropDown(dropDown ? false : true)} className='h-14 w-14 relative  text-[#fafafa]  '>
+     <div className='h-14 w-14 relative  group text-[#fafafa]'>
         <img className='cursor-pointer rounded-full' loading='lazy' src={avtar} alt="loading" />
         <span className="absolute -bottom-0.5 right-1 h-4 w-4 rounded-full border-2 border-[#222022] bg-green-500" />
+        <div className='hidden group-hover:block absolute -right-15 -top-22 z-40'>
+<ProfileDropdown
+  user={{
+    name: user?.name,
+    email: user?.email,
+    avatar: avtar,
+  }}
+/>
+      </div>
      </div>
       </div>
     }
@@ -229,7 +224,7 @@ if(authenticated == false){
   </div>
         {
           filteredContent.length > 0 ?  <div className='grid grid-cols-1 md:grid-cols-1 xl:grid-cols-3 2xl:grid-cols-4 gap-8 mt-8'> {
-      filteredContent.map(({title,type,link, _id, metadata, createdAt})=><Card 
+      filteredContent.map(({title,type,link, _id, metadata, createdAt, deletedAt})=><Card 
                 key={_id} 
                 title={title} 
                 type={type}
@@ -239,6 +234,7 @@ if(authenticated == false){
                 refresh={refresh} 
                 trashRefresh={trashRefresh}
                 createdAt={createdAt}
+                deletedAt={deletedAt}
                 isTrash={filter=="trash"? true : false}
                 />
                 

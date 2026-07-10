@@ -25,7 +25,6 @@ export function Sidebar({username, loggedout,filter, setFilter, onClose} : {
     onClose? : ()=>void;
 }){
 
-    console.log(username)
 
     const navigate = useNavigate()
     const [loading, setLoading] = useState(false);
@@ -87,7 +86,7 @@ export function Sidebar({username, loggedout,filter, setFilter, onClose} : {
             </div>
 
             {
-                (loggedout ? <div className="absolute mt-70 md:mt-90 flex  items-center justify-between  bg-slate-300 w-full px-4 py-2 rounded-xl">
+                (loggedout ? <div className="absolute mt-70 md:mt-90 flex  items-center justify-between  bg-slate-300 w-full rounded-xl px-6 py-3 dark:font-semibold dark:text-white dark:bg-white/10 dark:backdrop-blur-md dark:border dark:border-white/20 dark:shadow-lg dark:transition-all dark:focus:outline-none dark:focus:ring-2 dark:focus:ring-white/50">
 
                 {
                     (username && <div className="text-md font-medium">

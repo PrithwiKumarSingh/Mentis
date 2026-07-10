@@ -1,4 +1,3 @@
-// ThemeContext.tsx
 
 import { createContext, useContext, useEffect, useState } from "react";
 
@@ -22,9 +21,6 @@ export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
   } else {
     html.classList.remove("dark");
   }
-
-  console.log("Theme:", theme);
-  console.log("HTML classes:", html.className);
 
   localStorage.setItem("theme", theme);
 }, [theme]);

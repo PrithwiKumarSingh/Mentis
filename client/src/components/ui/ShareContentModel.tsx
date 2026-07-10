@@ -97,7 +97,7 @@ export function ShareContentModel({open, onClose, metadata, hash, link}: {
                         </div>
                         <div 
                             onClick={()=>copyLink()}
-                         className="absolute right-8 top-10 hover:scale-105 cursor-pointer transition-all duration-150">
+                         className="absolute right-6 top-11.5 hover:scale-105 cursor-pointer transition-all duration-150 dark:text-black">
                             {
                                 copy=="Copy" ?<GoCopy size={20}/> : <IoCheckmarkDoneOutline size={20}/>
                             }

@@ -2,7 +2,7 @@
 
 export function CardShimmer(){
     return(
-        <div className="p-4 border border-gray-200 bg-white h-98 rounded-sm min-h-48 min-w-9 ">
+        <div className="p-4 border border-gray-200 bg-white h-98 rounded-sm min-h-48 min-w-9 dark:bg-white/5 dark:border-white/10 dark:backdrop-blur-xl dark:shadow-[0_8px_32px_rgba(0,0,0,0.35)]">
                     <div className="flex justify-between">
                         <div className="flex items-center gap-2 text-xl font-medium text-[#0E1522]">
                             <div className="px-4 py-4 rounded-lg bg-gray-200 hover:shadow-black/50 transition-all duration-300 animate-pulse"> </div>

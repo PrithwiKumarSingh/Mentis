@@ -1,33 +1,36 @@
-import { useState } from "react";
+import {motion} from "motion/react"
 import {
   Settings,
   LayoutGrid,
   Moon,
   LogOut,
-  ChevronDown,
 } from "lucide-react";
+import { useTheme } from "../components/Embed/ThemeContext";
 
 type Props = {
   user: {
-    open : boolean;
-    name: string;
-    email: string;
+    name: string | undefined;
+    email: string | undefined;
     avatar: string;
   };
 };
 
 export default function ProfileDropDown({ user }: Props) {
-  const [dark, setDark] = useState(true);
+  const { theme, toggleTheme } = useTheme();
 
   return (
     <div>{
-        user.open && 
-    <div className="absolute right-10 top-36 w-90 overflow-hidden rounded-3xl border border-white/10 bg-[#181516]/95 shadow-[0_25px_60px_rgba(0,0,0,.45)] backdrop-blur-xl">
+        true && 
+    <motion.div
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1 }}
+     className="absolute bg-[#E0E7FF] right-10 top-36 w-90 overflow-hidden  font-semibold text-slate-800 dark:text-white dark:bg-linear-to-bl from-slate-900 to-[#06071B] rounded-3xl backdrop-blur-md border border-white/20 shadow-lg transition-all">
 
       {/* Header */}
 
       <div className="p-5">
-        <div className="flex items-center justify-between rounded-2xl border border-white/5 bg-[#222022] px-4 py-3 shadow-inner">
+        <div className="flex items-center justify-between rounded-2xl border border-white/5 bg-[#222022] dark:bg-[#0D1529] px-4 py-3 shadow-inner">
 
           <div className="flex items-center gap-4">
 
@@ -75,9 +78,9 @@ export default function ProfileDropDown({ user }: Props) {
           text="Integrations"
         />
 
-        <div className="flex cursor-pointer items-center justify-between rounded-xl px-4 py-4 transition hover:bg-white/5">
+        <div className="flex cursor-pointer items-center justify-between rounded-xl px-4 py-4 transition hover:bg-black/5 dark:hover:bg-white/5">
 
-          <div className="flex items-center gap-4 text-white">
+          <div className="flex items-center gap-4">
 
             <Moon size={22} />
 
@@ -90,14 +93,14 @@ export default function ProfileDropDown({ user }: Props) {
           {/* Toggle */}
 
           <button
-            onClick={() => setDark(!dark)}
-            className={`relative h-8 w-14 rounded-full transition ${
-              dark ? "bg-slate-600" : "bg-zinc-700"
+            onClick={toggleTheme}
+            className={`relative h-8 w-14 rounded-full transition cursor-pointer ${
+              theme==='light' ? "bg-slate-600" : "bg-zinc-700"
             }`}
           >
             <span
               className={`absolute top-1 h-6 w-6 rounded-full bg-white transition ${
-                dark ? "left-7" : "left-1"
+                theme==='dark' ? "left-7" : "left-1"
               }`}
             />
           </button>
@@ -105,9 +108,9 @@ export default function ProfileDropDown({ user }: Props) {
 
       </div>
 
-      <div className="border-t border-white/10">
+      <div className="border-t border-black/10 dark:border-white/10">
 
-        <button className="flex w-full items-center gap-4 px-8 py-5 text-left text-white transition hover:bg-red-500/10 hover:text-red-400">
+        <button className="flex w-full items-center gap-4 px-8 py-5 text-left transition cursor-pointer hover:bg-red-500/10 hover:text-red-400">
 
           <LogOut size={22} />
 
@@ -118,7 +121,7 @@ export default function ProfileDropDown({ user }: Props) {
         </button>
 
       </div>
-    </div>
+    </motion.div>
     }
     </div>
   );
@@ -133,7 +136,7 @@ function MenuItem({
   text: string;
 }) {
   return (
-    <button className="flex w-full items-center gap-4 rounded-xl px-4 py-4 text-left text-white transition hover:bg-white/5">
+    <button className="flex w-full items-center gap-4 rounded-xl px-4 py-4 text-left transition hover:bg-black/5 dark:hover:bg-white/5 cursor-pointer">
       {icon}
       <span className="text-xl">{text}</span>
     </button>
