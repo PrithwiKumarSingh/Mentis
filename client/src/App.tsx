@@ -9,8 +9,6 @@ const Dashboard = lazy(() =>
   }))
 );
 const Signin = lazy(()=> import("./pages/Signin"))
-const Signup = lazy(()=> import("./pages/Signup"))
-const CheckAuth = lazy(()=> import("./pages/CheckAuth"))
 const ShareBrain = lazy(()=> import("./pages/ShareBrain"))
 
 

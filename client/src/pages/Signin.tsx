@@ -1,55 +1,55 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "../components/ui/Button";
 // import { Input } from "../components/ui/CreateContentModal";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import axios from 'axios'
 import { BACKEND_URL } from "../config";
-import {Slide, toast } from "react-toastify";
+// import {Slide, toast } from "react-toastify";
 import {motion} from "motion/react"
 import { FcGoogle } from "react-icons/fc";
 
 
 export default function Signin(){
 
-    const usernameRef = useRef <HTMLInputElement>(null);
-        const passwordRef = useRef <HTMLInputElement>(null);
-        const navigate = useNavigate();
+    // const usernameRef = useRef <HTMLInputElement>(null);
+        // const passwordRef = useRef <HTMLInputElement>(null);
+        // const navigate = useNavigate();
         const [loading, setLoading] = useState(false);
         const [ authenticated, setAuthenticated] = useState<boolean | null>(null);
     
-        async function signin(){
-            try{
-                setLoading(true)
-            const username = usernameRef.current?.value.trim();
-            const password = passwordRef.current?.value.trim();
+        // async function signin(){
+        //     try{
+        //         setLoading(true)
+        //     const username = usernameRef.current?.value.trim();
+        //     const password = passwordRef.current?.value.trim();
             
-            const response = await axios.post(BACKEND_URL + "/api/v1/signin", {username, password}, {withCredentials:true})
+        //     const response = await axios.post(BACKEND_URL + "/api/v1/signin", {username, password}, {withCredentials:true})
 
-            localStorage.setItem("username", response.data.username);
-            localStorage.setItem("token", response.data.token )
+        //     localStorage.setItem("username", response.data.username);
+        //     localStorage.setItem("token", response.data.token )
     
-            navigate('/dashboard');
-            toast("Login Successfully", {
-                position : "bottom-right",
-                theme : "colored",
-                type : "success", 
-                transition: Slide,
-                autoClose : 3000
-            })
-            } catch(err){
-                toast("Invalid username or password",{
-                    position : "bottom-right",
-                    theme : "colored", 
-                    type : "error",
-                    transition: Slide, 
-                    autoClose : 3000
-                })
-            }finally{
-                setLoading(false)
+        //     navigate('/dashboard');
+        //     toast("Login Successfully", {
+        //         position : "bottom-right",
+        //         theme : "colored",
+        //         type : "success", 
+        //         transition: Slide,
+        //         autoClose : 3000
+        //     })
+        //     } catch(err){
+        //         toast("Invalid username or password",{
+        //             position : "bottom-right",
+        //             theme : "colored", 
+        //             type : "error",
+        //             transition: Slide, 
+        //             autoClose : 3000
+        //         })
+        //     }finally{
+        //         setLoading(false)
                 
-            }
+        //     }
             
-        }
+        // }
 
         async function verifyUser(){
       try{
@@ -78,6 +78,7 @@ export default function Signin(){
         async function conWithGoogle(){
             console.log("continue with google clicked !")
             window.location.href = "http://localhost:3000/api/auth/google";
+            setLoading(false)
         }
 
 
@@ -88,7 +89,7 @@ export default function Signin(){
                 initial={{ opacity: 0, y: 40 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
-                 className="flex flex-col bg-gradient-to-br from-slate-50 to-indigo-50 p-8 rounded-xl">
+                 className="flex flex-col bg-linear-to-br from-slate-50 to-indigo-50 p-8 rounded-xl">
                 <div className="text-3xl font-bold text-blue-400">
                     Welcome back.
                 </div>
