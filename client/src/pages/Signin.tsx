@@ -77,7 +77,7 @@ export default function Signin(){
 
         async function conWithGoogle(){
             console.log("continue with google clicked !")
-            window.location.href = "http://localhost:3000/api/auth/google";
+            window.location.href = `${BACKEND_URL}/api/auth/google`;
             setLoading(false)
         }
 
