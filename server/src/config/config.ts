@@ -19,6 +19,12 @@ if(!process.env.FRONTEND_URL){
 
 export const FRONTEND_URL = process.env.FRONTEND_URL ;
 
+if(!process.env.BACKEND_URL){
+  throw new Error("BACKEND_URL missing");
+}
+
+export const BACKEND_URL = process.env.BACKEND_URL ;
+
 if(!process.env.GOOGLE_CLIENT_ID){
   throw new Error("Client_id missing");
 }
