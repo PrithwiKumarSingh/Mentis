@@ -87,7 +87,7 @@ export function Card({type, link, title, metadata, _id, createdAt, isTrash,delet
         try{
             setLoading(true);
             await trashContentDelete(_id);
-        await trashRefresh?.();
+         trashRefresh?.();
         toast("Permanent Deleted Successfully", {
                 position : "bottom-right",
                 theme : "colored",
@@ -247,7 +247,7 @@ export function Card({type, link, title, metadata, _id, createdAt, isTrash,delet
                 {
                     isTrash ?
                     <p className=" text-sm text-[#4138B8] dark:text-white font-normal">
-                        {formatDistanceToNow(new Date(deletedAt), { addSuffix: true })}
+                        {formatDistanceToNow(new Date(deletedAt ?? Date.now()), { addSuffix: true })}
                     </p>
                     
                     : <p className=" text-sm text-[#4138B8] dark:text-white font-normal italic uppercase">
