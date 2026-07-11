@@ -31,7 +31,7 @@ router.get(
     res.cookie("token", token, {
       httpOnly: true,
       secure: false, // true after deployment (HTTPS)
-      sameSite: "lax",
+      sameSite: "none",
     });
 
     res.redirect(`${FRONTEND_URL}/dashboard`);
