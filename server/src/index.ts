@@ -224,6 +224,15 @@ app.post("/api/v1/brain/share",userMiddleware, async (req,res)=> {
         })
     }
 })
+app.get("/api/v1/brain/link", userMiddleware, async (req, res) => {
+  const existingLink = await LinkModel.findOne({
+    userId: req.userId,
+  });
+
+  res.json({
+    hash: existingLink?.hash ?? null,
+  });
+});
 
 app.get("/api/v1/brain/:shareLink",async (req,res)=>{
     const hash = req.params.shareLink;
