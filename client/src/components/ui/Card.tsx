@@ -27,7 +27,7 @@ interface CardProps{
     _id : string; 
     refresh? : ()=>void;
     createdAt: string;
-    deletedAt: string;
+    deletedAt?: string;
     isTrash? : boolean;
     trashRefresh? : ()=>void
 }

@@ -82,7 +82,10 @@ export function Sidebar({username, loggedout,filter, setFilter, onClose} : {
                 <SidebarItem active={filter==="document"} onClick={()=>{setFilter("document"); onClose?.()}} text="Documents" icon={<GrDocumentText size={22}/>}  />
                 <SidebarItem active={filter==="link"} onClick={()=>{setFilter("link"); onClose?.()}} text="Links" icon={<IoLink size={24} />}  />
                 <SidebarItem active={filter==="tag"} onClick={()=>{setFilter("tag"); onClose?.()}} text="Tags" icon={<FiHash size={24}/>}  />
-                <SidebarItem active={filter==="trash"} onClick={()=>{setFilter("trash"); onClose?.()}} text="Trash" icon={<FaRegTrashCan size={24}/>}  />
+                {
+                    loggedout &&
+                    <SidebarItem active={filter==="trash"} onClick={()=>{setFilter("trash"); onClose?.()}} text="Trash" icon={<FaRegTrashCan size={24}/>}  />
+                }
             </div>
 
             {

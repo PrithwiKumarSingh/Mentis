@@ -66,12 +66,12 @@ export default function ShareBrain() {
 
 
   return (
-    <div>
-      <div className='hidden md:block h-screen w-72 bg-white border border-gray-200 top-0 left-0 fixed'>
+    <div className="">
+      <div className='hidden md:block h-screen w-72 bg-white border-r dark:bg-linear-to-bl from-[#06071B] to-[#06071B]  border-gray-600 top-0 left-0 fixed'>
         <Sidebar filter={filter} setFilter={setFilter} loggedout={false} />
       </div>
 
-      <div className='p-4 md:p-16 md:ml-72 pl-10 bg-[#F9FBFC] h-screen'>
+      <div className='p-4 md:p-16 md:ml-72 pl-10 bg-[#F9FBFC] min-h-full dark:bg-linear-to-bl from-slate-900 to-[#06071B]'>
         <div className='md:hidden my-8 flex justify-between'>
           <div onClick={() => setSidebarOpen(true)}>
             {

@@ -18,14 +18,23 @@ import { FaBookmark } from "react-icons/fa6";
 import { ReviewCard } from "../components/ui/ReviewCard";
 import { MdPeopleAlt } from "react-icons/md";
 import {Link} from "react-router-dom"
+import ContactSection from "../components/ui/ContactSection";
+import { ThemeToggle } from "../components/ui/ThemeToggle";
+import { FaSquareXTwitter } from "react-icons/fa6";
+import { FaLinkedin } from "react-icons/fa";
+import { AiFillGithub } from "react-icons/ai";
+import { SocalMediaIcon } from "../components/icons/SocialMediaIcon";
+import { FaRegLightbulb } from "react-icons/fa";
+import { BsBugFill } from "react-icons/bs";
+import { FaRegHandshake } from "react-icons/fa6";
 
 
 export function LandingPage(){
     return (
-        <div className="p-10 min-w-200 lg:w-full h-full ">
+        <div className="px-10 min-w-200 pb-12 lg:w-full h-full bg-white dark:text-white dark:bg-linear-to-bl from-slate-900 to-[#06071B]">
 
             {/* Navbar  */}
-            <div className="flex justify-between items-center w-full gap-12 max-w-full ">
+            <div className="flex justify-between items-center w-full gap-12 max-w-full py-8 ">
                     <div className="flex items-center gap-2">
                         <div className="text-[#614DEE] font-extrabold">
                             {
@@ -37,13 +46,15 @@ export function LandingPage(){
                         </div>
                     </div>
                     <div className=" hidden  lg:flex gap-12 font-medium text-xl">
-                        <div>Features</div>
-                        <div>How it Works</div>
+                        <a href="#feature" className="hover:text-[#614DEE] transition">Feature</a>
+                        <a href="#MentisWork" className="hover:text-[#614DEE] transition">How it Works</a>
                         <div>Pricing</div>
                         <div>About</div>
-                        <div>Contact</div>
+                        <a href="#contact" className="hover:text-[#614DEE] transition">Contact</a>
+
                     </div>
                     <div className="flex gap-4">
+                        <ThemeToggle/>
                         <Link to={"/dashboard"}>
                         <Button style="text-[#614DEE]"  text={"Login"} size="md" variant="secondary" />
                         </Link>
@@ -112,7 +123,7 @@ export function LandingPage(){
 
                 {/* Your Content  */}
 
-            <div className="p-10 bg-slate-50 flex flex-col items-center gap-6 my-18 rounded-2xl w-full">
+            <section id="feature" className="p-10 bg-slate-50 flex flex-col items-center gap-6 my-18 rounded-2xl w-full dark:bg-white/5 dark:border-white/10 dark:backdrop-blur-xl dark:shadow-[0_8px_32px_rgba(0,0,0,0.35)] dark:text-white">
                 <div className="text-3xl font-semibold ">
                     All your content. One place.
                 </div>
@@ -124,10 +135,10 @@ export function LandingPage(){
                     <ContentIcons color="text-[#FCB712]" Icon={<IoPricetagSharp size={38}/>} text={"Tags"} /> 
                     <ContentIcons color="text-[#F88AAC]" Icon={<IoShareSocialOutline size={38}/>} text={"Share"} /> 
                 </div>
-            </div>
+            </section>
             
             {/* How mentis works  */}
-            <div className="flex flex-col items-center ">
+            <section id="MentisWork" className="flex flex-col items-center ">
                 <div className="text-4xl font-bold mb-10">
                             How Mentis Works
                 </div>
@@ -137,11 +148,11 @@ export function LandingPage(){
                     <MentisWorkingIcons Icon={<IoSearch size={62}/>} title="3.Find" desc="Search instantly and find what you need." />
                     <MentisWorkingIcons Icon={<IoShareSocialOutline size={62}/>} title="4.Share" desc="Share your collections with one simple link." />
                 </div>
-            </div>
+            </section>
 
             {/* features */}
 
-            <div className="bg-slate-50 rounded-3xl p-16 my-16">
+            <div className="bg-slate-50 rounded-3xl p-16 my-16 dark:bg-white/5 dark:border-white/10 dark:backdrop-blur-xl dark:shadow-[0_8px_32px_rgba(0,0,0,0.35)] dark:text-white">
                     <div className="grid grid-cols-2 lg:grid-cols-4 gap-12">
                         <FeaturesIcons Icon={<FaBookmark size={42}/>} title="100+" desc="Resources Saved" />
                         <FeaturesIcons Icon={<FaBolt size={42}/>} title="99%" desc="Uptime" />
@@ -162,6 +173,90 @@ export function LandingPage(){
                 </div>
             </div>
 
+            {/* contact  */}
+
+            <section id="contact" className="flex items-center mx-40 justify-between">
+                <div className="flex flex-col items-start gap-2 max-w-lg">
+                    <div className="text-xl font-bold bg-white/10 border border-white/30 text-[#614DEE] px-8 py-2 rounded-full">
+                        💬 Let's Connect
+                    </div>
+                    <div className="text-6xl font-bold my-4">
+                        Let's Build <span className="text-[#C175FD]">Mentis</span>  Together
+                    </div>
+                    <div className="text-md max-w-md text-start text-gray-300">
+                        Hi! I'm <span className="text-[#953bda]">Prithwi</span>, the creator of Mentis.
+                        I built Mentis to help developers, students, 
+                        and creators organize everything they learn in one searchable second brain.
+                    </div>
+                    <div className="my-4">
+                        <div className="flex gap-4 items-center">
+                        <div className="bg-[#8e6bf0]/10 p-4 rounded-2xl text-[#8e6bf0]">
+                            <FaRegLightbulb size={32}/>
+                        </div>
+                    <div>
+                        <div className="text-lg font-semibold text-start">
+                                Have a feature idea?
+                        </div>
+                        <div className="font-normal text-gray-600 dark:text-gray-400">
+                            I'm always open to new ideas.
+                        </div>
+                    </div>
+                        </div>
+                        <div className="flex gap-4 my-4 items-center">
+                        <div className="bg-[#de49a2]/10 p-4 text-[#de49a2] rounded-2xl">
+                            <BsBugFill size={32}/>
+                        </div>
+                    <div>
+                        <div className="text-lg font-semibold text-start">
+                                Found a bug?
+                        </div>
+                        <div className="font-normal text-gray-600 dark:text-gray-400">
+                            Let me know so i can fix it.
+                        </div>
+                    </div>
+                        </div>
+                        <div className="flex gap-4 items-center">
+                        <div className="bg-[#2B74CF]/10 p-4 text-[#2B74CF] rounded-2xl">
+                            <FaRegHandshake size={32}/>
+                        </div>
+                    <div>
+                        <div className="text-lg font-semibold text-start">
+                                Want to collaborate?
+                        </div>
+                        <div className="font-normal text-gray-600 dark:text-gray-400">
+                            I'd love to build something amazing.
+                        </div>
+                    </div>
+                        </div>
+                    </div>
+                    <div className="text-xl font-semibold my-2">
+                        Contact with me
+                    </div>
+                    <div className="flex gap-4 w-full">
+
+                        <div className="px-12 rounded-2xl bg-white/5 border border-white/15 py-2 text-center flex flex-col items-center hover:shadow-md shadow-[#401B93] transition-all">
+                        <SocalMediaIcon color="dark:text-white" Icon={<FaSquareXTwitter size={52}/>} url="https://x.com/PrithwiSingh_" />
+                        <div className="mt-2">
+                            X(Twitter)
+                        </div>
+                        </div>
+                        <div className="px-12 rounded-2xl bg-white/5 border border-white/15 py-2 text-center flex flex-col items-center hover:shadow-md shadow-[#401B93] transition-all">
+                        <SocalMediaIcon color="text-blue-600" Icon={<FaLinkedin size={52}/>} url="https://www.linkedin.com/in/prithwikumar/" />
+                        <div className="mt-2">
+                            Linkedin
+                        </div>
+                        </div>
+                        <div className="px-12 rounded-2xl bg-white/5 border border-white/15 py-2 text-center flex flex-col items-center hover:shadow-md shadow-[#401B93] transition-all">
+                        <SocalMediaIcon color="dark:text-white" Icon={<AiFillGithub size={52}/>} url="https://github.com/PrithwiKumarSingh" />
+                        <div className="mt-2">
+                            Github
+                        </div>
+                        </div>
+                    </div>
+                </div>
+                <ContactSection/>
+            </section>
+
             <div className="bg-[#4C38E3] py-12 px-42 text-white rounded-3xl lg:mx-22 my-12 grid grid-cols-1 lg:grid-cols-2  gap-12 ">
                 <div className="max-w-md text-start">
                     <div className="text-4xl font-bold ">Ready to build your second brain? </div>
@@ -175,7 +270,7 @@ export function LandingPage(){
                 </div>
             </div>
 
-            <div className="flex justify-between items-center mx-22 my-2">
+            <div className="flex justify-between items-center mx-22">
                     <div className="flex items-center gap-2">
                         <div className="text-[#614DEE] font-extrabold">
                             {

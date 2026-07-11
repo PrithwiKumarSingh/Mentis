@@ -1,22 +1,55 @@
 import {motion} from "motion/react"
+import { TbWorldShare } from "react-icons/tb";
 import {
   Settings,
-  LayoutGrid,
   Moon,
   LogOut,
 } from "lucide-react";
 import { useTheme } from "../components/Embed/ThemeContext";
+import { BACKEND_URL } from "../config";
+import { useEffect, useState } from "react";
+import { Slide, toast } from "react-toastify";
+import axios from "axios";
 
 type Props = {
   user: {
     name: string | undefined;
     email: string | undefined;
     avatar: string;
+    hash:string | null;
   };
 };
 
 export default function ProfileDropDown({ user }: Props) {
   const { theme, toggleTheme } = useTheme();
+  const [hash, setHash] = useState<string|null>(user.hash)
+
+  useEffect(() => {
+  setHash(user.hash);
+}, [user.hash]);
+
+  async function StopSharingBrain(){
+      try{
+
+        const response = await axios.post(`${BACKEND_URL}/api/v1/brain/share`, {"share" : false}, {withCredentials : true})
+        setHash(response.data.hash)
+        toast("Stop Sharing Brain", {
+                position : "bottom-right",
+                theme : "colored",
+                type : "success", 
+                transition: Slide,
+                autoClose : 3000
+            })
+      }catch(err){
+        toast("Internal Server Error", {
+                position : "bottom-right",
+                theme : "colored",
+                type : "error", 
+                transition: Slide,
+                autoClose : 3000
+            })
+      }
+    }
 
   return (
     <div>{
@@ -73,10 +106,33 @@ export default function ProfileDropDown({ user }: Props) {
           text="Account Settings"
         />
 
-        <MenuItem
-          icon={<LayoutGrid size={22} />}
-          text="Integrations"
-        />
+        <div className="flex cursor-pointer items-center justify-between rounded-xl px-4 py-4 transition hover:bg-black/5 dark:hover:bg-white/5">
+
+          <div className={`flex items-center gap-4 ${hash ? "text-white" : "text-green-400"}`} >
+
+            <TbWorldShare size={22} />
+
+            <span className="text-xl text-white">
+              Stop Sharing
+            </span>
+
+          </div>
+
+          {/* Stop Sharing Brain */}
+
+          <button
+            onClick={StopSharingBrain}
+            className={`relative h-8 w-14 rounded-full transition cursor-pointer ${
+              hash == null ? "bg-slate-600" : "bg-green-400"
+            }`}
+          >
+            <span
+              className={`absolute top-1 h-6 w-6 rounded-full bg-white transition ${
+                hash ? "left-7" : "left-1"
+              }`}
+            />
+          </button>
+        </div>
 
         <div className="flex cursor-pointer items-center justify-between rounded-xl px-4 py-4 transition hover:bg-black/5 dark:hover:bg-white/5">
 

@@ -35,7 +35,6 @@ export const Dashboard = () => {
 };
   const [user, setUser] = useState<User >()
 
-
 async function verifyUser(){
       try{
         const res = await axios.get(`${BACKEND_URL}/api/v1/me`,
@@ -43,6 +42,8 @@ async function verifyUser(){
           withCredentials : true
         }
       );
+      const response = await axios.get(`${BACKEND_URL}/api/v1/brain/link`, {withCredentials : true})
+        setHash(response.data.hash)
       setUser(res.data.user)
       setAuthenticated(true);
       }catch(err){
@@ -51,6 +52,8 @@ async function verifyUser(){
         setAuthenticated(false)
       }
      }
+
+
   
   useEffect(()=>{
 
@@ -80,6 +83,8 @@ if(authenticated == false){
 
                         
   const avtar = user?.avatar || "https://media.istockphoto.com/id/2151669184/vector/vector-flat-illustration-in-grayscale-avatar-user-profile-person-icon-gender-neutral.jpg?s=612x612&w=0&k=20&c=UEa7oHoOL30ynvmJzSCIPrwwopJdfqzBs0q69ezQoM8="
+
+
   async function shareBrain(){
       try{
 
@@ -209,14 +214,17 @@ if(authenticated == false){
         <img className='cursor-pointer rounded-full' loading='lazy' src={avtar} alt="loading" />
         <span className="absolute -bottom-0.5 right-1 h-4 w-4 rounded-full border-2 border-[#222022] bg-green-500" />
         <div className='hidden group-hover:block absolute -right-15 -top-22 z-40'>
-<ProfileDropdown
-  user={{
-    name: user?.name,
-    email: user?.email,
-    avatar: avtar,
-  }}
-/>
+        <ProfileDropdown
+          user={{
+            name: user?.name,
+            email: user?.email,
+            avatar: avtar,
+            hash:hash
+          }}
+        />
+
       </div>
+      
      </div>
       </div>
     }

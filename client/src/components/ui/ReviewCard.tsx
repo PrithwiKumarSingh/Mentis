@@ -9,7 +9,7 @@ export function ReviewCard(props){
                     <BiSolidQuoteAltLeft size={32}/>
                 }
             </div>
-            <div className="text-base text-start font-medium my-4 text-gray-800">
+            <div className="text-base text-start font-medium my-4 text-gray-800 dark:text-white">
                 {
                     props.desc
                 }
@@ -24,7 +24,7 @@ export function ReviewCard(props){
                             props.name
                         }
                     </div>
-                    <div className="font-normal text-gray-600">
+                    <div className="font-normal text-gray-600 dark:text-gray-400">
                         {
                             props.profession
                         }
