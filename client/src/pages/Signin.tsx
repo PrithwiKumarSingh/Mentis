@@ -53,11 +53,12 @@ export default function Signin(){
 
         async function verifyUser(){
       try{
-        await axios.get(`${BACKEND_URL}/api/v1/me`,
+        const res = await axios.get(`${BACKEND_URL}/api/v1/me`,
         {
           withCredentials : true
         }
       );
+      console.log(res)
       setAuthenticated(true);
       }catch(err){
         localStorage.removeItem("token")
