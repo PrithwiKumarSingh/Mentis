@@ -79,13 +79,19 @@ app.use("/api/auth", googleAuthRouter)
 
 // })
 
-app.post("/api/v1/logout", (req,res)=>{
-    res.clearCookie("token");
-    
-    res.status(200).send({
-        messsage : "Logged out Successfully"
-    })
-})
+app.post("/api/v1/logout", (req, res) => {
+  res.clearCookie("token", {
+    httpOnly: true,
+    secure: true,
+    sameSite: "none",
+    path: "/",
+  });
+
+  res.status(200).json({
+    message: "Logged out Successfully",
+  });
+});
+
 app.get("/api/v1/me",userMiddleware, async (req,res)=>{
     const user = await User.findById(req.userId).select("name email avatar");
     res.status(200).json({
