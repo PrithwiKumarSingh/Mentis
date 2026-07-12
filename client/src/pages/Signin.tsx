@@ -12,7 +12,7 @@ import { FcGoogle } from "react-icons/fc";
 export default function Signin(){
 
     // const usernameRef = useRef <HTMLInputElement>(null);
-        // const passwordRef = useRef <HTMLInputElement>(null);
+    //     const passwordRef = useRef <HTMLInputElement>(null);
         // const navigate = useNavigate();
         const [loading, setLoading] = useState(false);
         const [ authenticated, setAuthenticated] = useState<boolean | null>(null);
@@ -78,7 +78,7 @@ export default function Signin(){
         async function conWithGoogle(){
             console.log("continue with google clicked !")
             window.location.href = `${BACKEND_URL}/api/auth/google`;
-            setLoading(false)
+            setLoading(true)
         }
 
 

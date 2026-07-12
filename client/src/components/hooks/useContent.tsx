@@ -10,7 +10,7 @@ export function useContent() {
     async function refresh() {
         const response = await axios.get(
             `${BACKEND_URL}/api/v1/content`,
-            { withCredentials: true }
+            {withCredentials:true}
         );
 
         setContents(response.data.content);
@@ -19,7 +19,7 @@ export function useContent() {
     async function trashRefresh() {
         const response = await axios.get(
             `${BACKEND_URL}/api/v1/trash`,
-            { withCredentials: true }
+            {withCredentials:true}
         );
 
         setTrashContent(response.data.content);

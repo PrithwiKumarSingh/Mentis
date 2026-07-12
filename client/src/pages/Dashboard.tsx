@@ -35,23 +35,22 @@ export const Dashboard = () => {
 };
   const [user, setUser] = useState<User >()
 
-async function verifyUser(){
-      try{
-        const res = await axios.get(`${BACKEND_URL}/api/v1/me`,
-        {
-          withCredentials : true
-        }
-      );
-      const response = await axios.get(`${BACKEND_URL}/api/v1/brain/link`, {withCredentials : true})
-        setHash(response.data.hash)
-      setUser(res.data.user)
-      setAuthenticated(true);
-      }catch(err){
-        localStorage.removeItem("token")
-        localStorage.removeItem("username")
-        setAuthenticated(false)
-      }
-     }
+async function verifyUser() {
+  try {
+
+    const res = await axios.get(`${BACKEND_URL}/api/v1/me`, {withCredentials:true});
+
+    const response = await axios.get(`${BACKEND_URL}/api/v1/brain/link`, {withCredentials:true});
+
+    setHash(response.data.hash);
+    setUser(res.data.user);
+    setAuthenticated(true);
+  } catch (err) {
+    localStorage.removeItem("token");
+    localStorage.removeItem("username");
+    setAuthenticated(false);
+  }
+}
 
 
   
