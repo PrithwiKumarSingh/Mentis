@@ -27,9 +27,12 @@ import { SocalMediaIcon } from "../components/icons/SocialMediaIcon";
 import { FaRegLightbulb } from "react-icons/fa";
 import { BsBugFill } from "react-icons/bs";
 import { FaRegHandshake } from "react-icons/fa6";
+import { useTheme } from "../components/Embed/ThemeContext";
 
 
 export function LandingPage(){
+      const { theme } = useTheme();
+
     return (
         <div className="px-4 sm:px-6 lg:px-24 min-w-full pb-12 h-full bg-white dark:text-white dark:bg-linear-to-bl from-slate-900 to-[#06071B]">
 
@@ -64,9 +67,11 @@ export function LandingPage(){
                     </div>
                     <div className="md:hidden flex ">
                         <ThemeToggle/>
+                        <Link to={"/auth/google"}>
                         <button className="text-sm font-semibold bg-[#4C38E3] px-2 rounded">
                             Join
                         </button>
+                        </Link>
                         
                     </div>
             </div>
@@ -92,10 +97,10 @@ export function LandingPage(){
                         </div>
 
                         <div className="flex gap-2 mt-12">
-                            <Link to={"/signin"}>
+                            <Link to={"/dashboard"}>
                             <Button style="text-white" size="md" variant="primary" text={"Start Free"} endIcon={<IoIosArrowRoundForward size={32}/>} />
                             </Link>
-                            <Link to={"/signup"}>
+                            <Link to={"/dashboard"}>
                             <Button size="md" variant="ternary" text={"view Demo"} startIcon={<FaRegPlayCircle/>} />
                             </Link>
                         </div>
@@ -123,8 +128,8 @@ export function LandingPage(){
                     </div>
 
 
-                    <div className="shadow-xl border border-gray-200 rounded-2xl overflow-hidden w-full h-full mt-10 lg:mt-2">
-                            <img className="w-full" loading="lazy" src={"https://res.cloudinary.com/lg01tbcf/image/upload/f_auto,q_auto/Screenshot_from_2026-07-05_13-15-31_ep904j"} alt="" />
+                    <div className="shadow-xl border border-gray-200 dark:border-gray-800 rounded-2xl overflow-hidden w-full h-full mt-10 lg:mt-2">
+                            <img className="w-full" loading="lazy" src={theme=="light" ? "https://res.cloudinary.com/lg01tbcf/image/upload/v1784043815/Screenshot_from_2026-07-14_21-13-10_ojac9f.png" : "https://res.cloudinary.com/lg01tbcf/image/upload/v1784042490/Screenshot_from_2026-07-14_20-50-09_gw1o9g.png"} alt="" />
                     </div>
                 </div>
 
@@ -272,8 +277,12 @@ export function LandingPage(){
                     </div>
                 </div>
                 <div className="flex gap-2 md:gap-12 my-8">
+                            <Link to={"/dashboard"}>
                             <Button style="bg-white dark:bg-gray-800 dark:text-[#4C38E3] border border-white/50" size="md" variant="primary" text={"Start"} endIcon={<IoIosArrowRoundForward size={32}/>} />
+                            </Link>
+                            <Link to={"/dashboard"}>
                             <Button style="text-white" size="md" variant="ternary" text={"view Demo"} startIcon={<FaRegPlayCircle/>} />
+                            </Link>
                 </div>
             </div>
 

@@ -85,12 +85,16 @@ export default function Signin(){
 
 
     return (
-        <div className="h-screen w-screen flex items-center justify-center bg-[#dbd8d8] dark:bg-linear-to-bl from-slate-900 to-[#06071B]">
+        <div
+        style={{
+                backgroundImage: `url("https://res.cloudinary.com/lg01tbcf/image/upload/v1784043780/AuthPage_r8gi7g.png")`,
+            }}
+         className="h-screen w-screen flex items-center justify-center bg-[#dbd8d8] dark:bg-linear-to-bl from-slate-900 to-[#06071B] p-10 min-h-screen bg-cover bg-center bg-no-repeat">
             <motion.div 
                 initial={{ opacity: 0, y: -80 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
-                 className="flex flex-col bg-white dark:bg-white/10 border border-white/20 items-center  p-4 rounded-xl">
+                 className="flex flex-col bg-white dark:bg-linear-to-r from-blue-900 to-indigo-900 border border-white/50 items-center shadow-2xl  p-4 rounded-xl">
                 <div className='flex flex-col items-center gap-4 my-4'>
                     <div className='text-blue-700 '>
                               {
