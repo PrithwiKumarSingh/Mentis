@@ -113,7 +113,7 @@ if(authenticated == false){
 
   return (
   
-    <div className='min-h-screen bg-[#F9FBFC] dark:bg-linear-to-bl from-slate-900 to-[#06071B] w-full p-4  '>
+    <div className='min-h-screen bg-[#F9FBFC] dark:bg-linear-to-bl from-slate-900 to-[#06071B] w-full md:p-4  '>
         <div className='h-screen hidden md:block w-72 bg-white border border-gray-200 dark:border-none  top-0 left-0 fixed dark:bg-linear-to-bl from-[#06071B] to-[#06071B]'>{
            <Sidebar 
                 filter={filter} 
@@ -135,21 +135,17 @@ if(authenticated == false){
 
       {/* Navbar  */}
       <div className='md:hidden mb-4 flex justify-between dark:text-white'>
-        <div onClick={()=>setSidebarOpen(true)}>
+        <div onClick={()=>setSidebarOpen(true)} className='flex items-center gap-2'>
           {
             <MdMenu size={32} />
           }
-        </div>
-        <div className='flex items-center gap-1'>
-          <div className='text-blue-700 '>
-          {
-            <LuBrainCircuit size={30}/>
-          }
-        </div>
+          <div className='flex items-center gap-1'>
         <div className='text-3xl font-semibold dark:text-white'>
           Mentis
         </div>
         </div>
+        </div>
+        
         <div className='flex items-center gap-2'>
           <Button 
           onClick={()=>{setOpneModal(true)}}
@@ -165,11 +161,27 @@ if(authenticated == false){
           text=" " 
           startIcon={<ShareIcon size='md'/>}
     ></Button>
+    <div className='h-10 w-10 relative  group text-[#fafafa]'>
+        <img className='cursor-pointer rounded-full' loading='lazy' src={avtar} alt="loading" />
+        <span className="absolute -bottom-0.5 right-1 h-4 w-4 rounded-full border-2 border-[#222022] bg-green-500" />
+        <div className='hidden group-hover:block absolute -right-15 -top-22 z-40'>
+        <ProfileDropdown
+          user={{
+            name: user?.name,
+            email: user?.email,
+            avatar: avtar,
+            hash:hash
+          }}
+        />
+
+      </div>
+      
+     </div>
         </div>
 
         <div
             className={`
-              fixed top-0 left-0 h-screen w-72 bg-white z-50
+              fixed top-0 left-0 h-screen w-72 bg-white z-50 dark:bg-linear-to-bl from-[#06071B] to-[#06071B]
               transform transition-transform duration-300
               ${sidebarOpen ? "translate-x-0" : "-translate-x-full"}
             `}

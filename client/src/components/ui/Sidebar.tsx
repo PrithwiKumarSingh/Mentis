@@ -70,7 +70,7 @@ export function Sidebar({username, loggedout,filter, setFilter, onClose} : {
                     </a>
                     
                 </div>
-                <div onClick={onClose} className="md:hidden ml-8 bg-[#f2f5fc] border border-gray-300 rounded-full p-2">
+                <div onClick={onClose} className="md:hidden ml-8 bg-[#f2f5fc] dark:bg-white/10 border border-gray-300 rounded-full p-2">
                     <MdOutlineClose size={32}/>
                 </div>
             </div>
@@ -89,7 +89,7 @@ export function Sidebar({username, loggedout,filter, setFilter, onClose} : {
             </div>
 
             {
-                (loggedout ? <div className="absolute mt-70 md:mt-90 flex  items-center justify-between  bg-slate-300 w-full rounded-xl px-6 py-3 dark:font-semibold dark:text-white dark:bg-white/10 dark:backdrop-blur-md dark:border dark:border-white/20 dark:shadow-lg dark:transition-all dark:focus:outline-none dark:focus:ring-2 dark:focus:ring-white/50">
+                (loggedout ? <div className="absolute mt-40 md:mt-90 flex  items-center justify-between  bg-slate-300 w-full rounded-xl px-6 py-3 dark:font-semibold dark:text-white dark:bg-white/10 dark:backdrop-blur-md dark:border dark:border-white/20 dark:shadow-lg dark:transition-all dark:focus:outline-none dark:focus:ring-2 dark:focus:ring-white/50">
 
                 {
                     (username && <div className="text-md font-medium">

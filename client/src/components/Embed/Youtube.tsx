@@ -11,7 +11,7 @@ export function Youtube({ link }: YoutubeProps) {
 
   return (
     <iframe
-      className="w-full mt-4 h-[230px] rounded-2xl max-w-full"
+      className="w-full mt-4 h-[170px] rounded-2xl max-w-full"
       src={`https://www.youtube.com/embed/${videoId}`}
       title="YouTube video player"
       frameBorder="0"

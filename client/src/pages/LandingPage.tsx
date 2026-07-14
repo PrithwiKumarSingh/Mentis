@@ -239,7 +239,7 @@ export function LandingPage(){
                     <div className="text-xl font-semibold my-2">
                         Contact with me
                     </div>
-                    <div className="flex gap-2 md:gap-6 w-full mx-8 md:mx-auto">
+                    <div className="flex gap-2 md:gap-6 w-full mx-auto">
 
                         <div className="px-4 md:px-12 rounded-2xl bg-slate-400/40 darK:bg-white/5 border border-white/15 py-2 text-center flex flex-col items-center hover:shadow-md shadow-[#401B93] transition-all">
                         <SocalMediaIcon color="dark:text-white" Icon={<FaSquareXTwitter size={52}/>} url="https://x.com/PrithwiSingh_" />
