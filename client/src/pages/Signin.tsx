@@ -87,7 +87,7 @@ export default function Signin(){
     return (
         <div className="h-screen w-screen flex items-center justify-center bg-[#dbd8d8] dark:bg-linear-to-bl from-slate-900 to-[#06071B]">
             <motion.div 
-                initial={{ opacity: 0, y: 40 }}
+                initial={{ opacity: 0, y: -80 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
                  className="flex flex-col bg-white dark:bg-white/10 border border-white/20 items-center  p-4 rounded-xl">
