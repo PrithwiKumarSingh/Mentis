@@ -31,7 +31,7 @@ import { FaRegHandshake } from "react-icons/fa6";
 
 export function LandingPage(){
     return (
-        <div className="px-10 min-w-200 pb-12 lg:w-full h-full bg-white dark:text-white dark:bg-linear-to-bl from-slate-900 to-[#06071B]">
+        <div className="px-10 w-fit pb-12 h-full bg-white dark:text-white dark:bg-linear-to-bl from-slate-900 to-[#06071B]">
 
             {/* Navbar  */}
             <div className="flex justify-between items-center w-full gap-12 max-w-full py-8 ">
@@ -65,7 +65,7 @@ export function LandingPage(){
             </div>
 
             {/* Hero Section */}
-                <div className="mt-14 lg:flex gap-18 w-fit lg:ml-12">
+                <div className="mt-14 lg:flex gap-18 w-fit lg:ml-12 mx-auto ">
                     <div>
                         <div className="flex items-center gap-2 bg-[#F5F1FD] py-2 px-4 w-fit text-[#614DEE] rounded-lg mt-8">
                             <span className="text-yellow-400 ">{<FaStar/>}</span>Your second brain for everything
@@ -161,11 +161,11 @@ export function LandingPage(){
                     </div>
             </div>
 
-            <div className="px-26 text-center">
+            <div className="md:px-26 text-center">
                 <div className="text-3xl font-semibold my-10">
                     Loved by learners and builders
                 </div>
-                <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4 items-center">
+                <div className="grid grid-cols-2 gap-8 md:grid-cols-2 lg:grid-cols-4 items-center">
                     <ReviewCard desc="Mentis helps me keep all my learning resources organized and easy to find." name="Anurag Sing" profession="Full Stack Develper" image="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRO5dL-EVliC2pRNxVr-ZVXLoc6iLUCM07DoQ4mJZQwiw&s" />
                     <ReviewCard desc="Mentis helps me keep all my learning resources organized and easy to find." name="Anurag Sing" profession="Full Stack Develper" image="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRO5dL-EVliC2pRNxVr-ZVXLoc6iLUCM07DoQ4mJZQwiw&s" />
                     <ReviewCard desc="Mentis helps me keep all my learning resources organized and easy to find." name="Anurag Sing" profession="Full Stack Develper" image="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRO5dL-EVliC2pRNxVr-ZVXLoc6iLUCM07DoQ4mJZQwiw&s" />
@@ -175,8 +175,8 @@ export function LandingPage(){
 
             {/* contact  */}
 
-            <section id="contact" className="flex items-center mx-40 justify-between">
-                <div className="flex flex-col items-start gap-2 max-w-lg">
+            <section id="contact" className=" md:flex items-center mx-auto justify-between mt-20">
+                <div className="flex flex-col items-start gap-2 max-w-lg mx-auto">
                     <div className="text-xl font-bold bg-white/10 border border-white/30 text-[#614DEE] px-8 py-2 rounded-full">
                         💬 Let's Connect
                     </div>
@@ -257,15 +257,15 @@ export function LandingPage(){
                 <ContactSection/>
             </section>
 
-            <div className="bg-[#4C38E3] py-12 px-42 text-white rounded-3xl lg:mx-22 my-12 grid grid-cols-1 lg:grid-cols-2  gap-12 ">
+            <div className="bg-[#4C38E3] py-12 px-18 md:px-42 text-white rounded-3xl lg:mx-22 my-12 grid grid-cols-1 lg:grid-cols-2  gap-12 ">
                 <div className="max-w-md text-start">
-                    <div className="text-4xl font-bold ">Ready to build your second brain? </div>
+                    <div className="text-4xl font-bold ">Ready to build your second brain?</div>
                     <div>
                         Join More than ten people who already organizing their knowladge with Mentis.
                     </div>
                 </div>
                 <div className="flex gap-12 my-8">
-                            <Button style="bg-white text-[#4C38E3]" size="md" variant="primary" text={"Get Started Free"} endIcon={<IoIosArrowRoundForward size={32}/>} />
+                            <Button style="bg-white dark:bg-gray-800 text-[#4C38E3]" size="md" variant="primary" text={"Get Started Free"} endIcon={<IoIosArrowRoundForward size={32}/>} />
                             <Button style="text-white" size="md" variant="ternary" text={"view Demo"} startIcon={<FaRegPlayCircle/>} />
                 </div>
             </div>

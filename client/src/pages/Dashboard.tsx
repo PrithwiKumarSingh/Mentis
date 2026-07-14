@@ -134,19 +134,19 @@ if(authenticated == false){
 
 
       {/* Navbar  */}
-      <div className='md:hidden mb-4 flex justify-between'>
+      <div className='md:hidden mb-4 flex justify-between dark:text-white'>
         <div onClick={()=>setSidebarOpen(true)}>
           {
             <MdMenu size={32} />
           }
         </div>
         <div className='flex items-center gap-1'>
-          <div className='text-blue-700'>
+          <div className='text-blue-700 '>
           {
             <LuBrainCircuit size={30}/>
           }
         </div>
-        <div className='text-3xl font-semibold'>
+        <div className='text-3xl font-semibold dark:text-white'>
           Mentis
         </div>
         </div>
