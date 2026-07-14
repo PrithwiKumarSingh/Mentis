@@ -7,7 +7,7 @@ import { BACKEND_URL } from "../config";
 // import {Slide, toast } from "react-toastify";
 import {motion} from "motion/react"
 import { FcGoogle } from "react-icons/fc";
-
+import { LuBrain } from "react-icons/lu";
 
 export default function Signin(){
 
@@ -85,17 +85,28 @@ export default function Signin(){
 
 
     return (
-        <div className="h-screen w-screen flex items-center justify-center bg-[#dbd8d8]">
+        <div className="h-screen w-screen flex items-center justify-center bg-[#dbd8d8] dark:bg-linear-to-bl from-slate-900 to-[#06071B]">
             <motion.div 
                 initial={{ opacity: 0, y: 40 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6 }}
-                 className="flex flex-col bg-linear-to-br from-slate-50 to-indigo-50 p-8 rounded-xl">
-                <div className="text-3xl font-bold text-blue-400">
-                    Welcome back.
+                 className="flex flex-col bg-white dark:bg-white/10 border border-white/20 items-center  p-4 rounded-xl">
+                <div className='flex flex-col items-center gap-4 my-4'>
+                    <div className='text-blue-700 '>
+                              {
+                                <LuBrain size={72}/>
+                              }
+                    </div>
+                    <div className='text-5xl font-semibold dark:text-white'>
+                              Mentis
+                    </div>
                 </div>
-                <div className="text-md font-semibold text-slate-500">
-                    Capture ideas before they disappear.
+                <div className="bg-white/30 h-px w-full rounded-full mb-4 "></div>
+                <div className="text-2xl font-bold text-blue-400 dark:text-white ">
+                    Welcome back 👋
+                </div>
+                <div className="text-sm font-normal text-slate-300 max-w-xs text-center mt-2">
+                    Sign in to continue to your Mentis workspace and access your saved knowladge.
                 </div>
             {/* <div className="flex flex-col gap-2 mt-4  ">
                 <Input referance={usernameRef} placeholder={"username"} />
@@ -125,6 +136,13 @@ export default function Signin(){
                     size="md" 
                     fullWidth={true} /> 
             </div>
+            <div className="bg-white/30 h-px w-full rounded-full my-4 "></div>
+            <div className=" text-sm font-normal text-slate-300 max-w-xs text-center mt-2">
+                 🔒Secure authentication powered by Google We never post anything without your permission.
+            </div>
+
+            
+
             {/* <div className="mt-4">
                 Don't have an account? 
                 <Link to={"/signup"} className="pl-1 font-medium hover:text-blue-900 transition-all duration-200 underline">
