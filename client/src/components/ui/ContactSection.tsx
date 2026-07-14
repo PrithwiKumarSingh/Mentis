@@ -5,8 +5,9 @@ export default function ContactSection() {
     <section
       id="contact"
       className="
-      py-24
-      px-6
+      py-10
+      px-2
+      md:px-6
       transition-colors
       duration-300
     "
@@ -20,7 +21,8 @@ export default function ContactSection() {
         max-w-4xl
         mx-auto
         rounded-3xl
-        p-10
+        p-4
+        md:p-10
 
         bg-white
         border
@@ -36,7 +38,7 @@ export default function ContactSection() {
         {/* Heading */}
 
         <div className="text-center">
-          <h2 className="text-5xl font-bold text-gray-900 dark:text-white">
+          <h2 className="text-2xl md:text-5xl font-bold text-gray-900 dark:text-white">
             Contact Us
           </h2>
 
@@ -47,7 +49,7 @@ export default function ContactSection() {
 
         {/* Form */}
 
-        <form className="mt-12 space-y-6">
+        <form className="mt-4 md:mt-12 space-y-6">
 
           <div className="grid md:grid-cols-2 gap-6">
 
@@ -154,7 +156,7 @@ export default function ContactSection() {
             </label>
 
             <textarea
-              rows={6}
+              rows={4}
               placeholder="Tell us more about your inquiry..."
               className="
               mt-2

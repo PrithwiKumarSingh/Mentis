@@ -29,7 +29,7 @@ export function Sidebar({username, loggedout,filter, setFilter, onClose} : {
     const navigate = useNavigate()
     const [loading, setLoading] = useState(false);
 
-    async function logout(){
+     async function logout(){
         try{
             setLoading(true);
         await axios.post(`${BACKEND_URL}/api/v1/logout`,{}, {withCredentials:true});

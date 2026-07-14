@@ -7,7 +7,7 @@ export function ThemeToggle() {
   return (
     <button
       onClick={toggleTheme}
-      className="rounded-xl p-2 hover:bg-gray-100 dark:hover:bg-zinc-800"
+      className="rounded-xl p-2 hover:bg-gray-100 dark:hover:bg-zinc-800 hover:cursor-pointer"
     >
       {theme === "light" ? <Moon /> : <Sun />}
     </button>
