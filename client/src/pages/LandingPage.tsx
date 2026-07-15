@@ -1,32 +1,21 @@
 import { Button } from "../components/ui/Button";
 import { TbBrain } from "react-icons/tb";
 import { IoIosArrowRoundForward } from "react-icons/io";
-import { FaRegPlayCircle, FaStar } from "react-icons/fa";
 import { ContentIcons, FeaturesIcons, MentisWorkingIcons } from "../components/ui/ContentIcons";
 import { FiLink } from "react-icons/fi";
-import { FaYoutube } from "react-icons/fa";
-import { FaTwitter } from "react-icons/fa";
-import { IoDocumentText } from "react-icons/io5";
-import { IoPricetagSharp } from "react-icons/io5";
-import { IoShareSocialOutline } from "react-icons/io5";
+import { FaYoutube, FaTwitter, FaRegPlayCircle, FaStar, FaLinkedin } from "react-icons/fa";
+import { IoDocumentText, IoShareSocialOutline,IoPricetagSharp, IoSearch } from "react-icons/io5";
 import { LuDownload } from "react-icons/lu";
-import { FaRegFolderOpen } from "react-icons/fa6";
-import { IoSearch } from "react-icons/io5";
-import { MdWatchLater } from "react-icons/md";
-import { FaBolt } from "react-icons/fa6";
-import { FaBookmark } from "react-icons/fa6";
+import { FaRegFolderOpen, FaBookmark,FaBolt, FaRegLightbulb,FaRegHandshake } from "react-icons/fa6";
+import { MdWatchLater, MdPeopleAlt } from "react-icons/md";
 import { ReviewCard } from "../components/ui/ReviewCard";
-import { MdPeopleAlt } from "react-icons/md";
 import {Link} from "react-router-dom"
 import ContactSection from "../components/ui/ContactSection";
 import { ThemeToggle } from "../components/ui/ThemeToggle";
 import { FaSquareXTwitter } from "react-icons/fa6";
-import { FaLinkedin } from "react-icons/fa";
 import { AiFillGithub } from "react-icons/ai";
 import { SocalMediaIcon } from "../components/icons/SocialMediaIcon";
-import { FaRegLightbulb } from "react-icons/fa";
 import { BsBugFill } from "react-icons/bs";
-import { FaRegHandshake } from "react-icons/fa6";
 import { useTheme } from "../components/Embed/ThemeContext";
 
 
@@ -56,19 +45,19 @@ export function LandingPage(){
                         <a href="#contact" className="hover:text-[#614DEE] transition">Contact</a>
 
                     </div>
-                    <div className="hidden md:flex gap-4">
+                    <div className="hidden md:flex gap-4 items-center">
                         <ThemeToggle/>
-                        <Link to={"/dashboard"}>
+                        <Link to={"/auth/google"}>
                         <Button style="text-[#614DEE]"  text={"Login"} size="md" variant="secondary" />
                         </Link>
-                        <Link to={"/dashboard"}>
+                        <Link to={"/auth/google"}>
                         <Button style="text-white" text={"Get Started Free"} size="md" variant="primary" />
                         </Link>
                     </div>
-                    <div className="md:hidden flex ">
+                    <div className="md:hidden flex  items-center">
                         <ThemeToggle/>
                         <Link to={"/auth/google"}>
-                        <button className="text-sm font-semibold bg-[#4C38E3] px-2 rounded">
+                        <button className="text-sm font-semibold bg-[#4C38E3] px-3 py-1 rounded">
                             Join
                         </button>
                         </Link>
@@ -79,7 +68,7 @@ export function LandingPage(){
             {/* Hero Section */}
                 <div className=" mt-12 md:mt-14 lg:flex gap-18 w-full mx-auto ">
                     <div>
-                        <div className="flex items-center gap-2 dark:bg-[#F5F1FD]/10 border border-white/20  px-2 md:px-4 w-fit text-[#614DEE] rounded-lg mt-5 md:mt-8 text-sm md:text-lg">
+                        <div className="flex items-center gap-2 dark:bg-[#F5F1FD]/10 border border-white/20  px-2 md:px-4 w-fit text-[#614DEE] rounded-lg mt-5 md:mt-8 text-xs md:text-lg">
                             <span className="text-yellow-400">{<FaStar/>}</span>Your second brain for everything
                         </div>
                         <div className=" text-5xl md:text-7xl font-bold mt-4 md:mt-8">
@@ -97,22 +86,22 @@ export function LandingPage(){
                         </div>
 
                         <div className="flex gap-2 mt-12">
-                            <Link to={"/dashboard"}>
+                            <Link to={"/auth/google"}>
                             <Button style="text-white" size="md" variant="primary" text={"Start Free"} endIcon={<IoIosArrowRoundForward size={32}/>} />
                             </Link>
-                            <Link to={"/dashboard"}>
+                            <Link to={"/auth/google"}>
                             <Button size="md" variant="ternary" text={"view Demo"} startIcon={<FaRegPlayCircle/>} />
                             </Link>
                         </div>
 
                         <div className="">
                             <div className="mt-8 relative flex ">
-                                <img className="absolute  h-15 w-15 object-cover rounded-full border-4 border-white" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?fm=jpg&q=60&w=3000&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aHVtYW58ZW58MHx8MHx8fDA%3D" alt="" />
-                                <img className="absolute left-10 h-15 w-15 object-cover rounded-full border-4 border-white" src="https://img.magnific.com/free-photo/portrait-white-man-isolated_53876-40306.jpg?semt=ais_hybrid&w=740&q=80" alt="" />
-                                <img className="absolute left-20 h-15 w-15 object-cover rounded-full border-4 border-white" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzVRVcZrCYz6YguqgD_cLlssd3dr3ymolkJM1cHnWSwA&s=10" alt="" />
-                                <img className="absolute left-30 h-15 w-15 object-cover rounded-full border-4 border-white" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQJQ35YF9G5Tr1I2_-KKaDWS2wqBqCTUSzBsjhnP_DNKYMg_MBW9nqSusZE&s=10" alt="" />
+                                <img className="absolute  h-15 w-15 object-cover rounded-full border-2 md:border-4 border-white" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?fm=jpg&q=60&w=3000&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8aHVtYW58ZW58MHx8MHx8fDA%3D" alt="" />
+                                <img className="absolute left-10 h-15 w-15 object-cover rounded-full border-2 md:border-4 border-white" src="https://img.magnific.com/free-photo/portrait-white-man-isolated_53876-40306.jpg?semt=ais_hybrid&w=740&q=80" alt="" />
+                                <img className="absolute left-20 h-15 w-15 object-cover rounded-full border-2 md:border-4 border-white" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzVRVcZrCYz6YguqgD_cLlssd3dr3ymolkJM1cHnWSwA&s=10" alt="" />
+                                <img className="absolute left-30 h-15 w-15 object-cover rounded-full border-2 md:border-4 border-white" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQJQ35YF9G5Tr1I2_-KKaDWS2wqBqCTUSzBsjhnP_DNKYMg_MBW9nqSusZE&s=10" alt="" />
                             </div>
-                            <div className="ml-52">
+                            <div className="ml-49">
                                 <div className="flex gap-2 text-yellow-500">
                                     <FaStar/> 
                                     <FaStar/> 
@@ -246,7 +235,7 @@ export function LandingPage(){
                     </div>
                     <div className="flex gap-2 md:gap-6 w-full mx-auto">
 
-                        <div className="px-4 md:px-12 rounded-2xl bg-slate-400/40 darK:bg-white/5 border border-white/15 py-2 text-center flex flex-col items-center hover:shadow-md shadow-[#401B93] transition-all">
+                        <div className="px-4 md:px-12 rounded-2xl bg-slate-400/40 dark:bg-white/5 border border-white/15 py-2 text-center flex flex-col items-center hover:shadow-md shadow-[#401B93] transition-all">
                         <SocalMediaIcon color="dark:text-white" Icon={<FaSquareXTwitter size={52}/>} url="https://x.com/PrithwiSingh_" />
                         <div className="mt-2">
                             X(Twitter)
@@ -277,10 +266,10 @@ export function LandingPage(){
                     </div>
                 </div>
                 <div className="flex gap-2 md:gap-12 my-8">
-                            <Link to={"/dashboard"}>
+                            <Link to={"/auth/google"}>
                             <Button style="bg-white dark:bg-gray-800 dark:text-[#4C38E3] border border-white/50" size="md" variant="primary" text={"Start"} endIcon={<IoIosArrowRoundForward size={32}/>} />
                             </Link>
-                            <Link to={"/dashboard"}>
+                            <Link to={"/auth/google"}>
                             <Button style="text-white" size="md" variant="ternary" text={"view Demo"} startIcon={<FaRegPlayCircle/>} />
                             </Link>
                 </div>
@@ -305,7 +294,7 @@ export function LandingPage(){
                         <div>Contact</div>
                     </div>
                     
-                    <div className="text-base sm:text-xl">
+                    <div className="text-xs sm:text-xl">
                         ©2026 Mentis. All rights reserved.
                     </div>
             </div>

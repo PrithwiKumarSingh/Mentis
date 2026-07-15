@@ -1,4 +1,5 @@
 import { motion } from "motion/react";
+import { Slide, toast } from "react-toastify";
 
 export default function ContactSection() {
   return (
@@ -16,7 +17,6 @@ export default function ContactSection() {
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: .5 }}
-        viewport={{ once: true }}
         className="
         max-w-4xl
         mx-auto
@@ -49,7 +49,7 @@ export default function ContactSection() {
 
         {/* Form */}
 
-        <form className="mt-4 md:mt-12 space-y-6">
+        <div className="mt-4 md:mt-12 space-y-6">
 
           <div className="grid md:grid-cols-2 gap-6">
 
@@ -193,11 +193,20 @@ export default function ContactSection() {
             font-semibold
             text-white
             transition-all
-
+            cursor-pointer
             hover:scale-[1.02]
             hover:bg-[#4F3BD8]
             active:scale-100
           "
+          onClick={()=>{
+            toast("feature unlocked soon.. ", {
+                position : "bottom-right",
+                theme : "colored",
+                type : "error", 
+                transition: Slide,
+                autoClose : 3000
+            })
+          }}
           >
             Send Message
           </button>
@@ -206,7 +215,7 @@ export default function ContactSection() {
             We typically respond within 24 hours.
           </p>
 
-        </form>
+        </div>
       </motion.div>
     </section>
   );
