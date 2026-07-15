@@ -55,9 +55,9 @@ export default function ProfileDropDown({ user }: Props) {
     <div>{
         true && 
     <motion.div
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 1 }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.35 }}
      className="absolute bg-[#E0E7FF] right-10 top-36 w-90 overflow-hidden  font-semibold text-slate-800 dark:text-white dark:bg-linear-to-bl from-slate-900 to-[#06071B] rounded-3xl backdrop-blur-md border border-white/20 shadow-lg transition-all">
 
       {/* Header */}

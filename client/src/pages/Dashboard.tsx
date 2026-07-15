@@ -26,6 +26,7 @@ export const Dashboard = () => {
   const [filter, setFilter] = useState("all");
   const [ authenticated, setAuthenticated] = useState<boolean | null>(null);
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [openProfile, setOpenProfile] = useState(false);
 
   type User = {
   name: string;
@@ -160,10 +161,13 @@ if(authenticated == false){
           text=" " 
           startIcon={<ShareIcon size='md'/>}
     ></Button>
-    <div className='h-10 w-10 relative  group text-[#fafafa]'>
+    <div 
+        onClick={()=>setOpenProfile(prev=>!prev)}
+        className='h-10 w-10 relative  group text-[#fafafa]'>
         <img className='cursor-pointer rounded-full' loading='lazy' src={avtar} alt="loading" />
         <span className="absolute -bottom-0.5 right-1 h-4 w-4 rounded-full border-2 border-[#222022] bg-green-500" />
-        <div className='hidden group-hover:block absolute -right-15 -top-22 z-40'>
+        <div className='absolute -right-15 -top-22 z-40'> 
+          { openProfile && 
         <ProfileDropdown
           user={{
             name: user?.name,
@@ -172,7 +176,7 @@ if(authenticated == false){
             hash:hash
           }}
         />
-
+        }
       </div>
       
      </div>
@@ -220,10 +224,13 @@ if(authenticated == false){
           text="Share Brain" 
           startIcon={<ShareIcon size='md'/>}
     ></Button>
-     <div className='h-14 w-14 relative  group text-[#fafafa]'>
+     <div
+     onClick={()=>setOpenProfile(prev=>!prev)}
+     className='h-14 w-14 relative  group text-[#fafafa]'>
         <img className='cursor-pointer rounded-full' loading='lazy' src={avtar} alt="loading" />
         <span className="absolute -bottom-0.5 right-1 h-4 w-4 rounded-full border-2 border-[#222022] bg-green-500" />
-        <div className='hidden group-hover:block absolute -right-15 -top-22 z-40'>
+        <div className='absolute -right-15 -top-22 z-40'>
+          { openProfile &&
         <ProfileDropdown
           user={{
             name: user?.name,
@@ -232,6 +239,7 @@ if(authenticated == false){
             hash:hash
           }}
         />
+}
 
       </div>
       
