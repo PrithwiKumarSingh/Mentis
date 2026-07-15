@@ -1,14 +1,14 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import {lazy, Suspense} from "react";
 import { DashboardShimmer } from "./components/Shimmer/DashboardShimmer";
-import { LandingPage } from "./pages/LandingPage";
+import { Index } from "./components/landingPage/Index";
 
 const Dashboard = lazy(() =>
   import("./pages/Dashboard").then((module) => ({
     default: module.Dashboard,
   }))
 );
-const Signin = lazy(()=> import("./pages/Signin"))
+const Auth = lazy(()=> import("./pages/Auth"))
 const ShareBrain = lazy(()=> import("./pages/ShareBrain"))
 
 
@@ -18,9 +18,8 @@ const App = () => {
     <BrowserRouter>
     <Suspense fallback={<DashboardShimmer/>}>
       <Routes>
-          <Route path="/" element={<LandingPage/>} />
-          <Route path="/auth/google" element={<Signin/>}></Route>
-          {/* <Route path="/signup" element={<Signup/>}></Route> */}
+          <Route path="/" element={<Index/>} />
+          <Route path="/auth/google" element={<Auth/>}></Route>
           <Route path="/dashboard" element={<Dashboard/>}></Route>
           <Route path="/share/:hash" element={<ShareBrain/>} />
       </Routes>

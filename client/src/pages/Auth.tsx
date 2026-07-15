@@ -9,7 +9,7 @@ import {motion} from "motion/react"
 import { FcGoogle } from "react-icons/fc";
 import { LuBrain } from "react-icons/lu";
 
-export default function Signin(){
+export default function Auth(){
 
     // const usernameRef = useRef <HTMLInputElement>(null);
     //     const passwordRef = useRef <HTMLInputElement>(null);

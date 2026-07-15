@@ -88,22 +88,48 @@ export function ShareContentModel({open, onClose, metadata, hash, link}: {
                     </div>
 
                      
-                    <div className="relative gap-2 items-center mt-8">
-                        <div className="text-lg font-medium my-2">
-                        Share you link
+                    <div className="mt-8">
+                        <label className="mb-2 block text-lg font-medium">
+                            Share your link
+                        </label>
+
+                        <div className="relative">
+                            <input
+                            readOnly
+                            value={linkUrl}
+                            className="
+                                w-full
+                                rounded-2xl
+                                bg-pink-100
+                                px-4
+                                py-3
+                                pr-14
+                                truncate
+                                dark:text-black
+                            "
+                            />
+
+                            <button
+                            onClick={copyLink}
+                            className="
+                                absolute
+                                right-4
+                                top-1/2
+                                -translate-y-1/2
+                                transition-transform
+                                hover:scale-110
+                                dark:text-black
+                                cursor-pointer
+                            "
+                            >
+                            {copy === "Copy" ? (
+                                <GoCopy size={20} />
+                            ) : (
+                                <IoCheckmarkDoneOutline size={20} />
+                            )}
+                            </button>
                         </div>
-                        <div className="min-w-sm dark:text-black">
-                            <input defaultValue={linkUrl}  type="text" className="px-4 w-full py-2 bg-slate-100 rounded-2xl"/>
                         </div>
-                        <div 
-                            onClick={()=>copyLink()}
-                         className="absolute right-6 top-11.5 hover:scale-105 cursor-pointer transition-all duration-150 dark:text-black">
-                            {
-                                copy=="Copy" ?<GoCopy size={20}/> : <IoCheckmarkDoneOutline size={20}/>
-                            }
-                            
-                        </div>
-                    </div>
                     <div className="text-lg font-medium mt-6">
                         Share to
                     </div>
