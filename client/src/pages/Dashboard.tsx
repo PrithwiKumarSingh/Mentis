@@ -16,7 +16,7 @@ import { DashboardShimmer } from '../components/Shimmer/DashboardShimmer';
 import { Slide, toast } from 'react-toastify';
 import { MdMenu } from "react-icons/md";
 import ProfileDropdown from "./ProfileDropDown";
-
+import { IoSearch } from "react-icons/io5";
 
 export const Dashboard = () => {
   const [openModal, setOpneModal] = useState(false);
@@ -207,7 +207,18 @@ if(authenticated == false){
       filter=="trash" ? <div 
                 className='bg-red-100 dark:bg-white/10 text-red-500 border border-white/20 p-4 w-full rounded-4xl text-center text-sm'>
          <span className='text-xl font-medium'>Caution:</span> Items moved to Trash will be permanently deleted after 30 days. You can restore them anytime before then.</div>
-      : <div className='md:flex justify-end hidden gap-4 py-4 px-4'>
+      : <div className='md:flex justify-between items-center hidden gap-4 py-4 '>
+        <div className='dark:text-white flex relative'>
+          <input
+          className='outline outline-lime-50 rounded px-2 py-2 pr-14 min-w-md truncate '
+           type="text"
+           placeholder='Work in progress.....'
+            />
+            <button className='absolute right-4 top-2 cursor-pointer'>
+            <IoSearch size={22} />
+            </button>
+        </div>
+        <div className='md:flex gap-4'>
         <Button 
           style='dark:bg-white/10 text-white backdrop-blur-md border border-white/20 shadow-lg transition-all'
           onClick={()=>{setOpneModal(true)}}
@@ -244,7 +255,11 @@ if(authenticated == false){
       </div>
       
      </div>
+     </div>
       </div>
+
+
+
     }
    
   </div>

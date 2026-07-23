@@ -89,7 +89,7 @@ export function Sidebar({username, loggedout,filter, setFilter, onClose} : {
             </div>
 
             {
-                (loggedout ? <div className="absolute mt-30 md:mt-90 flex  items-center justify-between  bg-slate-300 w-full rounded-xl px-6 py-3 dark:font-semibold dark:text-white dark:bg-white/10 dark:backdrop-blur-md dark:border dark:border-white/20 dark:shadow-lg dark:transition-all dark:focus:outline-none dark:focus:ring-2 dark:focus:ring-white/50">
+                (loggedout ? <div className="absolute mt-10 md:mt-90 flex  items-center justify-between  bg-slate-300 w-full rounded-xl px-6 py-3 dark:font-semibold dark:text-white dark:bg-white/10 dark:backdrop-blur-md dark:border dark:border-white/20 dark:shadow-lg dark:transition-all dark:focus:outline-none dark:focus:ring-2 dark:focus:ring-white/50">
 
                 {
                     (username && <div className="text-md font-medium">
