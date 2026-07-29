@@ -14,6 +14,7 @@ import cors from 'cors'
 import {FRONTEND_URL} from './config/config'
 import ogs from 'open-graph-scraper'
 import googleAuthRouter from "./routes/googleAuth";
+import { processExtraction } from "./services/processing";
 
 const app = express();
 app.use(express.json());
@@ -108,6 +109,7 @@ app.post("/api/v1/content",userMiddleware , async (req,res)=> {
         const {result} = await ogs({
             url : link
         })
+        console.log(result);
         const data = await contentModel.create({
             type,
             title,
@@ -115,16 +117,24 @@ app.post("/api/v1/content",userMiddleware , async (req,res)=> {
             metadata : {
                 title : result.ogTitle || "",
                 description : result.ogDescription || "",
-                image : result.ogImage?.[0]?.url || ""
+                image : result.ogImage?.[0]?.url || "",
+                siteName: result.ogSiteName || "",
+                favicon : result.favicon || "",
+                publishedAt : result.ogDate || ""
+
             },
             // @ts-ignore
             userId: req.userId,
             tags:[]
         })
+        processExtraction(data._id.toString())
+            .catch(err => console.error("Extraction Error:", err));
 
-        res.status(200).json({
-            message : "Content Added Successfully"
-        })
+        res.status(201).json({
+                success: true,
+                message: "Content Added Successfully",
+                contentId: data._id,
+            });
 
     }catch(e:any){
         console.error(e);

@@ -1,6 +1,6 @@
 import mongoose, {model, Schema} from "mongoose"
 
-const contentType =  ['tweets', 'video', 'document', 'link', "tag", ]
+const contentType =  ['tweet', 'video', 'document', 'link', "tag", ]
 const trashSchema = new Schema({
     type : {
         type : String,
