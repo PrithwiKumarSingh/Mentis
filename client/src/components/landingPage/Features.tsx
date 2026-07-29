@@ -13,7 +13,7 @@ export function Features(){
         {
             color:"text-[#15A8F3]",
             Icon:FaTwitter,
-            text:"Tweets"
+            text:"Tweet"
         },
         {
             color:"text-[#15A8F3]",

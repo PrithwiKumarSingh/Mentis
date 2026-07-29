@@ -85,7 +85,7 @@ export function CreateContentModal({open, onClose,refresh}: {
                     </div>
                     <div className="flex items-center my-4 gap-2">
                         <Button style="dark:text-black" onClick={()=>setType(ContentType.Video)} text={"Video"} size="sm" variant={type==ContentType.Video ? "primary" : "secondary"} />
-                        <Button style="dark:text-black" onClick={()=>setType(ContentType.Twitter)} text={"Tweets"} size="sm" variant={type==ContentType.Twitter ? "primary" : "secondary"} />
+                        <Button style="dark:text-black" onClick={()=>setType(ContentType.Twitter)} text={"Tweet"} size="sm" variant={type==ContentType.Twitter ? "primary" : "secondary"} />
                         <Button style="dark:text-black" onClick={()=>setType(ContentType.Documents)} text={"Docs"} size="sm" variant={type==ContentType.Documents ? "primary" : "secondary"} />
                         <Button style="dark:text-black" onClick={()=>setType(ContentType.Links)} text={"Links"} size="sm" variant={type==ContentType.Links ? "primary" : "secondary"} />
                     </div>

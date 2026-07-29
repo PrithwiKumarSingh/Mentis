@@ -11,6 +11,9 @@ import { Slide, toast } from "react-toastify";
 import {motion} from "motion/react"
 import { RiLoopLeftFill } from "react-icons/ri";
 import { formatDistanceToNow } from "date-fns";
+import AISummaryButton from "../AISummary/AISummaryButton";
+import AISummaryModal from "../AISummary/AISummaryModal";
+import type { SummaryData } from "../AISummary/AISummaryModal";
 
 interface metadata{
     title? : string; 
@@ -30,12 +33,16 @@ interface CardProps{
     deletedAt?: string;
     isTrash? : boolean;
     trashRefresh? : ()=>void
+    wordCount? : number
+    summaries : SummaryData
+    readingTime : number
 }
 
-export function Card({type, link, title, metadata, _id, createdAt, isTrash,deletedAt, trashRefresh, refresh}: CardProps){
+export function Card({type, link, title, metadata, _id, createdAt, isTrash,deletedAt, trashRefresh, refresh, summaries, readingTime,wordCount}: CardProps){
     const [shareModel, setShareModel] = useState(false);
     const [loading, setLoading] = useState(false)
     const [recover, setRecover] = useState(false)
+    const [openSummary, setOpenSummary] = useState(false);
 
 
     async function DeleteItems(_id:string){
@@ -147,6 +154,7 @@ export function Card({type, link, title, metadata, _id, createdAt, isTrash,delet
         <div>
 
         <ShareContentModel open={shareModel} onClose={()=>{setShareModel(false)}} metadata={metadata} link={link}/>
+        <AISummaryModal onClose={()=>setOpenSummary(false)} createdAt={createdAt} readingTime={readingTime} wordCount={wordCount ?? 0} summary={summaries} description={metadata?.description ?? ""} open={openSummary} title={title} />
         < motion.div
         initial={{opacity:0, y:-20}}
         animate={{opacity:2, y:0}}
@@ -180,10 +188,17 @@ export function Card({type, link, title, metadata, _id, createdAt, isTrash,delet
                         
                     </div>
                     
+                    
                 </div>
 
 
                         : <div className="flex items-center gap-2">
+                            <div className="group relative inline-block">
+                        <AISummaryButton onClick={()=>setOpenSummary(true)}/>
+                            <div className="absolute pointer-events-none transition-all duration-200 group-hover:scale-100 group-hover:opacity-100 group-hover:pointer-events-auto">
+                                HEllo
+                            </div>
+                    </div>
                     <div onClick={()=>{setShareModel(true)}} className="cursor-pointer hover:text-[#5046E4] hover:scale-105 transition ease-in-out duration-100">
                         <ShareIcon size="md"/>
                      </div>
@@ -193,6 +208,7 @@ export function Card({type, link, title, metadata, _id, createdAt, isTrash,delet
                         }
                         
                     </div>
+                    
                     
                 </div>
                     }
@@ -220,7 +236,7 @@ export function Card({type, link, title, metadata, _id, createdAt, isTrash,delet
             </div>
             <div>
                 {
-                    !(type == "tweets") && (metadata && <div className="mt-2 max-h-24">
+                    !(type == "tweet") && (metadata && <div className="mt-2 max-h-24">
                         
                         <div className=" p-4 rounded-xl bg-slate-100 dark:bg-slate-800 max-h-fit md:overflow-y-scroll scrollbar-none [&::-webkit-scrollbar]:hidden ">
                             <div className=" flex justify-between">

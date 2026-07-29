@@ -1,10 +1,11 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { BACKEND_URL } from "../../config";
+import type { Content } from "../../types/content";
 
 export function useContent() {
-    const [contents, setContents] = useState([]);
-    const [trashContent, setTrashContent] = useState([]);
+    const [contents, setContents] = useState<Content[]>([]);
+    const [trashContent, setTrashContent] = useState<Content[]>([]);
     const [loading, setLoading] = useState(true);
 
     async function refresh() {

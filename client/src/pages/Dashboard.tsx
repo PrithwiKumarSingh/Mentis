@@ -17,6 +17,16 @@ import { Slide, toast } from 'react-toastify';
 import { MdMenu } from "react-icons/md";
 import ProfileDropdown from "./ProfileDropDown";
 import { IoSearch } from "react-icons/io5";
+// import type { SummaryData } from '../components/AISummary/AISummaryModal';
+
+
+// interface aiProps{
+//   summaries : SummaryData;
+//   status : string; 
+//   model : string;
+//   promptVersion : number; 
+//   generatedAt : string;
+// }
 
 export const Dashboard = () => {
   const [openModal, setOpneModal] = useState(false);
@@ -33,6 +43,9 @@ export const Dashboard = () => {
   email: string;
   avatar: string;
 };
+
+
+
   const [user, setUser] = useState<User >()
 
 async function verifyUser() {
@@ -80,6 +93,7 @@ if(authenticated == false){
                           ? contents
                           : contents.filter((item:any)=>item.type === filter);
 
+      console.log(contents[0])
                         
   const avtar = user?.avatar || "https://media.istockphoto.com/id/2151669184/vector/vector-flat-illustration-in-grayscale-avatar-user-profile-person-icon-gender-neutral.jpg?s=612x612&w=0&k=20&c=UEa7oHoOL30ynvmJzSCIPrwwopJdfqzBs0q69ezQoM8="
 
@@ -265,7 +279,7 @@ if(authenticated == false){
   </div>
         {
           filteredContent.length > 0 ?  <div className='grid grid-cols-1 md:grid-cols-1 xl:grid-cols-3 2xl:grid-cols-4 gap-8 mt-8'> {
-      filteredContent.map(({title,type,link, _id, metadata, createdAt, deletedAt})=><Card 
+      filteredContent.map(({title,type,link, _id, metadata, createdAt, deletedAt,ai,readingTime,wordCount})=><Card 
                 key={_id} 
                 title={title} 
                 type={type}
@@ -277,6 +291,9 @@ if(authenticated == false){
                 createdAt={createdAt}
                 deletedAt={deletedAt}
                 isTrash={filter=="trash"? true : false}
+                summaries={ai.summaries}
+                readingTime={readingTime}
+                wordCount={wordCount}
                 />
                 
               )
