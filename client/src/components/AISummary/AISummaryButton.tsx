@@ -27,8 +27,7 @@ export default function AISummaryButton({
                 flex
                 items-center
                 gap-2
-
-                rounded-xl
+                bg-transparent
 
                 hover:text-linear-to-r
 
@@ -36,14 +35,10 @@ export default function AISummaryButton({
                 to-fuchsia-600
 
                 font-medium
-
-                text-white
-
-                shadow-lg
             "
         >
 
-            <Sparkles className="h-5 w-5 text-violet-600 to-fuchsia-600 cursor-pointer"/>
+            <Sparkles className=" text-violet-600 to-fuchsia-600 cursor-pointer"/>
 
         </motion.button>
 

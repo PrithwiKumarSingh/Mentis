@@ -77,7 +77,7 @@ export function Sidebar({username, loggedout,filter, setFilter, onClose} : {
 
             <div className="pt-6 flex flex-col gap-2 dark:text-white">
                 <SidebarItem active={filter==="all"} onClick={()=> {onClose?.(); setFilter("all")}} text="All" icon={<MdOutlineDensitySmall size={24}/>}  />
-                <SidebarItem active={filter==="tweet"} onClick={()=>{setFilter("tweets"); onClose?.()}} text="Tweets" icon={<FiTwitter size={24}/>}  />
+                <SidebarItem active={filter==="tweet"} onClick={()=>{setFilter("tweet"); onClose?.()}} text="Tweets" icon={<FiTwitter size={24}/>}  />
                 <SidebarItem active={filter==="video"} onClick={()=>{setFilter("video"); onClose?.()}} text="Videos" icon={<FiYoutube size={24}/>}  />
                 <SidebarItem active={filter==="document"} onClick={()=>{setFilter("document"); onClose?.()}} text="Documents" icon={<GrDocumentText size={22}/>}  />
                 <SidebarItem active={filter==="link"} onClick={()=>{setFilter("link"); onClose?.()}} text="Links" icon={<IoLink size={24} />}  />

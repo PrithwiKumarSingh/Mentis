@@ -10,7 +10,7 @@ import {motion} from "motion/react"
 
 enum ContentType{
     Video = "video",
-    Twitter = 'tweets',
+    Twitter = 'tweet',
     Documents = "document", 
     Links = "link"
 }

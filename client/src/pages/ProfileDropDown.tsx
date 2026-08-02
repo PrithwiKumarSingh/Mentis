@@ -11,6 +11,8 @@ import { useEffect, useState } from "react";
 import { Slide, toast } from "react-toastify";
 import axios from "axios";
 
+
+
 type Props = {
   user: {
     name: string | undefined;
@@ -18,21 +20,27 @@ type Props = {
     avatar: string;
     hash:string | null;
   };
+  onStopSharing?: () => void;
+  onClose: ()=>void;
 };
 
-export default function ProfileDropDown({ user }: Props) {
+export default function ProfileDropDown({ user, onStopSharing, onClose }: Props) {
   const { theme, toggleTheme } = useTheme();
-  const [hash, setHash] = useState<string|null>(user.hash)
+  const [hash, setHash] = useState<string|null>(user.hash ?? null);
+
 
   useEffect(() => {
-  setHash(user.hash);
+  setHash(user.hash??null);
 }, [user.hash]);
 
   async function StopSharingBrain(){
+    console.log("hello")
       try{
-
-        const response = await axios.post(`${BACKEND_URL}/api/v1/brain/share`, {"share" : false}, {withCredentials : true})
-        setHash(response.data.hash)
+        const res = await axios.post(`${BACKEND_URL}/api/v1/brain/share`, {"share" : false}, {withCredentials : true})
+        setHash(res.data.hash)
+        onStopSharing?.()
+        onClose?.()
+        if(hash)
         toast("Stop Sharing Brain", {
                 position : "bottom-right",
                 theme : "colored",
@@ -51,13 +59,15 @@ export default function ProfileDropDown({ user }: Props) {
       }
     }
 
+    const isSharing = Boolean(hash)
+
   return (
     <div>{
-        true && 
     <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.35 }}
+        onMouseDown={(e)=>e.stopPropagation()}
      className="absolute bg-[#E0E7FF] right-10 top-36 w-90 overflow-hidden  font-semibold text-slate-800 dark:text-white dark:bg-linear-to-bl from-slate-900 to-[#06071B] rounded-3xl backdrop-blur-md border border-white/20 shadow-lg transition-all">
 
       {/* Header */}
@@ -108,11 +118,11 @@ export default function ProfileDropDown({ user }: Props) {
 
         <div className="flex cursor-pointer items-center justify-between rounded-xl px-4 py-4 transition hover:bg-black/5 dark:hover:bg-white/5">
 
-          <div className={`flex items-center gap-4 ${hash ? "text-white" : "text-green-400"}`} >
+          <div className={`flex items-center gap-4 ${hash ? "text-black dark:text-white" : "text-green-400"}`} >
 
             <TbWorldShare size={22} />
 
-            <span className="text-xl text-white">
+            <span className="text-xl text-black dark:text-white">
               Stop Sharing
             </span>
 
@@ -123,12 +133,12 @@ export default function ProfileDropDown({ user }: Props) {
           <button
             onClick={StopSharingBrain}
             className={`relative h-8 w-14 rounded-full transition cursor-pointer ${
-              hash == null ? "bg-slate-600" : "bg-green-400"
+              isSharing ? "bg-green-600" : "bg-gray-400"
             }`}
           >
             <span
               className={`absolute top-1 h-6 w-6 rounded-full bg-white transition ${
-                hash ? "left-7" : "left-1"
+                isSharing ? "left-7" : "left-1"
               }`}
             />
           </button>
@@ -149,7 +159,7 @@ export default function ProfileDropDown({ user }: Props) {
           {/* Toggle */}
 
           <button
-            onClick={toggleTheme}
+            onClick={() => { toggleTheme(); onClose?.(); }}
             className={`relative h-8 w-14 rounded-full transition cursor-pointer ${
               theme==='light' ? "bg-slate-600" : "bg-zinc-700"
             }`}

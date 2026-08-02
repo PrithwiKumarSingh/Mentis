@@ -53,7 +53,6 @@ export default function AISummaryModal({
 }: AISummaryModalProps) {
   const [activeTab, setActiveTab] =
     useState<Tab>("overview");
-    console.log(summary)
 
   useEffect(() => {
     function handler(e: KeyboardEvent) {

@@ -14,6 +14,7 @@ import { formatDistanceToNow } from "date-fns";
 import AISummaryButton from "../AISummary/AISummaryButton";
 import AISummaryModal from "../AISummary/AISummaryModal";
 import type { SummaryData } from "../AISummary/AISummaryModal";
+import Tooltip from "./Tooltips";
 
 interface metadata{
     title? : string; 
@@ -34,8 +35,8 @@ interface CardProps{
     isTrash? : boolean;
     trashRefresh? : ()=>void
     wordCount? : number
-    summaries : SummaryData
-    readingTime : number
+    summaries? : SummaryData
+    readingTime? : number
 }
 
 export function Card({type, link, title, metadata, _id, createdAt, isTrash,deletedAt, trashRefresh, refresh, summaries, readingTime,wordCount}: CardProps){
@@ -154,13 +155,16 @@ export function Card({type, link, title, metadata, _id, createdAt, isTrash,delet
         <div>
 
         <ShareContentModel open={shareModel} onClose={()=>{setShareModel(false)}} metadata={metadata} link={link}/>
-        <AISummaryModal onClose={()=>setOpenSummary(false)} createdAt={createdAt} readingTime={readingTime} wordCount={wordCount ?? 0} summary={summaries} description={metadata?.description ?? ""} open={openSummary} title={title} />
+            {
+                summaries && <AISummaryModal onClose={()=>setOpenSummary(false)} createdAt={createdAt} readingTime={readingTime ?? 0} wordCount={wordCount ?? 0} summary={summaries} description={metadata?.description ?? ""} open={openSummary} title={title} />
+
+            }
         < motion.div
         initial={{opacity:0, y:-20}}
         animate={{opacity:2, y:0}}
         transition={{duration:0.35}}
          className=" hover:shadow-xl relative hover:border-purple-400 transition-all duration-100  p-4 border 
-                    border-gray-200 bg-white h-125 rounded-2xl min-h-fit md:min-h-48  min-w-9 md:overflow-y-scroll [&::-webkit-scrollbar]:hidden
+                    border-gray-200 bg-white  h-125 rounded-2xl min-h-fit md:min-h-48
                      dark:bg-white/5 dark:border-white/10 dark:backdrop-blur-xl dark:shadow-[0_8px_32px_rgba(0,0,0,0.35)] dark:text-white">
             <div className="flex justify-between">
                 <div className="flex items-center gap-2 text-xl font-medium text-[#0E1522] dark:text-white">
@@ -172,6 +176,7 @@ export function Card({type, link, title, metadata, _id, createdAt, isTrash,delet
                 <div>
                     {
                         isTrash ? <div className="flex items-center gap-2">
+                        <Tooltip text="Content recover">
                     <div onClick={()=>{recovery(_id)}} className="cursor-pointer  hover:text-[#5046E4] hover:scale-105 transition ease-in-out duration-100">
                         {
                          recover ? (
@@ -181,9 +186,14 @@ export function Card({type, link, title, metadata, _id, createdAt, isTrash,delet
                                 )
                             }
                      </div>
+                     </Tooltip>
+                     
                      <div onClick={()=>PermanentDelete(_id)} className="hover:text-red-600 hover:scale-105 transition-all duration-100">
                         {
-                            loading ? <div className="h-4 w-4 border-2 border-red-600 border-t-transparent rounded-full animate-spin"></div> :  <DeleteIcon  size="md"/> 
+                            loading ? <div className="h-4 w-4 border-2 border-red-600 border-t-transparent rounded-full animate-spin"></div> 
+                            : <Tooltip text="Parmanent delete">
+                                <DeleteIcon  size="md"/> 
+                            </Tooltip>  
                         }
                         
                     </div>
@@ -192,19 +202,28 @@ export function Card({type, link, title, metadata, _id, createdAt, isTrash,delet
                 </div>
 
 
-                        : <div className="flex items-center gap-2">
-                            <div className="group relative inline-block">
+                        : <div className="flex gap-2">
+                            <div >
+                            <Tooltip text="Ai summery">
                         <AISummaryButton onClick={()=>setOpenSummary(true)}/>
-                            <div className="absolute pointer-events-none transition-all duration-200 group-hover:scale-100 group-hover:opacity-100 group-hover:pointer-events-auto">
+                            </Tooltip>
+                            {/* <div className="absolute pointer-events-none transition-all duration-200 group-hover:scale-100 group-hover:opacity-100 group-hover:pointer-events-auto">
                                 HEllo
-                            </div>
+                            </div> */}
                     </div>
                     <div onClick={()=>{setShareModel(true)}} className="cursor-pointer hover:text-[#5046E4] hover:scale-105 transition ease-in-out duration-100">
+                        <Tooltip text="Share content">
                         <ShareIcon size="md"/>
+                        </Tooltip>
                      </div>
                      <div onClick={()=>DeleteItems(_id)} className="hover:text-red-600 hover:scale-105 transition-all duration-100">
                         {
-                            loading ? <div className="h-4 w-4 border-2 border-red-600 border-t-transparent rounded-full animate-spin"></div> :  <DeleteIcon  size="md"/> 
+                            loading ?
+
+                             <div className="h-4 w-4 border-2 border-red-600 border-t-transparent rounded-full animate-spin"></div> 
+                             :  <Tooltip text="Move to trash">
+                             <DeleteIcon  size="md"/> 
+                             </Tooltip>
                         }
                         
                     </div>
@@ -215,13 +234,15 @@ export function Card({type, link, title, metadata, _id, createdAt, isTrash,delet
                 </div>
             </div>
 
-            
 
-            <div>
+            {/* content  */}
+            <div >
+            
+            <div className=" max-h-104 overflow-y-scroll [&::-webkit-scrollbar]:hidden rounded-2xl">
                 {
                     type==="video" ?
                          <Youtube link={link}/> :
-                    type === "tweets" ?   
+                    type === "tweet" ?   
                         <Twitter link={link}/> :   (
                             <div 
                             className=" overflow-hidden mt-4 p-2">
@@ -234,7 +255,7 @@ export function Card({type, link, title, metadata, _id, createdAt, isTrash,delet
                     
             }   
             </div>
-            <div>
+            <div >
                 {
                     !(type == "tweet") && (metadata && <div className="mt-2 max-h-24">
                         
@@ -257,6 +278,7 @@ export function Card({type, link, title, metadata, _id, createdAt, isTrash,delet
                         </div>
                     </div>)
                 }
+            </div>
             </div>
             
             <div className="absolute bottom-2 right-4 text-black">

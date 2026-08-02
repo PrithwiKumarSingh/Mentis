@@ -5,7 +5,7 @@ import "../index.css";
 import { ShareIcon } from '../components/icons/ShareIcon';
 import { Card } from '../components/ui/Card';
 import { CreateContentModal } from '../components/ui/CreateContentModal';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Sidebar } from '../components/ui/Sidebar';
 import { useContent } from '../components/hooks/useContent';
 import { ShareContentModel } from '../components/ui/ShareContentModel';
@@ -17,26 +17,18 @@ import { Slide, toast } from 'react-toastify';
 import { MdMenu } from "react-icons/md";
 import ProfileDropdown from "./ProfileDropDown";
 import { IoSearch } from "react-icons/io5";
-// import type { SummaryData } from '../components/AISummary/AISummaryModal';
-
-
-// interface aiProps{
-//   summaries : SummaryData;
-//   status : string; 
-//   model : string;
-//   promptVersion : number; 
-//   generatedAt : string;
-// }
 
 export const Dashboard = () => {
   const [openModal, setOpneModal] = useState(false);
   const [shareModel, setShareModel] = useState(false);
   const {contents,refresh, trashRefresh, trashContent,loading} = useContent();
-  const [hash, setHash] = useState("");
+  const [hash, setHash] = useState<string|null>(null);
   const [filter, setFilter] = useState("all");
   const [ authenticated, setAuthenticated] = useState<boolean | null>(null);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [openProfile, setOpenProfile] = useState(false);
+  const [search, setSearch] = useState("");
+  const profileRef = useRef<HTMLDivElement>(null);
 
   type User = {
   name: string;
@@ -65,6 +57,22 @@ async function verifyUser() {
   }
 }
 
+useEffect(() => {
+  function handleClickOutside(e: MouseEvent) {
+    if (
+      profileRef.current &&
+      !profileRef.current.contains(e.target as Node)
+    ) {
+      setOpenProfile(false);
+    }
+  }
+
+  document.addEventListener("mousedown", handleClickOutside);
+
+  return () => {
+    document.removeEventListener("mousedown", handleClickOutside);
+  };
+}, []);
 
   
   useEffect(()=>{
@@ -81,19 +89,14 @@ if(authenticated == false){
   if(authenticated == null || loading){
     return  <DashboardShimmer/> 
   }
-  
-
-  
 
 
-
-  const filteredContent = filter == "trash" 
+  const filteredContent = (filter == "trash" 
                           ? trashContent 
                           : filter == "all" 
                           ? contents
-                          : contents.filter((item:any)=>item.type === filter);
-
-      console.log(contents[0])
+                          : contents.filter((item:any)=>item.type === filter)
+                        ).filter((item:any)=> item.metadata.description.toLowerCase().includes(search.toLowerCase()))
                         
   const avtar = user?.avatar || "https://media.istockphoto.com/id/2151669184/vector/vector-flat-illustration-in-grayscale-avatar-user-profile-person-icon-gender-neutral.jpg?s=612x612&w=0&k=20&c=UEa7oHoOL30ynvmJzSCIPrwwopJdfqzBs0q69ezQoM8="
 
@@ -141,9 +144,10 @@ if(authenticated == false){
 
    <div className='p-4 md:ml-72 sm:pl-10 h-1vh '>
     <CreateContentModal open={openModal} onClose={()=>{setOpneModal(false)}} refresh={refresh}/>
+      {
+        hash && 
     <ShareContentModel hash={hash} open={shareModel} onClose={()=>{setShareModel(false)}} />
-      
-
+      }
 
 
 
@@ -175,25 +179,36 @@ if(authenticated == false){
           text=" " 
           startIcon={<ShareIcon size='md'/>}
     ></Button>
-    <div 
-        onClick={()=>setOpenProfile(prev=>!prev)}
-        className='h-10 w-10 relative  group text-[#fafafa]'>
-        <img className='cursor-pointer rounded-full' loading='lazy' src={avtar} alt="loading" />
-        <span className="absolute -bottom-0.5 right-1 h-4 w-4 rounded-full border-2 border-[#222022] bg-green-500" />
-        <div className='absolute -right-15 -top-22 z-40'> 
-          { openProfile && 
-        <ProfileDropdown
-          user={{
-            name: user?.name,
-            email: user?.email,
-            avatar: avtar,
-            hash:hash
-          }}
-        />
-        }
-      </div>
-      
-     </div>
+    <div ref={profileRef} className="relative h-14 w-14">
+  <button
+    type="button"
+    onClick={() => setOpenProfile(prev => !prev)}
+    className="relative h-full w-full cursor-pointer"
+  >
+    <img
+      className="h-full w-full rounded-full object-cover"
+      src={avtar}
+      alt="Profile"
+    />
+
+    <span className="absolute -bottom-0.5 right-1 h-4 w-4 rounded-full border-2 border-[#222022] bg-green-500" />
+  </button>
+
+  {openProfile && (
+    <div className="absolute -right-15 -top-22 z-40">
+      <ProfileDropdown
+        user={{
+          name: user?.name,
+          email: user?.email,
+          avatar: avtar,
+          hash,
+        }}
+        onStopSharing={() => setHash(null)}
+        onClose={() => setOpenProfile(false)}
+      />
+    </div>
+  )}
+</div>
         </div>
 
         <div
@@ -224,7 +239,9 @@ if(authenticated == false){
       : <div className='md:flex justify-between items-center hidden gap-4 py-4 '>
         <div className='dark:text-white flex relative'>
           <input
-          className='outline outline-lime-50 rounded px-2 py-2 pr-14 min-w-md truncate '
+          value={search}
+          onChange={(e)=>setSearch(e.target.value)}
+          className='outline outline-gray-300 dark:outline-lime-50  rounded px-2 py-2 pr-14 min-w-md truncate '
            type="text"
            placeholder='Work in progress.....'
             />
@@ -249,26 +266,36 @@ if(authenticated == false){
           text="Share Brain" 
           startIcon={<ShareIcon size='md'/>}
     ></Button>
-     <div
-     onClick={()=>setOpenProfile(prev=>!prev)}
-     className='h-14 w-14 relative  group text-[#fafafa]'>
-        <img className='cursor-pointer rounded-full' loading='lazy' src={avtar} alt="loading" />
-        <span className="absolute -bottom-0.5 right-1 h-4 w-4 rounded-full border-2 border-[#222022] bg-green-500" />
-        <div className='absolute -right-15 -top-22 z-40'>
-          { openProfile &&
-        <ProfileDropdown
-          user={{
-            name: user?.name,
-            email: user?.email,
-            avatar: avtar,
-            hash:hash
-          }}
-        />
-}
+     <div ref={profileRef} className="relative h-14 w-14">
+  <button
+    type="button"
+    onClick={() => setOpenProfile(prev => !prev)}
+    className="relative h-full w-full cursor-pointer"
+  >
+    <img
+      className="h-full w-full rounded-full object-cover"
+      src={avtar}
+      alt="Profile"
+    />
 
-      </div>
-      
-     </div>
+    <span className="absolute -bottom-0.5 right-1 h-4 w-4 rounded-full border-2 border-[#222022] bg-green-500" />
+  </button>
+
+  {openProfile && (
+    <div className="absolute -right-15 -top-22 z-40">
+      <ProfileDropdown
+        user={{
+          name: user?.name,
+          email: user?.email,
+          avatar: avtar,
+          hash,
+        }}
+        onStopSharing={() => setHash(null)}
+        onClose={() => setOpenProfile(false)}
+      />
+    </div>
+  )}
+</div>
      </div>
       </div>
 
