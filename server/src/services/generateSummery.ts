@@ -21,7 +21,7 @@ export async function generateSummary(contentId: string) {
         await content.save();
 
         const response = await ai.models.generateContent({
-            model: "gemini-3.6-flash",
+            model: "gemini-3.1-flash-lite",
 
             contents: `
 Summarize the following article.
