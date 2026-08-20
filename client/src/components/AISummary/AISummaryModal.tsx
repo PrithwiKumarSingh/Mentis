@@ -207,7 +207,6 @@ export default function AISummaryModal({
             h-[calc(92vh-90px)]
             flex-col
             lg:flex-row
-            lg:bg-red-600
           "
             >
               {/* Sidebar */}
