@@ -558,3 +558,18 @@ function Field({
 }
 
 
+interface InputProps{
+    placeholder : string; 
+    referance? : any;
+    value? : string;
+}
+
+
+
+export function Input({placeholder, referance, value}:InputProps){
+    return(
+        <div>
+            <input defaultValue={value} ref={referance} placeholder={placeholder} type="text" className="px-4 w-full py-2 border rounded"/>
+        </div>
+    )
+}
