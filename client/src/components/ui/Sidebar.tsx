@@ -70,7 +70,7 @@ export function Sidebar({username, loggedout,filter, setFilter, onClose} : {
                     </a>
                     
                 </div>
-                <div onClick={onClose} className="md:hidden ml-8 bg-[#f2f5fc] dark:bg-white/10 border border-gray-300 rounded-full p-2">
+                <div onClick={onClose} className="md:hidden ml-8 border-gray-300 p-2">
                     <MdOutlineClose size={32}/>
                 </div>
             </div>

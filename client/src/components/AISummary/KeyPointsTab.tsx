@@ -88,7 +88,7 @@ export default function KeyPointsTab({
                             hover:shadow-lg
 
                             dark:border-zinc-800
-                            dark:bg-zinc-900
+                            dark:bg-[#1E1637]
                         "
                     >
 

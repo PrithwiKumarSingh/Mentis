@@ -155,7 +155,7 @@ export default function DetailsTab({
                 shadow-sm
 
                 dark:border-zinc-800
-                dark:bg-zinc-900
+                dark:bg-[#0A1022]
             "
             >
 

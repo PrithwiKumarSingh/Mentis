@@ -24,7 +24,7 @@ export default function Sidebar({
     link,
 }: SidebarProps) {
     return (
-        <div className="flex h-full flex-col gap-5 p-5">
+        <div className="flex h-full lg:flex-col md:flex-row  gap-5 p-5">
 
             {/* Article */}
 

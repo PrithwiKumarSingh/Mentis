@@ -5,6 +5,7 @@ import {
 } from "lucide-react";
 
 import Typewriter from "./Typewriter";
+import ThinkingLoader from "./ThinkingLoader";
 
 interface Summary {
     short: string;
@@ -133,12 +134,16 @@ export default function OverviewTab({
 
                 {/* Body */}
 
-                <div className="p-7">
-
-                     <Typewriter
+                <div className="p-7 text-slate-200">
+                    {
+                        summary.short ? <Typewriter
                         text={summary.short}
                         speed={12}
                     /> 
+                    : <ThinkingLoader/>
+                    }
+
+                     
 
                 </div>
 
@@ -161,6 +166,7 @@ export default function OverviewTab({
                 className="
                     rounded-3xl
                     border
+                    overflow-hidden
 
                     border-zinc-200
                     bg-white
@@ -168,7 +174,7 @@ export default function OverviewTab({
                     shadow-sm
 
                     dark:border-zinc-800
-                    dark:bg-zinc-900
+                    dark:bg-[#1F1438]
                 "
             >
 
@@ -212,7 +218,7 @@ export default function OverviewTab({
 
                 </div>
 
-                <div className="p-7 dark:bg-black/10">
+                    <div className="p-7 dark:bg-[#0A0D20]">
 
                     <p
                         className="
@@ -225,10 +231,12 @@ export default function OverviewTab({
                             dark:text-zinc-300
                         "
                     >
-                        <Typewriter
+                    {
+                        summary.detailed  ?  <Typewriter
                             text={summary.detailed}
                             speed={10}
-                        />
+                        /> : <ThinkingLoader/>
+                    }
                     </p>
 
                 </div>

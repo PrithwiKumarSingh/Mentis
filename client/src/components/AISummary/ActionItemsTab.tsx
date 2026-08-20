@@ -47,7 +47,7 @@ export default function KeywordsTab({
                             dark:text-white
                         "
                         >
-                            Keywords
+                            Action Items
                         </h2>
 
                         <p
@@ -124,7 +124,7 @@ export default function KeywordsTab({
                             hover:bg-violet-500/10
 
                             dark:border-zinc-700
-                            dark:bg-zinc-900
+                            dark:bg-[#0A1022]
                         "
                     >
 

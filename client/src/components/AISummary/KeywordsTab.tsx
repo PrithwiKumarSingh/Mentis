@@ -124,7 +124,7 @@ export default function KeywordsTab({
                             hover:bg-violet-500/10
 
                             dark:border-zinc-700
-                            dark:bg-zinc-900
+                            dark:bg-[#1E1637]
                         "
                     >
 

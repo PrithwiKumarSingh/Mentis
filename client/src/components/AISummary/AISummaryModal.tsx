@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 
 import Sidebar from "./Sidebar";
 import TabNavigation from "./TabNavigation";
-
 import OverviewTab from "./OverviewTab";
 import KeyPointsTab from "./KeyPointsTab";
 import KeywordsTab from "./KeywordsTab";
@@ -53,6 +52,17 @@ export default function AISummaryModal({
 }: AISummaryModalProps) {
   const [activeTab, setActiveTab] =
     useState<Tab>("overview");
+    
+
+    useEffect(() => {
+      if (!open) return;
+
+      document.body.classList.add("overflow-hidden");
+
+      return () => {
+        document.body.classList.remove("overflow-hidden");
+      };
+    }, [open]);
 
   useEffect(() => {
     function handler(e: KeyboardEvent) {
@@ -87,6 +97,7 @@ export default function AISummaryModal({
             z-50
             bg-black/60
             backdrop-blur-sm
+            overscroll-contain
           "
           />
 
@@ -196,6 +207,7 @@ export default function AISummaryModal({
             h-[calc(92vh-90px)]
             flex-col
             lg:flex-row
+            lg:bg-red-600
           "
             >
               {/* Sidebar */}
@@ -205,7 +217,8 @@ export default function AISummaryModal({
               w-full
               border-b
               border-zinc-800
-
+              hidden
+              lg:flex
               lg:w-[290px]
               lg:border-b-0
               lg:border-r

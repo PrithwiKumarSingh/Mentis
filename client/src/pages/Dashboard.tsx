@@ -158,9 +158,24 @@ if(authenticated == false){
             <MdMenu size={32} />
           }
           <div className='flex items-center gap-1'>
-        <div className='text-3xl font-semibold dark:text-white'>
-          Mentis
-        </div>
+        <div className="dark:text-white flex relative ml-4 min-w-0 w-full max-w-md">
+        <input
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          className="
+            w-full min-w-0
+            outline outline-gray-300 dark:outline-lime-50
+            rounded px-2 py-2 pr-14 truncate
+          "
+          type="text"
+          placeholder="Search anything..."
+        />
+
+        <button className="absolute right-4 top-2 cursor-pointer">
+          <IoSearch size={22} />
+        </button>
+      </div>  
+
         </div>
         </div>
         
@@ -237,13 +252,13 @@ if(authenticated == false){
                 className='bg-red-100 dark:bg-white/10 text-red-500 border border-white/20 p-4 w-full rounded-4xl text-center text-sm'>
          <span className='text-xl font-medium'>Caution:</span> Items moved to Trash will be permanently deleted after 30 days. You can restore them anytime before then.</div>
       : <div className='md:flex justify-between items-center hidden gap-4 py-4 '>
-        <div className='dark:text-white flex relative'>
+        <div className='dark:text-white  flex relative min-w-0 w-full max-w-md'>
           <input
           value={search}
           onChange={(e)=>setSearch(e.target.value)}
-          className='outline outline-gray-300 dark:outline-lime-50  rounded px-2 py-2 pr-14 min-w-md truncate '
+          className='outline outline-gray-300 dark:outline-lime-50  rounded px-2 py-2 pr-14 min-w-0 truncate '
            type="text"
-           placeholder='Work in progress.....'
+           placeholder='Search anything...'
             />
             <button className='absolute right-4 top-2 cursor-pointer'>
             <IoSearch size={22} />
