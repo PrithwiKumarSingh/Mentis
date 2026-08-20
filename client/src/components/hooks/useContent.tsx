@@ -1,42 +1,69 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
 import { BACKEND_URL } from "../../config";
-import type { Content } from "../../types/content";
+
+import type { RootState, AppDispatch } from "../../store/store";
+
+import {
+    setContents,
+    setTrashContent,
+    setLoading,
+} from "../../store/contentSlice";
 
 export function useContent() {
-    const [contents, setContents] = useState<Content[]>([]);
-    const [trashContent, setTrashContent] = useState<Content[]>([]);
-    const [loading, setLoading] = useState(true);
+    const dispatch = useDispatch<AppDispatch>();
+
+    const contents = useSelector(
+        (state: RootState) => state.content.contents
+    );
+
+    const trashContent = useSelector(
+        (state: RootState) => state.content.trashContent
+    );
+
+    const loading = useSelector(
+        (state: RootState) => state.content.loading
+    );
 
     async function refresh() {
         const response = await axios.get(
             `${BACKEND_URL}/api/v1/content`,
-            {withCredentials:true}
+            {
+                withCredentials: true,
+            }
         );
 
-        setContents(response.data.content);
+        dispatch(setContents(response.data.content));
     }
 
     async function trashRefresh() {
         const response = await axios.get(
             `${BACKEND_URL}/api/v1/trash`,
-            {withCredentials:true}
+            {
+                withCredentials: true,
+            }
         );
 
-        setTrashContent(response.data.content);
+        dispatch(
+            setTrashContent(response.data.content)
+        );
     }
 
     useEffect(() => {
         async function fetchData() {
             try {
-                setLoading(true);
+                dispatch(setLoading(true));
 
                 await Promise.all([
                     refresh(),
-                    trashRefresh()
+                    trashRefresh(),
                 ]);
+            } catch (error) {
+                console.error(error);
             } finally {
-                setLoading(false);
+                dispatch(setLoading(false));
             }
         }
 
@@ -48,6 +75,6 @@ export function useContent() {
         trashContent,
         refresh,
         trashRefresh,
-        loading
+        loading,
     };
 }
