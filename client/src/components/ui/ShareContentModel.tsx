@@ -73,9 +73,9 @@ export function ShareContentModel({open, onClose, metadata, hash, link}: {
                     initial={{ opacity: 0, y: -40 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.35 }}
-                        className=" bg-white p-4 md:min-w-sm rounded-3xl dark:bg-white/5 dark:border-white/10 dark:backdrop-blur-xl dark:shadow-[0_8px_32px_rgba(0,0,0,0.35)] dark:text-white">
+                        className=" bg-white p-4 md:min-w-sm rounded-3xl dark:bg-linear-to-br from-violet-950/90 via-[#121426] to-[#080914] dark:border-white/10  dark:shadow-[0_8px_32px_rgba(0,0,0,0.35)] dark:text-white">
                     <div onClick={onClose} className=" flex justify-end cursor-pointer ">
-                        <div className="bg-[#f2f5fc] border border-gray-300 rounded-full p-2 text-black">
+                        <div className="   p-2 text-black dark:text-white">
                              <CloseIcon />
                         </div>
                        
